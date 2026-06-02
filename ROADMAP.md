@@ -1325,6 +1325,33 @@ Python tests can build or inspect the shim without changing Python runtime behav
 The shim remains a probe and does not claim solver compatibility.
 ```
 
+Completion record:
+
+```text
+docs/PHASE44_COMPLETION.md
+```
+
+## Phase 45: Python Binding Probe
+
+Add a small optional probe for the native host route from Python-facing tests.
+
+Deliverables:
+
+```text
+scripts/probe_native_host.py
+docs/RUNTIME_CONTRACT.md
+tests/test_native_binding_probe.py
+```
+
+Acceptance checks:
+
+```text
+Probe reports whether the native host route can be configured or built.
+Probe emits JSON-ready status and evidence paths.
+Probe skips cleanly without CMake or a C++ toolchain.
+Probe remains optional and does not change Python runtime behavior.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1358,4 +1385,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 44: C++ CPU operator shim.
+The next concrete step is Phase 45: Python binding probe.

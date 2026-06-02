@@ -73,4 +73,8 @@ constexpr RuntimeTiming empty_runtime_timing() {
   };
 }
 
+OperatorCallRecord make_probe_operator_call_record();
+
+RuntimeStatus native_probe_status();
+
 }  // namespace apc

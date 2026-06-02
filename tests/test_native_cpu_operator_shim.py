@@ -12,40 +12,34 @@ from apc.runtime_cpu import RuntimeConfig, run_repair
 ROOT = Path(__file__).resolve().parents[1]
 NATIVE_DIR = ROOT / "native"
 HEADER = NATIVE_DIR / "include" / "apc_runtime.hpp"
+SHIM = NATIVE_DIR / "src" / "cpu_operator_shim.cpp"
 
 
-class NativeHostABITests(unittest.TestCase):
-    def test_native_host_files_exist(self):
+class NativeCPUOperatorShimTests(unittest.TestCase):
+    def test_shim_files_exist(self):
         self.assertTrue(HEADER.exists(), HEADER)
+        self.assertTrue(SHIM.exists(), SHIM)
         self.assertTrue((NATIVE_DIR / "CMakeLists.txt").exists())
 
-    def test_header_names_public_status_codes_and_schemas(self):
+    def test_header_declares_probe_functions(self):
         text = HEADER.read_text(encoding="utf-8")
 
-        for status in ("implemented", "planned", "skipped", "failed", "unavailable"):
-            self.assertIn(status, text)
-        self.assertIn("apc.runtime_execution_contract.v1", text)
-        self.assertIn("apc.operator_call_ledger.v1", text)
-        self.assertIn("apc.runtime_status_codes.v1", text)
+        self.assertIn("OperatorCallRecord make_probe_operator_call_record()", text)
+        self.assertIn("RuntimeStatus native_probe_status()", text)
 
-    def test_header_names_operator_call_record_fields(self):
-        text = HEADER.read_text(encoding="utf-8")
+    def test_shim_returns_public_operator_call_record(self):
+        text = SHIM.read_text(encoding="utf-8")
 
-        self.assertIn("struct OperatorCallRecord", text)
-        self.assertIn("step_name", text)
-        self.assertIn("backend", text)
-        self.assertIn("RuntimeStatus status", text)
-        self.assertIn("RuntimeTiming timing", text)
-        self.assertIn("operator_name", text)
-        for timing in (
-            "kernel_time_s",
-            "copy_time_s",
-            "layout_conversion_time_s",
-            "end_to_end_time_s",
-        ):
-            self.assertIn(timing, text)
+        self.assertIn("make_probe_operator_call_record", text)
+        self.assertIn("native_cpu_probe", text)
+        self.assertIn("RuntimeStatus::implemented", text)
+        self.assertIn("empty_runtime_timing()", text)
+        self.assertIn("state.candidate_major", text)
+        self.assertIn("operator_call.probe", text)
+        self.assertNotIn("speedup", text.lower())
+        self.assertNotIn("compatible", text.lower())
 
-    def test_native_cmake_can_be_disabled(self):
+    def test_native_build_can_be_disabled(self):
         if shutil.which("cmake") is None:
             self.skipTest("cmake is not installed")
 
@@ -68,12 +62,12 @@ class NativeHostABITests(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertIn("APC native host runtime disabled", completed.stdout + completed.stderr)
 
-    def test_native_cmake_configures_when_cmake_exists(self):
+    def test_native_shim_builds_when_cmake_exists(self):
         if shutil.which("cmake") is None:
             self.skipTest("cmake is not installed")
 
         with tempfile.TemporaryDirectory() as tmpdir:
-            completed = subprocess.run(
+            configure = subprocess.run(
                 [
                     "cmake",
                     "-S",
@@ -87,17 +81,25 @@ class NativeHostABITests(unittest.TestCase):
                 capture_output=True,
                 check=False,
             )
+            self.assertEqual(configure.returncode, 0, configure.stderr)
 
-        self.assertEqual(completed.returncode, 0, completed.stderr)
-        self.assertIn("APC native host runtime configured", completed.stdout + completed.stderr)
+            build = subprocess.run(
+                ["cmake", "--build", tmpdir],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
 
-    def test_header_does_not_change_python_runtime_behavior(self):
+        self.assertEqual(build.returncode, 0, build.stderr)
+
+    def test_shim_does_not_change_python_runtime_behavior(self):
         spec = load_problem_json(ROOT / "examples" / "specs" / "binary_milp_tiny.json")
         problem = lower_problem_to_ctir(spec, batch_size=4)
         config = RuntimeConfig(max_iters=2, batch_size=4, seed=0)
 
         before = run_repair(problem, config=config)
-        _ = HEADER.read_text(encoding="utf-8")
+        _ = SHIM.read_text(encoding="utf-8")
         after = run_repair(problem, config=config)
 
         self.assertEqual(before.best_state, after.best_state)

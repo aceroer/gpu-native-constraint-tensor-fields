@@ -23,11 +23,13 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("src/apc/operator_call_ledger.py", text)
         self.assertIn("src/apc/runtime_status.py", text)
         self.assertIn("native/include/apc_runtime.hpp", text)
+        self.assertIn("native/src/cpu_operator_shim.cpp", text)
         self.assertIn("Add a new small native problem spec", text)
         self.assertIn("Add a runtime contract step", text)
         self.assertIn("Add an operator call ledger row", text)
         self.assertIn("Add a runtime status code", text)
         self.assertIn("Add a native host ABI field", text)
+        self.assertIn("Add a native CPU shim probe", text)
 
     def test_release_notes_summarize_public_phases(self):
         text = RELEASE_NOTES.read_text(encoding="utf-8")

@@ -187,8 +187,23 @@ RuntimeTiming
 OperatorCallRecord
 ```
 
-The C++ host target is an interface target. It is optional and should configure
-cleanly when disabled:
+The first C++ CPU operator shim is:
+
+```text
+native/src/cpu_operator_shim.cpp
+```
+
+It exposes:
+
+```text
+make_probe_operator_call_record
+native_probe_status
+```
+
+The shim is a host ABI probe. It records a public operator call shape and does
+not execute solver logic.
+
+The C++ host target is optional and should configure cleanly when disabled:
 
 ```bash
 cmake -S native -B /tmp/apc-native-build -DAPC_ENABLE_NATIVE_HOST=OFF

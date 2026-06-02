@@ -9,12 +9,12 @@ if(NOT APC_ENABLE_NATIVE_HOST)
   return()
 endif()
 
-add_library(apc_native_host INTERFACE)
+add_library(apc_native_host STATIC src/cpu_operator_shim.cpp)
 target_include_directories(
   apc_native_host
-  INTERFACE
+  PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_compile_features(apc_native_host INTERFACE cxx_std_17)
+target_compile_features(apc_native_host PUBLIC cxx_std_17)
 
-message(STATUS "APC native host runtime interface configured")
+message(STATUS "APC native host runtime configured")

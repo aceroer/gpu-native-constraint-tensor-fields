@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 44:
+Continue with Phase 45:
 
 ```text
-native/src/cpu_operator_shim.cpp
-tests/test_native_cpu_operator_shim.py
-native/CMakeLists.txt
+scripts/probe_native_host.py
+tests/test_native_binding_probe.py
+docs/RUNTIME_CONTRACT.md
 ```
 
-This adds a tiny optional C++ CPU operator shim while keeping Python runtime
+This adds a Python-facing native host probe while keeping Python runtime
 behavior unchanged.

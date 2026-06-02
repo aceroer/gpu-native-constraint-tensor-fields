@@ -41,6 +41,7 @@ src/apc/runtime_status.py
 src/apc/runtime_cpu.py
 src/apc/benchmark.py
 native/include/apc_runtime.hpp
+native/src/cpu_operator_shim.cpp
 ```
 
 Runnable commands:
@@ -66,6 +67,7 @@ Add a runtime contract step with a test.
 Add an operator call ledger row with a test.
 Add a runtime status code with a test.
 Add a native host ABI field with a test.
+Add a native CPU shim probe with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```

@@ -62,8 +62,8 @@ class CrossProjectHandoffTests(unittest.TestCase):
         self.assertIn("docs/PHASE35_COMPLETION.md", text)
         self.assertIn("Phase 36", text)
         self.assertIn("docs/PHASE36_COMPLETION.md", text)
-        self.assertIn("Phase 44", text)
-        self.assertIn("The next concrete step is Phase 44", text)
+        self.assertIn("Phase 45", text)
+        self.assertIn("The next concrete step is Phase 45", text)
 
 
 if __name__ == "__main__":
