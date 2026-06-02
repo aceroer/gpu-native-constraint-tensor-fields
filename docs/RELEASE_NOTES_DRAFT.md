@@ -85,6 +85,8 @@ gpu_release_artifact_schema: apc.release_artifacts.v1
 paired_project: vAgentRT
 paired_tag: v0.1.1
 paired_cuda_smoke: Colab T4 deterministic smoke status ok
+paired_windows_sm89_cuda_smoke: RTX 4070 Laptop GPU deterministic smoke status ok
+gpu_windows_sm89_cuda_benchmark: RTX 4070 Laptop GPU benchmark backend available
 handoff_doc: docs/CROSS_PROJECT_HANDOFF.md
 status: cross-project handoff sketch without claiming drop-in compatibility
 ```

@@ -15,10 +15,13 @@ paired_project: vAgentRT
 paired_tag: v0.1.1
 paired_tag_commit: 3cb8043979ac3639dc9ef400abe68da9908d03f6
 paired_cuda_smoke: Colab T4 deterministic smoke status ok
+paired_windows_sm89_cuda_smoke: RTX 4070 Laptop GPU deterministic smoke status ok
+gpu_windows_sm89_cuda_benchmark: RTX 4070 Laptop GPU benchmark backend available
 ```
 
 This is a handoff sketch, not a compatibility claim.
-The paired CUDA smoke is kernel-equivalence evidence, not a speedup claim.
+The paired CUDA smoke is kernel-equivalence evidence. The GPU-side CUDA
+benchmark is timing-accounting evidence. Neither is a broad speedup claim.
 
 ## Stable GPU Entry Points
 
@@ -128,6 +131,8 @@ gpu_release_artifact_schema
 paired_tag
 paired_tag_commit
 paired_cuda_smoke
+paired_windows_sm89_cuda_smoke
+gpu_windows_sm89_cuda_benchmark
 run_id
 state_pool_size
 branch_count

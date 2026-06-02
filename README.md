@@ -563,6 +563,7 @@ PYTHONPATH=src python3 -m apc.cli operators
 cuda/bench/
 scripts/run_cuda_bench.py
 docs/CUDA_BENCHMARK_TIMING.md
+docs/CUDA_SM89_BENCHMARK.md
 tests/cuda/test_cuda_bench_report.py
 ```
 
@@ -574,6 +575,9 @@ PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny
 
 无 `nvcc` 或无 CUDA device 时会输出 unavailable JSON；有 CUDA 时会分开记录
 copy time 与 kernel time，不输出 speedup ratio。
+
+Windows RTX 4070 Laptop GPU / `sm_89` timing evidence is recorded in
+`docs/CUDA_SM89_BENCHMARK.md`.
 
 ## 7.13 路线图
 
