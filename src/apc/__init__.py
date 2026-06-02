@@ -23,6 +23,13 @@ from .ctir import (
     ctir_to_dict,
 )
 from .inspect_ctir import ctir_json, inspect_ctir
+from .interface_projection import (
+    InterfaceProjection,
+    interface_projection_to_dict,
+    project_adapter_summary,
+    project_public_summary,
+    project_runtime_summary,
+)
 from .io_json import load_problem_json, problem_to_json_dict, save_problem_json
 from .layout import LayoutPlan, LayoutView, OperatorLayout, layout_summary, plan_layout
 from .layout_materialize import (
@@ -75,6 +82,7 @@ __all__ = [
     "BranchTensor",
     "BenchmarkConfig",
     "CTIRProblem",
+    "InterfaceProjection",
     "LedgerSpec",
     "LayoutPlan",
     "LayoutView",
@@ -111,6 +119,7 @@ __all__ = [
     "eval_unsatisfied_clauses",
     "initialize_state_pool",
     "inspect_ctir",
+    "interface_projection_to_dict",
     "layout_summary",
     "ledger_to_dicts",
     "load_problem_json",
@@ -126,6 +135,9 @@ __all__ = [
     "maxsat_penalty",
     "problem_to_json_dict",
     "plan_layout",
+    "project_adapter_summary",
+    "project_public_summary",
+    "project_runtime_summary",
     "reduce_branch_tensor",
     "reduction_gate_summary",
     "run_repair",

@@ -11,13 +11,15 @@ class AdapterTests(unittest.TestCase):
 
         result = lower_native_binary_milp_dict(data, batch_size=3)
         summary = adapter_result_to_dict(result)
+        payload = summary["payload"]
 
-        self.assertEqual(summary["source"], "native_binary_milp_dict")
-        self.assertEqual(summary["batch_size"], 3)
-        self.assertIn("linear.csr", summary["layout_views"])
-        self.assertIn("state.variable_major", summary["layout_views"])
-        self.assertIn("eval_constraints", summary["operators"])
-        self.assertIn("record_metrics", summary["operators"])
+        self.assertEqual(summary["projection"]["kind"], "adapter_summary")
+        self.assertEqual(payload["source"], "native_binary_milp_dict")
+        self.assertEqual(payload["batch_size"], 3)
+        self.assertIn("linear.csr", payload["layout_views"])
+        self.assertIn("state.variable_major", payload["layout_views"])
+        self.assertIn("eval_constraints", payload["operators"])
+        self.assertIn("record_metrics", payload["operators"])
 
     def test_unsupported_solver_features_fail_loudly(self):
         problem = load_problem_json("examples/specs/binary_milp_tiny.json")

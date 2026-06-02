@@ -651,6 +651,25 @@ BranchTensor
 
 ## 7.18 路线图
 
+当前已有 interface projection：
+
+```text
+src/apc/interface_projection.py
+docs/INTERFACE_PROJECTION.md
+tests/test_interface_projection.py
+```
+
+它把 native runtime object 投影成公开输出：
+
+```text
+native runtime state
+-> projection kind
+-> projection reason
+-> public payload
+```
+
+## 7.19 路线图
+
 后续库建设路线见：
 
 ```text
@@ -667,6 +686,7 @@ problem spec
 -> state pool
 -> branch tensor
 -> reduction gate
+-> interface projection
 -> repair runtime
 -> validation ledger
 -> benchmark harness

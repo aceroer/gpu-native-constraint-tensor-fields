@@ -607,6 +607,32 @@ Each public output includes a projection reason.
 Adapters and summaries use projection helpers.
 ```
 
+Completion record:
+
+```text
+docs/PHASE17_COMPLETION.md
+```
+
+## Phase 18: Vector-Native Repair Demo Bridge
+
+Show the state-pool path as a public runnable demo.
+
+Deliverables:
+
+```text
+examples/vector_state_repair/
+docs/VECTOR_NATIVE_REPAIR_DEMO.md
+tests/test_vector_state_repair_demo.py
+```
+
+Acceptance checks:
+
+```text
+Demo runs through StatePool, BranchTensor, ReductionGate, and InterfaceProjection.
+Demo emits a reproducible report.
+Report includes branch count, selected action count, and success signal.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -619,4 +645,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 17: interface projection.
+The next concrete step is Phase 18: vector-native repair demo bridge.

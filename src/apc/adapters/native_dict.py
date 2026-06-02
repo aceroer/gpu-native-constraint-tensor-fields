@@ -7,6 +7,7 @@ from typing import Any
 
 from ..ctir import CTIRProblem
 from ..io_json import problem_from_json_dict
+from ..interface_projection import interface_projection_to_dict, project_adapter_summary
 from ..layout import layout_summary, plan_layout
 from ..lowering import lower_problem_to_ctir
 from ..operator_registry import default_operator_registry, registry_summary
@@ -58,7 +59,7 @@ def lower_native_binary_milp_dict(data: dict[str, Any], *, batch_size: int = 4) 
 def adapter_result_to_dict(result: AdapterResult) -> dict[str, Any]:
     """Return a compact JSON-ready adapter summary."""
 
-    return {
+    payload = {
         "source": result.source,
         "n_vars": result.problem.domain.n_vars,
         "n_constraints": result.problem.linear_csr.n_rows,
@@ -66,3 +67,4 @@ def adapter_result_to_dict(result: AdapterResult) -> dict[str, Any]:
         "layout_views": [view["name"] for view in result.layout["views"]],
         "operators": [operator["name"] for operator in result.registry["operators"]],
     }
+    return interface_projection_to_dict(project_adapter_summary(payload))
