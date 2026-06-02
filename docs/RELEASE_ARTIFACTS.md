@@ -137,6 +137,9 @@ src/apc/readings/maxsat.py
 examples/specs/maxsat_tiny.json
 docs/PROBLEM_FAMILIES.md
 tests/test_maxsat_runtime_route.py
+src/apc/readings/qubo.py
+examples/specs/qubo_tiny.json
+tests/test_qubo_spec_lowering.py
 ```
 
 ## Reader

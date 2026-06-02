@@ -39,7 +39,9 @@ REQUIRED_DOCS = (
     "docs/PROBLEM_FAMILIES.md",
     "benchmarks/sweeps/binary_milp_smoke.json",
     "examples/specs/maxsat_tiny.json",
+    "examples/specs/qubo_tiny.json",
     "src/apc/readings/maxsat.py",
+    "src/apc/readings/qubo.py",
     "native/include/apc_runtime.hpp",
     "native/src/cpu_operator_shim.cpp",
     "scripts/probe_native_host.py",
@@ -79,6 +81,7 @@ REQUIRED_TESTS = (
     "tests/test_benchmark_sweep_runner.py",
     "tests/test_benchmark_sweep_report.py",
     "tests/test_maxsat_runtime_route.py",
+    "tests/test_qubo_spec_lowering.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

@@ -56,6 +56,8 @@ class MaintenanceReleaseTests(unittest.TestCase):
         self.assertIn("Phase 52", roadmap)
         self.assertIn("docs/PHASE52_COMPLETION.md", roadmap)
         self.assertIn("Phase 53", roadmap)
+        self.assertIn("docs/PHASE53_COMPLETION.md", roadmap)
+        self.assertIn("Phase 54", roadmap)
         self.assertIn("docs/MAINTENANCE_RELEASES.md", artifacts)
         self.assertIn("tests/test_maintenance_releases.py", artifacts)
 

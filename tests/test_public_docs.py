@@ -23,6 +23,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("src/apc/operator_call_ledger.py", text)
         self.assertIn("src/apc/runtime_status.py", text)
         self.assertIn("src/apc/readings/maxsat.py", text)
+        self.assertIn("src/apc/readings/qubo.py", text)
         self.assertIn("native/include/apc_runtime.hpp", text)
         self.assertIn("native/src/cpu_operator_shim.cpp", text)
         self.assertIn("docs/CUDA_OPERATOR_PARITY.md", text)
@@ -42,6 +43,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("Add a benchmark sweep runner check", text)
         self.assertIn("Add a benchmark sweep reader check", text)
         self.assertIn("Add a problem-family runtime route", text)
+        self.assertIn("Add a problem-family lowering route", text)
 
     def test_release_notes_summarize_public_phases(self):
         text = RELEASE_NOTES.read_text(encoding="utf-8")

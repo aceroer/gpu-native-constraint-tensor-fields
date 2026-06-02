@@ -301,13 +301,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 53:
+Continue with Phase 54:
 
 ```text
-src/apc/readings/qubo.py
-examples/specs/qubo_tiny.json
+examples/specs/
+examples/handoff/
 docs/PROBLEM_FAMILIES.md
-tests/test_qubo_spec_lowering.py
+tests/test_problem_family_fixture_set.py
 ```
 
-This adds a small QUBO spec and CTIR lowering route.
+This collects problem-family fixtures into one public fixture set.

@@ -41,6 +41,7 @@ src/apc/runtime_status.py
 src/apc/runtime_cpu.py
 src/apc/benchmark.py
 src/apc/readings/maxsat.py
+src/apc/readings/qubo.py
 native/include/apc_runtime.hpp
 native/src/cpu_operator_shim.cpp
 docs/CUDA_OPERATOR_PARITY.md
@@ -81,6 +82,7 @@ Add a benchmark sweep config with a test.
 Add a benchmark sweep runner check with a test.
 Add a benchmark sweep reader check with a test.
 Add a problem-family runtime route with a test.
+Add a problem-family lowering route with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```

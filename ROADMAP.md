@@ -1572,6 +1572,35 @@ Unsupported QUBO features fail with structured status.
 The CPU reference path remains separate from unimplemented QUBO execution.
 ```
 
+Completion record:
+
+```text
+docs/PHASE53_COMPLETION.md
+```
+
+## Phase 54: Problem-Family Fixture Set
+
+Collect small public fixtures for implemented and planned problem-family routes.
+
+Deliverables:
+
+```text
+examples/specs/
+examples/handoff/
+docs/PROBLEM_FAMILIES.md
+tests/test_problem_family_fixture_set.py
+```
+
+Acceptance checks:
+
+```text
+Binary MILP, MaxSAT, and QUBO fixtures are listed in one JSON-ready index.
+Fixture records name schema, family, route status, and public command surface.
+Implemented routes include checked runtime or lowering reports.
+Planned execution routes remain marked as planned.
+Fixture docs avoid solver compatibility or performance claims.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1605,4 +1634,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 53: QUBO spec and lowering.
+The next concrete step is Phase 54: problem-family fixture set.

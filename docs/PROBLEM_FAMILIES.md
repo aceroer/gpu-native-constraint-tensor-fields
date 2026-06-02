@@ -8,6 +8,7 @@ binary MILP example.
 ```text
 binary_milp
 maxsat
+qubo
 ```
 
 ## MaxSAT Route
@@ -66,8 +67,71 @@ status: failed
 reason
 ```
 
+## QUBO Lowering
+
+The first QUBO example is:
+
+```text
+examples/specs/qubo_tiny.json
+```
+
+The public lowering route is:
+
+```python
+from apc import describe_qubo_lowering_from_json
+
+report = describe_qubo_lowering_from_json("examples/specs/qubo_tiny.json")
+```
+
+It emits:
+
+```text
+apc.qubo_lowering.v1
+```
+
+The route records:
+
+```text
+status
+problem_family
+execution_status
+ctir
+config
+notes
+```
+
+Linear terms are recorded in:
+
+```text
+ctir.linear_terms
+```
+
+Quadratic terms are recorded as COO-style entries:
+
+```text
+ctir.quadratic_terms
+i
+j
+weight
+```
+
+QUBO execution is not implemented in the CPU reference runtime yet. The QUBO
+route therefore reports:
+
+```text
+execution_status: planned
+```
+
+Unsupported QUBO fields return a structured lowering report with:
+
+```text
+status: failed
+reason
+```
+
 ## Boundary
 
-The CPU reference path remains the behavioral baseline. The MaxSAT route is a
-small public runtime route and does not claim full MaxSAT solver coverage,
-optimality proof, or external solver compatibility.
+The CPU reference path remains the behavioral baseline for implemented runtime
+routes. MaxSAT is a small public runtime route. QUBO is currently a spec and
+lowering route only. Neither route claims full solver coverage, optimality
+proof, or external solver compatibility.

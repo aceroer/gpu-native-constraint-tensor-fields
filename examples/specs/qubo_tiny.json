@@ -1,0 +1,26 @@
+{
+  "domain": {
+    "n_vars": 3,
+    "type": "binary"
+  },
+  "objective": {
+    "linear": [
+      1.0,
+      -2.0,
+      0.5
+    ],
+    "quadratic": [
+      {
+        "i": 0,
+        "j": 1,
+        "weight": 1.25
+      },
+      {
+        "i": 1,
+        "j": 2,
+        "weight": -0.75
+      }
+    ]
+  },
+  "problem_type": "qubo"
+}

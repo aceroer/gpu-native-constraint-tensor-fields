@@ -126,6 +126,16 @@ class QUBOCOO:
     j: tuple[int, ...] = ()
     q: tuple[float, ...] = ()
 
+    def __post_init__(self) -> None:
+        if self.n_vars <= 0:
+            raise ValueError("QUBOCOO.n_vars must be positive")
+        if len(self.i) != len(self.j) or len(self.i) != len(self.q):
+            raise ValueError("QUBOCOO i, j, and q lengths must match")
+        bad_i = [value for value in self.i if value < 0 or value >= self.n_vars]
+        bad_j = [value for value in self.j if value < 0 or value >= self.n_vars]
+        if bad_i or bad_j:
+            raise ValueError(f"QUBOCOO indices out of range: i={bad_i}, j={bad_j}")
+
 
 @dataclass(frozen=True)
 class StateBatch:
@@ -227,6 +237,8 @@ class CTIRProblem:
             raise ValueError("CTIRProblem must include at least one constraint or energy view")
         if self.linear_csr is not None and self.linear_csr.n_vars != n_vars:
             raise ValueError("LinearCSR.n_vars must match domain.n_vars")
+        if self.qubo_coo is not None and self.qubo_coo.n_vars != n_vars:
+            raise ValueError("QUBOCOO.n_vars must match domain.n_vars")
 
 
 def ctir_to_dict(problem: CTIRProblem) -> dict[str, Any]:
@@ -242,7 +254,7 @@ def ctir_to_dict(problem: CTIRProblem) -> dict[str, Any]:
         },
         "linear_csr": _linear_to_dict(problem.linear_csr),
         "clause_csr": _clause_to_dict(problem.clause_csr),
-        "qubo_coo": None,
+        "qubo_coo": _qubo_to_dict(problem.qubo_coo),
         "projection": {
             "rules": list(problem.projection.rules),
         },
@@ -284,4 +296,16 @@ def _clause_to_dict(clause: ClauseCSR | None) -> dict[str, Any] | None:
         "lit_var": list(clause.lit_var),
         "lit_sign": list(clause.lit_sign),
         "weight": list(clause.weight),
+    }
+
+
+def _qubo_to_dict(qubo: QUBOCOO | None) -> dict[str, Any] | None:
+    if qubo is None:
+        return None
+    return {
+        "n_vars": qubo.n_vars,
+        "nnz": len(qubo.q),
+        "i": list(qubo.i),
+        "j": list(qubo.j),
+        "q": list(qubo.q),
     }
