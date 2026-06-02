@@ -1,5 +1,6 @@
 """APC public Python package."""
 
+from .benchmark import BenchmarkConfig, run_benchmark, write_benchmark_report
 from .ctir import (
     CTIRProblem,
     LedgerSpec,
@@ -31,6 +32,7 @@ from .spec import BinaryDomainSpec, LinearCSRSpec, ObjectiveSpec, ProblemSpec
 
 __all__ = [
     "BinaryDomainSpec",
+    "BenchmarkConfig",
     "CTIRProblem",
     "LedgerSpec",
     "LayoutPlan",
@@ -67,5 +69,7 @@ __all__ = [
     "run_repair",
     "run_repair_from_json",
     "run_maxsat_bitflip_repair",
+    "run_benchmark",
     "save_problem_json",
+    "write_benchmark_report",
 ]

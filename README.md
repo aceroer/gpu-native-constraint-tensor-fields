@@ -496,6 +496,27 @@ PYTHONPATH=src:examples/binary_milp_repair python3 -m unittest discover -s tests
 
 ## 7.10 路线图
 
+当前已有 benchmark harness：
+
+```text
+src/apc/benchmark.py
+scripts/run_bench.py
+docs/BENCHMARKING.md
+benchmarks/
+```
+
+示例：
+
+```bash
+PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/latest.json
+```
+
+输出是 JSON，包含算法结果、ledger、layout conversion time、copy time、
+kernel time 和 end-to-end time。CUDA backend 会单独报告；没有 copy-time
+accounting 时不会声称 GPU speedup。
+
+## 7.11 路线图
+
 后续库建设路线见：
 
 ```text

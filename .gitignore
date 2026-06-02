@@ -7,6 +7,7 @@ build/
 dist/
 *.egg-info/
 runs/
+benchmarks/*.json
 
 # Editor/OS noise
 .DS_Store

@@ -399,6 +399,12 @@ CPU and CUDA backends are reported separately.
 No benchmark claims GPU speedup without copy-time accounting.
 ```
 
+Completion record:
+
+```text
+docs/PHASE9_COMPLETION.md
+```
+
 ## Non-Goals For Early Versions
 
 ```text
