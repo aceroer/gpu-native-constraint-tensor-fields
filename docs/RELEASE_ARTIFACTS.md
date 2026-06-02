@@ -16,6 +16,12 @@ Then collect release evidence:
 python3 scripts/collect_release_artifacts.py --tag v0.1.0-alpha.N --out /tmp/apc-release-artifacts.json
 ```
 
+Then inspect the collected evidence:
+
+```bash
+python3 scripts/inspect_release_artifacts.py /tmp/apc-release-artifacts.json
+```
+
 The collector reads:
 
 ```text
@@ -69,6 +75,7 @@ vagent.apc_handoff_report.v1
 apc.cross_project_handoff_check.v1
 apc.checked_handoff_runtime_demo.v1
 apc.release_artifacts.v1
+apc.release_artifacts_summary.v1
 ```
 
 ## Release Use
@@ -86,3 +93,25 @@ For a tag candidate, keep:
 
 The release notes should reference this artifact contract when a public tag is
 prepared.
+
+## Reader
+
+The reader emits a compact factual summary:
+
+```text
+schema: apc.release_artifacts_summary.v1
+source_schema
+source_path
+status
+tag
+commit
+artifact_count
+artifact_schemas
+fixture_count
+check_count
+failed_checks
+notes
+```
+
+The reader reports the evidence that is present in the collected artifact. It
+does not infer release quality or compatibility beyond the recorded checks.

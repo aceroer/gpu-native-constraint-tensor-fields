@@ -1134,6 +1134,32 @@ Reader reports release status, tag, commit, artifact schemas, and fixture count.
 Reader keeps summary factual and avoids release-quality claims beyond evidence.
 ```
 
+Completion record:
+
+```text
+docs/PHASE37_COMPLETION.md
+```
+
+## Phase 38: Release Evidence Smoke Command
+
+Add one command route that runs the verifier, collector, and reader in order.
+
+Deliverables:
+
+```text
+scripts/smoke_release_evidence.py
+docs/RELEASE_ARTIFACTS.md
+tests/test_release_evidence_smoke.py
+```
+
+Acceptance checks:
+
+```text
+Smoke command emits verifier, collector, and reader output paths.
+Smoke command exits nonzero if any evidence step fails.
+Smoke command keeps summaries factual and avoids release-quality claims beyond evidence.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After Phase 37, the next major stage is planned in:
@@ -1167,4 +1193,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 37: release evidence reader.
+The next concrete step is Phase 38: release evidence smoke command.

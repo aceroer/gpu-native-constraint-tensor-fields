@@ -50,6 +50,7 @@ REQUIRED_TESTS = (
     "tests/test_problem_family_handoff_fixture.py",
     "tests/test_handoff_fixture_index.py",
     "tests/test_handoff_fixture_listing.py",
+    "tests/test_release_artifact_reader.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",
