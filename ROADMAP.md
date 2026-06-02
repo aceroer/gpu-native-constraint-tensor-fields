@@ -234,6 +234,12 @@ CLI run writes a ledger file.
 CLI run reports best feasible candidate when found.
 ```
 
+Completion record:
+
+```text
+docs/PHASE4_COMPLETION.md
+```
+
 ## Phase 5: CUDA Build Skeleton
 
 Turn the current CUDA sketch into a compilable optional runtime.

@@ -28,6 +28,7 @@ def inspect_ctir(problem: CTIRProblem) -> dict[str, object]:
         },
         "projection": list(problem.projection.rules),
         "moves": {
+            "batch_size": problem.moves.batch_size,
             "type": problem.moves.move_type,
             "moves_per_state": problem.moves.moves_per_state,
             "move_dim": problem.moves.move_dim,
@@ -40,4 +41,3 @@ def ctir_json(problem: CTIRProblem, *, indent: int = 2) -> str:
     """Serialize full CTIR to stable JSON."""
 
     return json.dumps(ctir_to_dict(problem), indent=indent, sort_keys=True)
-

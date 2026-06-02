@@ -394,6 +394,25 @@ PYTHONPATH=src:examples/binary_milp_repair python3 -m unittest discover -s tests
 
 ## 7.5 路线图
 
+当前已有第一版 CLI：
+
+```text
+src/apc/cli.py
+pyproject.toml
+tests/test_cli.py
+```
+
+示例：
+
+```bash
+PYTHONPATH=src python3 -m apc.cli validate examples/specs/binary_milp_tiny.json
+PYTHONPATH=src python3 -m apc.cli inspect-ctir examples/specs/binary_milp_tiny.json
+PYTHONPATH=src python3 -m apc.cli run examples/specs/binary_milp_tiny.json --backend cpu
+PYTHONPATH=src python3 -m apc.cli ledger runs/latest/ledger.json
+```
+
+## 7.6 路线图
+
 后续库建设路线见：
 
 ```text
