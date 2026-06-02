@@ -67,6 +67,16 @@ cpu_benchmark_artifact: /tmp/apc-release-bench.json
 vector_demo_benchmark_artifact: /tmp/apc-release-vector-demo-bench.json
 ```
 
+## Release Archive
+
+```text
+archived_tag: v0.1.0-alpha.0
+archived_tag_commit: b051c20b38ff19cf99992daa72dc1e9558ec7b84
+archive_doc: docs/RELEASE_ARCHIVE.md
+release_artifact_report: /tmp/apc-release-artifacts.json
+release_verifier_full_artifact: /tmp/apc-release-verify-full.json
+```
+
 ## Current Limits
 
 ```text
@@ -84,4 +94,5 @@ Additional problem-family demos.
 More CUDA operator coverage.
 Broader CUDA coverage after CPU/CUDA differential tests are expanded.
 Release artifact archiving for future public releases.
+Release archive handoff for the first public tag.
 ```

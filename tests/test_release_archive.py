@@ -1,0 +1,69 @@
+import subprocess
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+ARCHIVE = ROOT / "docs" / "RELEASE_ARCHIVE.md"
+RELEASE_NOTES = ROOT / "docs" / "RELEASE_NOTES_DRAFT.md"
+ROADMAP = ROOT / "ROADMAP.md"
+TAG = "v0.1.0-alpha.0"
+TAG_COMMIT = "b051c20b38ff19cf99992daa72dc1e9558ec7b84"
+
+
+class ReleaseArchiveTests(unittest.TestCase):
+    def test_archive_names_tag_and_evidence_artifacts(self):
+        text = ARCHIVE.read_text(encoding="utf-8")
+
+        self.assertIn(f"tag: {TAG}", text)
+        self.assertIn(f"tag_commit: {TAG_COMMIT}", text)
+        self.assertIn("/tmp/apc-release-verify-full.json", text)
+        self.assertIn("/tmp/apc-release-artifacts.json", text)
+        self.assertIn("apc.release_artifacts.v1", text)
+        self.assertIn("apc.vector_demo_benchmark.v1", text)
+
+    def test_archive_records_reproduction_commands(self):
+        text = ARCHIVE.read_text(encoding="utf-8")
+
+        self.assertIn("git fetch --tags origin", text)
+        self.assertIn(f"git checkout {TAG}", text)
+        self.assertIn("python3 scripts/verify_public_release.py --full", text)
+        self.assertIn("python3 scripts/collect_release_artifacts.py", text)
+        self.assertIn("public terminology boundary scan: empty", text)
+
+    def test_release_notes_keep_limits_and_next_work_visible(self):
+        text = RELEASE_NOTES.read_text(encoding="utf-8")
+
+        self.assertIn(f"archived_tag: {TAG}", text)
+        self.assertIn(f"archived_tag_commit: {TAG_COMMIT}", text)
+        self.assertIn("No full MIP optimality proof", text)
+        self.assertIn("Release archive handoff", text)
+
+    def test_tag_commit_is_still_available_locally(self):
+        tag_commit = _git(["rev-parse", f"{TAG}^{{commit}}"])
+
+        self.assertEqual(tag_commit, TAG_COMMIT)
+
+    def test_roadmap_advances_after_phase_27(self):
+        text = ROADMAP.read_text(encoding="utf-8")
+
+        self.assertIn("docs/PHASE27_COMPLETION.md", text)
+        self.assertIn("Phase 28", text)
+        self.assertIn("The next concrete step is Phase 28", text)
+
+
+def _git(args: list[str]) -> str:
+    completed = subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if completed.returncode != 0:
+        raise AssertionError(completed.stderr)
+    return completed.stdout.strip()
+
+
+if __name__ == "__main__":
+    unittest.main()

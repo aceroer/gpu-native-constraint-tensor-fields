@@ -28,6 +28,7 @@ REQUIRED_DOCS = (
     "docs/RELEASE_ARTIFACTS.md",
     "docs/TAG_PREP.md",
     "docs/TAG_EXECUTION.md",
+    "docs/RELEASE_ARCHIVE.md",
     "LICENSE",
     "NOTICE",
     "CITATION.cff",
@@ -39,6 +40,7 @@ REQUIRED_TESTS = (
     "tests/test_release_artifacts.py",
     "tests/test_tag_prep.py",
     "tests/test_tag_execution.py",
+    "tests/test_release_archive.py",
 )
 
 

@@ -867,6 +867,33 @@ Archive doc records how to reproduce the release evidence.
 Release notes keep current limits and next work visible.
 ```
 
+Completion record:
+
+```text
+docs/PHASE27_COMPLETION.md
+```
+
+## Phase 28: Cross-Project Handoff Sketch
+
+Prepare a public sketch for connecting this release archive to the paired
+vector-native runtime project.
+
+Deliverables:
+
+```text
+docs/CROSS_PROJECT_HANDOFF.md
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_cross_project_handoff.py
+```
+
+Acceptance checks:
+
+```text
+Handoff sketch names the GPU release tag and artifact schema.
+Handoff sketch names stable public entry points without private terminology.
+Release notes describe the next cross-project route without claiming compatibility.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -879,4 +906,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 27: release archive handoff.
+The next concrete step is Phase 28: cross-project handoff sketch.

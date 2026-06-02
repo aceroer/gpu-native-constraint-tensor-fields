@@ -896,6 +896,27 @@ public language boundary
 
 ## 7.28 路线图
 
+当前已有 release archive handoff：
+
+```text
+docs/RELEASE_ARCHIVE.md
+tests/test_release_archive.py
+docs/RELEASE_NOTES_DRAFT.md
+```
+
+archive handoff 覆盖：
+
+```text
+archived_tag
+archived_tag_commit
+verifier artifacts
+benchmark artifacts
+artifact report
+reproduction commands
+```
+
+## 7.29 路线图
+
 后续库建设路线见：
 
 ```text
