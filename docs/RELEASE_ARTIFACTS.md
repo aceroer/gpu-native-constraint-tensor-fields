@@ -69,6 +69,7 @@ release tests
 maintenance release procedure
 runtime execution contract
 operator call ledger tests
+runtime status code tests
 checked handoff fixture examples
 current commit hash
 ```
@@ -112,6 +113,7 @@ docs/RUNTIME_CONTRACT.md
 tests/test_maintenance_releases.py
 tests/test_runtime_contract.py
 tests/test_operator_call_ledger.py
+tests/test_runtime_status.py
 ```
 
 ## Reader

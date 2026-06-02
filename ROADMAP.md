@@ -1269,6 +1269,34 @@ Operator call ledger rows can reference status codes.
 Status records stay factual and do not imply solver compatibility.
 ```
 
+Completion record:
+
+```text
+docs/PHASE42_COMPLETION.md
+```
+
+## Phase 43: C++ Host ABI Header
+
+Begin the optional C++ host runtime skeleton with a public ABI header.
+
+Deliverables:
+
+```text
+native/include/apc_runtime.hpp
+native/CMakeLists.txt
+docs/RUNTIME_CONTRACT.md
+tests/test_native_host_abi.py
+```
+
+Acceptance checks:
+
+```text
+Header names public status codes and operator call records.
+Native build is optional and skips cleanly when no C++ toolchain is available.
+Python tests can inspect the header text for public ABI fields.
+The header mirrors public contracts without changing Python runtime behavior.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1302,4 +1330,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 42: runtime error and status codes.
+The next concrete step is Phase 43: C++ host ABI header.

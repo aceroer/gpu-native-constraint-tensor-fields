@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .runtime_contract import RuntimeExecutionContract, RuntimeStepSpec
+from .runtime_status import is_runtime_status_code
 
 
 @dataclass(frozen=True)
@@ -25,7 +26,7 @@ class OperatorCallLedgerRow:
             raise ValueError("OperatorCallLedgerRow.step_name must not be empty")
         if not self.backend:
             raise ValueError("OperatorCallLedgerRow.backend must not be empty")
-        if self.status not in {"implemented", "planned", "skipped", "failed"}:
+        if not is_runtime_status_code(self.status):
             raise ValueError(f"{self.step_name} has unsupported call status")
         if not self.inputs:
             raise ValueError(f"{self.step_name} must name inputs")

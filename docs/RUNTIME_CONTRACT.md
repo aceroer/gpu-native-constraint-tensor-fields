@@ -130,6 +130,39 @@ ledger = describe_contract_call_ledger(contract)
 The ledger can carry measured timing values when evidence exists. Empty timing
 values remain explicit fields and should not be read as performance claims.
 
+## Runtime Status Codes
+
+Runtime status codes are stable public strings:
+
+```text
+implemented
+planned
+skipped
+failed
+unavailable
+```
+
+They are emitted as:
+
+```text
+schema: apc.runtime_status_codes.v1
+codes
+notes
+```
+
+Each code records:
+
+```text
+code
+category
+description
+terminal
+```
+
+Operator call ledger rows use these status codes. `failed` marks a terminal
+failure for an evidence run. `unavailable` records that a required backend or
+device is not available.
+
 ## Non-Goals
 
 The runtime contract does not claim:
