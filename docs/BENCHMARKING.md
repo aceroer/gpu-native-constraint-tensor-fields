@@ -9,6 +9,12 @@ Run the default CPU benchmark:
 PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/latest.json
 ```
 
+Run the CUDA timing report:
+
+```bash
+PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/latest_cuda.json
+```
+
 The output is JSON:
 
 ```text
@@ -38,9 +44,9 @@ end_to_end_time_s
 For CPU runs, `kernel_time_s` records CPU operator runtime for schema
 compatibility. `copy_time_s` is zero because there is no host-device transfer.
 
-CUDA benchmark reports are emitted as a separate backend. If CUDA is unavailable
-or the CUDA benchmark runtime is not wired, the report marks the backend as not
-available. The report must not claim GPU speedup unless copy time is included.
+CUDA benchmark reports are emitted as a separate backend. If CUDA is unavailable,
+the report marks the backend as not available. The report must not claim GPU
+speedup unless copy time is included.
 
 ## Ledger Plots
 

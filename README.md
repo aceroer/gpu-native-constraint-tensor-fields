@@ -533,6 +533,26 @@ PYTHONPATH=src python3 -m apc.cli operators
 
 ## 7.12 路线图
 
+当前已有 CUDA benchmark timing：
+
+```text
+cuda/bench/
+scripts/run_cuda_bench.py
+docs/CUDA_BENCHMARK_TIMING.md
+tests/cuda/test_cuda_bench_report.py
+```
+
+示例：
+
+```bash
+PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/latest_cuda.json
+```
+
+无 `nvcc` 或无 CUDA device 时会输出 unavailable JSON；有 CUDA 时会分开记录
+copy time 与 kernel time，不输出 speedup ratio。
+
+## 7.13 路线图
+
 后续库建设路线见：
 
 ```text

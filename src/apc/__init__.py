@@ -1,6 +1,7 @@
 """APC public Python package."""
 
 from .benchmark import BenchmarkConfig, run_benchmark, write_benchmark_report
+from .cuda_benchmark import run_cuda_benchmark_report
 from .ctir import (
     CTIRProblem,
     LedgerSpec,
@@ -77,6 +78,7 @@ __all__ = [
     "run_repair_from_json",
     "run_maxsat_bitflip_repair",
     "run_benchmark",
+    "run_cuda_benchmark_report",
     "registry_summary",
     "save_problem_json",
     "write_benchmark_report",

@@ -453,6 +453,12 @@ CPU and CUDA benchmark reports share the same JSON schema.
 No speedup ratio is emitted unless both reports include copy time.
 ```
 
+Completion record:
+
+```text
+docs/PHASE11_COMPLETION.md
+```
+
 ## Phase 12: Layout Materialization
 
 Turn layout plans into materialized host/device buffers.

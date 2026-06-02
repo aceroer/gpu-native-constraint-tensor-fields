@@ -1,0 +1,148 @@
+"""CUDA benchmark timing report helpers."""
+
+from __future__ import annotations
+
+import json
+import shutil
+import subprocess
+import tempfile
+import time
+from pathlib import Path
+from typing import Any
+
+from .benchmark import BenchmarkConfig
+
+
+ROOT = Path(__file__).resolve().parents[2]
+TIMING_PROBE = ROOT / "cuda" / "bench" / "timing_probe.cu"
+
+
+def run_cuda_benchmark_report(
+    spec_path: str | Path,
+    config: BenchmarkConfig | None = None,
+    *,
+    element_count: int = 1024,
+) -> dict[str, Any]:
+    """Run the CUDA timing probe when available and return benchmark JSON."""
+
+    cfg = config or BenchmarkConfig(backend="cuda")
+    if cfg.backend != "cuda":
+        raise ValueError("CUDA benchmark report requires backend=cuda")
+    nvcc = shutil.which("nvcc")
+    if nvcc is None:
+        return _unavailable_report(spec_path, cfg, "nvcc not found")
+
+    start = time.perf_counter()
+    with tempfile.TemporaryDirectory() as tmpdir:
+        binary = Path(tmpdir) / "apc_cuda_timing_probe"
+        build = subprocess.run(
+            [nvcc, "-std=c++17", str(TIMING_PROBE), "-o", str(binary)],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if build.returncode != 0:
+            return _unavailable_report(spec_path, cfg, f"nvcc build failed: {build.stderr.strip()}")
+        run = subprocess.run(
+            [str(binary), str(element_count)],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+    end_to_end = time.perf_counter() - start
+
+    if run.returncode != 0:
+        reason = _probe_reason(run.stderr)
+        return _unavailable_report(spec_path, cfg, reason)
+
+    probe = json.loads(run.stdout)
+    copy_time = float(probe["copy_time_s"])
+    kernel_time = float(probe["kernel_time_s"])
+    return {
+        "schema": "apc.benchmark.v1",
+        "problem": {
+            "path": str(spec_path),
+            "family": "binary_milp",
+        },
+        "backend": {
+            "name": "cuda",
+            "available": True,
+        },
+        "config": {
+            "max_iters": cfg.max_iters,
+            "batch_size": cfg.batch_size,
+            "seed": cfg.seed,
+            "penalty_weight": cfg.penalty_weight,
+        },
+        "metrics": {
+            "best_objective": None,
+            "best_penalty": None,
+            "feasible_count": 0,
+            "violation_decay": [],
+            "kernel_time_s": kernel_time,
+            "copy_time_s": copy_time,
+            "layout_conversion_time_s": 0.0,
+            "end_to_end_time_s": end_to_end,
+        },
+        "layout": {
+            "costs": [],
+        },
+        "ledger": [],
+        "notes": [
+            "CUDA timing probe reports copy and kernel timing separately.",
+            "No speedup ratio is emitted by CUDA-only benchmark reports.",
+        ],
+    }
+
+
+def _unavailable_report(spec_path: str | Path, config: BenchmarkConfig, reason: str) -> dict[str, Any]:
+    return {
+        "schema": "apc.benchmark.v1",
+        "problem": {
+            "path": str(spec_path),
+            "family": "binary_milp",
+        },
+        "backend": {
+            "name": "cuda",
+            "available": False,
+            "reason": reason,
+        },
+        "config": {
+            "max_iters": config.max_iters,
+            "batch_size": config.batch_size,
+            "seed": config.seed,
+            "penalty_weight": config.penalty_weight,
+        },
+        "metrics": {
+            "best_objective": None,
+            "best_penalty": None,
+            "feasible_count": 0,
+            "violation_decay": [],
+            "kernel_time_s": 0.0,
+            "copy_time_s": 0.0,
+            "layout_conversion_time_s": 0.0,
+            "end_to_end_time_s": 0.0,
+        },
+        "layout": {
+            "costs": [],
+        },
+        "ledger": [],
+        "notes": [
+            "CUDA benchmark is unavailable and no speedup is claimed.",
+            "CUDA reports must include copy-time accounting before comparisons.",
+        ],
+    }
+
+
+def _probe_reason(stderr: str) -> str:
+    text = stderr.strip()
+    if not text:
+        return "CUDA timing probe failed"
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError:
+        return text
+    reason = payload.get("reason")
+    return str(reason) if reason else text
