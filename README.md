@@ -831,6 +831,29 @@ public language boundary
 
 ## 7.25 路线图
 
+当前已有 release artifact normalization：
+
+```text
+scripts/collect_release_artifacts.py
+docs/RELEASE_ARTIFACTS.md
+tests/test_release_artifacts.py
+```
+
+artifact collector 输出：
+
+```text
+schema
+status
+tag
+commit
+artifacts
+docs
+tests
+checks
+```
+
+## 7.26 路线图
+
 后续库建设路线见：
 
 ```text

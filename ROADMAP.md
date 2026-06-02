@@ -789,6 +789,32 @@ Collector emits JSON-ready release evidence.
 Release notes reference the artifact contract.
 ```
 
+Completion record:
+
+```text
+docs/PHASE24_COMPLETION.md
+```
+
+## Phase 25: First Public Tag Preparation
+
+Prepare the first tag candidate after normalized release evidence exists.
+
+Deliverables:
+
+```text
+docs/TAG_PREP.md
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_tag_prep.py
+```
+
+Acceptance checks:
+
+```text
+Tag prep references verifier and artifact collector outputs.
+Release notes name the candidate tag and commit hash fields.
+Tag prep keeps limits and non-goals visible.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -801,4 +827,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 24: release artifact normalization.
+The next concrete step is Phase 25: first public tag preparation.

@@ -54,6 +54,7 @@ docs/QUICKSTART.md
 docs/PUBLIC_HANDOFF.md
 docs/VERIFY_RELEASE.md
 docs/RELEASE_NOTES_DRAFT.md
+docs/RELEASE_ARTIFACTS.md
 LICENSE
 NOTICE
 CITATION.cff
@@ -71,6 +72,7 @@ LICENSE contains the MIT License text.
 NOTICE names the original repository and recommended attribution.
 CITATION.cff names the repository and author.
 Origin doc records the first public source line.
+Release artifact doc names verifier, benchmark, tests, docs, and commit evidence.
 No private-only terminology appears in public docs.
 ```
 
@@ -94,6 +96,7 @@ Keep these benchmark artifact paths for a tag candidate:
 /tmp/apc-release-vector-demo-bench.json
 /tmp/apc-release-verify.json
 /tmp/apc-release-verify-full.json
+/tmp/apc-release-artifacts.json
 ```
 
 Required benchmark evidence:
@@ -102,6 +105,7 @@ Required benchmark evidence:
 CPU benchmark emits schema apc.benchmark.v1.
 Vector-native demo benchmark emits payload.benchmark.schema apc.vector_demo_benchmark.v1.
 Verifier report emits schema apc.public_release_verification.v1.
+Release artifact report emits schema apc.release_artifacts.v1.
 Benchmark notes do not claim GPU speedup without CUDA timing evidence.
 ```
 
@@ -114,6 +118,7 @@ Update docs/RELEASE_NOTES_DRAFT.md with the tag name.
 Record the verified commit hash.
 List the verifier output path.
 List the benchmark artifact paths.
+List the release artifact output path.
 Keep current limits visible.
 ```
 
