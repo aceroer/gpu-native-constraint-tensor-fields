@@ -38,7 +38,8 @@ class ReleaseChecklistTests(unittest.TestCase):
         self.assertIn("release verifier", text)
         self.assertIn("release checklist", text)
         self.assertIn("apc.public_release_verification.v1", text)
-        self.assertIn("Small release tag", text)
+        self.assertIn("final_tag: v0.1.0-alpha.0", text)
+        self.assertIn("Release artifact archiving", text)
 
     def test_checklist_vector_benchmark_schema_matches_script_output(self):
         with tempfile.TemporaryDirectory() as tmpdir:

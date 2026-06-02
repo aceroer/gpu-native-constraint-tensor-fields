@@ -875,6 +875,27 @@ limits and non-goals
 
 ## 7.27 路线图
 
+当前已有 first public tag execution：
+
+```text
+docs/TAG_EXECUTION.md
+tests/test_tag_execution.py
+docs/RELEASE_NOTES_DRAFT.md
+```
+
+tag execution 覆盖：
+
+```text
+final_tag
+tag_target
+release verifier artifacts
+release artifact report
+benchmark artifacts
+public language boundary
+```
+
+## 7.28 路线图
+
 后续库建设路线见：
 
 ```text

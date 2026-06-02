@@ -56,6 +56,7 @@ docs/VERIFY_RELEASE.md
 docs/RELEASE_NOTES_DRAFT.md
 docs/RELEASE_ARTIFACTS.md
 docs/TAG_PREP.md
+docs/TAG_EXECUTION.md
 LICENSE
 NOTICE
 CITATION.cff
@@ -75,6 +76,7 @@ CITATION.cff names the repository and author.
 Origin doc records the first public source line.
 Release artifact doc names verifier, benchmark, tests, docs, and commit evidence.
 Tag prep names the candidate tag, verified commit field, and stop conditions.
+Tag execution names final tag, tag target field, and evidence artifacts.
 No private-only terminology appears in public docs.
 ```
 

@@ -841,6 +841,32 @@ Release notes record the final tag and evidence artifact paths.
 Tag execution preserves the public language boundary.
 ```
 
+Completion record:
+
+```text
+docs/PHASE26_COMPLETION.md
+```
+
+## Phase 27: Release Archive Handoff
+
+Prepare a durable release archive handoff after the first public tag exists.
+
+Deliverables:
+
+```text
+docs/RELEASE_ARCHIVE.md
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_release_archive.py
+```
+
+Acceptance checks:
+
+```text
+Archive doc names the tag, verifier, artifact report, and benchmark evidence.
+Archive doc records how to reproduce the release evidence.
+Release notes keep current limits and next work visible.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -853,4 +879,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 26: first public tag execution.
+The next concrete step is Phase 27: release archive handoff.

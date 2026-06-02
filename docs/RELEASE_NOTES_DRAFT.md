@@ -55,6 +55,18 @@ cpu_benchmark_artifact: /tmp/apc-release-bench.json
 vector_demo_benchmark_artifact: /tmp/apc-release-vector-demo-bench.json
 ```
 
+## Final Tag
+
+```text
+final_tag: v0.1.0-alpha.0
+tag_target: fill from /tmp/apc-release-artifacts.json commit
+release_verifier_artifact: /tmp/apc-release-verify.json
+release_verifier_full_artifact: /tmp/apc-release-verify-full.json
+release_artifact_report: /tmp/apc-release-artifacts.json
+cpu_benchmark_artifact: /tmp/apc-release-bench.json
+vector_demo_benchmark_artifact: /tmp/apc-release-vector-demo-bench.json
+```
+
 ## Current Limits
 
 ```text
@@ -70,6 +82,6 @@ Compatibility adapters are intentionally narrow.
 Public benchmark sweeps.
 Additional problem-family demos.
 More CUDA operator coverage.
-Small release tag after another clean verification pass.
-First public tag execution after the prepared evidence is clean.
+Broader CUDA coverage after CPU/CUDA differential tests are expanded.
+Release artifact archiving for future public releases.
 ```
