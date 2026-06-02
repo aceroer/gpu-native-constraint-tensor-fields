@@ -67,6 +67,7 @@ handoff fixture listing schema and status
 release docs
 release tests
 maintenance release procedure
+runtime execution contract
 checked handoff fixture examples
 current commit hash
 ```
@@ -106,7 +107,9 @@ Maintenance tags should also keep:
 
 ```text
 docs/MAINTENANCE_RELEASES.md
+docs/RUNTIME_CONTRACT.md
 tests/test_maintenance_releases.py
+tests/test_runtime_contract.py
 ```
 
 ## Reader

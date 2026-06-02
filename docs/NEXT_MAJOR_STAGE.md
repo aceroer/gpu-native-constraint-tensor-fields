@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 40:
+Continue with Phase 41:
 
 ```text
-src/apc/runtime_contract.py
-tests/test_runtime_contract.py
+src/apc/operator_call_ledger.py
+tests/test_operator_call_ledger.py
 docs/RUNTIME_CONTRACT.md
 ```
 
-This defines the public execution contract before the project enters heavier
-runtime and CUDA work.
+This records runtime contract step calls before the project enters heavier
+native host and CUDA work.

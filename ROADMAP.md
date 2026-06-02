@@ -1215,6 +1215,33 @@ The CPU runtime can be described without changing algorithm behavior.
 The contract stays public and does not promise solver compatibility.
 ```
 
+Completion record:
+
+```text
+docs/PHASE40_COMPLETION.md
+```
+
+## Phase 41: Operator Call Ledger
+
+Record runtime contract step calls without changing runtime algorithm behavior.
+
+Deliverables:
+
+```text
+src/apc/operator_call_ledger.py
+docs/RUNTIME_CONTRACT.md
+tests/test_operator_call_ledger.py
+```
+
+Acceptance checks:
+
+```text
+Call ledger rows name contract step, status, backend, and timing fields.
+Call ledger rows are JSON-ready.
+CPU runtime behavior remains unchanged when a call ledger is produced separately.
+The ledger stays factual and avoids performance or compatibility claims.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1248,4 +1275,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 40: runtime execution contract.
+The next concrete step is Phase 41: operator call ledger.
