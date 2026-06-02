@@ -83,7 +83,8 @@ release_verifier_full_artifact: /tmp/apc-release-verify-full.json
 gpu_tag: v0.1.0-alpha.0
 gpu_release_artifact_schema: apc.release_artifacts.v1
 paired_project: vAgentRT
-paired_tag: v0.1.0
+paired_tag: v0.1.1
+paired_cuda_smoke: Colab T4 deterministic smoke status ok
 handoff_doc: docs/CROSS_PROJECT_HANDOFF.md
 status: cross-project handoff sketch without claiming drop-in compatibility
 ```

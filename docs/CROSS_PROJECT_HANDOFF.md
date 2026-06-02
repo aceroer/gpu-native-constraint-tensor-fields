@@ -12,11 +12,13 @@ gpu_tag_commit: b051c20b38ff19cf99992daa72dc1e9558ec7b84
 gpu_release_artifact_schema: apc.release_artifacts.v1
 
 paired_project: vAgentRT
-paired_tag: v0.1.0
-paired_tag_commit: 69c14675c14fbad0c72f6bb719ac362872446ae7
+paired_tag: v0.1.1
+paired_tag_commit: 3cb8043979ac3639dc9ef400abe68da9908d03f6
+paired_cuda_smoke: Colab T4 deterministic smoke status ok
 ```
 
 This is a handoff sketch, not a compatibility claim.
+The paired CUDA smoke is kernel-equivalence evidence, not a speedup claim.
 
 ## Stable GPU Entry Points
 
@@ -112,6 +114,7 @@ gpu_tag_commit
 gpu_release_artifact_schema
 paired_tag
 paired_tag_commit
+paired_cuda_smoke
 run_id
 state_pool_size
 branch_count

@@ -15,8 +15,9 @@ class CrossProjectHandoffTests(unittest.TestCase):
         self.assertIn("gpu_tag: v0.1.0-alpha.0", text)
         self.assertIn("gpu_tag_commit: b051c20b38ff19cf99992daa72dc1e9558ec7b84", text)
         self.assertIn("gpu_release_artifact_schema: apc.release_artifacts.v1", text)
-        self.assertIn("paired_tag: v0.1.0", text)
-        self.assertIn("paired_tag_commit: 69c14675c14fbad0c72f6bb719ac362872446ae7", text)
+        self.assertIn("paired_tag: v0.1.1", text)
+        self.assertIn("paired_tag_commit: 3cb8043979ac3639dc9ef400abe68da9908d03f6", text)
+        self.assertIn("paired_cuda_smoke: Colab T4 deterministic smoke status ok", text)
 
     def test_handoff_names_stable_public_entry_points(self):
         text = HANDOFF.read_text(encoding="utf-8")
@@ -34,6 +35,7 @@ class CrossProjectHandoffTests(unittest.TestCase):
         notes = RELEASE_NOTES.read_text(encoding="utf-8")
 
         self.assertIn("This is a handoff sketch, not a compatibility claim.", text)
+        self.assertIn("kernel-equivalence evidence, not a speedup claim", text)
         self.assertIn("drop-in paired runtime compatibility", text)
         self.assertIn("cross-project handoff sketch", notes)
         self.assertIn("without claiming drop-in compatibility", notes)
