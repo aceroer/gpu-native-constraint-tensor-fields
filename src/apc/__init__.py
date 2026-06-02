@@ -13,6 +13,7 @@ from .ctir import (
 )
 from .inspect_ctir import ctir_json, inspect_ctir
 from .io_json import load_problem_json, problem_to_json_dict, save_problem_json
+from .layout import LayoutPlan, LayoutView, OperatorLayout, layout_summary, plan_layout
 from .ledger import LedgerRow, ledger_to_dicts
 from .lowering import lower_problem_to_ctir
 from .runtime_cpu import RuntimeConfig, RuntimeResult, run_repair, run_repair_from_json
@@ -22,11 +23,14 @@ __all__ = [
     "BinaryDomainSpec",
     "CTIRProblem",
     "LedgerSpec",
+    "LayoutPlan",
+    "LayoutView",
     "LedgerRow",
     "LinearCSR",
     "LinearCSRSpec",
     "MoveBatch",
     "ObjectiveSpec",
+    "OperatorLayout",
     "ProjectionSpec",
     "ProblemSpec",
     "RuntimeConfig",
@@ -37,10 +41,12 @@ __all__ = [
     "ctir_json",
     "ctir_to_dict",
     "inspect_ctir",
+    "layout_summary",
     "ledger_to_dicts",
     "load_problem_json",
     "lower_problem_to_ctir",
     "problem_to_json_dict",
+    "plan_layout",
     "run_repair",
     "run_repair_from_json",
     "save_problem_json",

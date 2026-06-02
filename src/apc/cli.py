@@ -10,6 +10,7 @@ from typing import Any
 
 from .inspect_ctir import inspect_ctir
 from .io_json import load_problem_json
+from .layout import layout_summary, plan_layout
 from .ledger import ledger_to_dicts
 from .lowering import lower_problem_to_ctir
 from .runtime_cpu import RuntimeConfig, run_repair_from_json
@@ -91,6 +92,14 @@ def run_command(args: argparse.Namespace) -> None:
     _print_json(report)
 
 
+def layout_command(args: argparse.Namespace) -> None:
+    """Print a device layout plan summary."""
+
+    problem = load_problem_json(args.spec)
+    ctir = lower_problem_to_ctir(problem, batch_size=args.batch_size)
+    _print_json(layout_summary(plan_layout(ctir)))
+
+
 def ledger_command(args: argparse.Namespace) -> None:
     """Print a compact summary for a runtime ledger file."""
 
@@ -135,6 +144,11 @@ def _build_parser() -> argparse.ArgumentParser:
     inspect.add_argument("spec")
     inspect.add_argument("--batch-size", type=int, default=4)
     inspect.set_defaults(func=inspect_ctir_command)
+
+    layout = subcommands.add_parser("layout", help="print a device layout plan")
+    layout.add_argument("spec")
+    layout.add_argument("--batch-size", type=int, default=4)
+    layout.set_defaults(func=layout_command)
 
     run = subcommands.add_parser("run", help="run a native problem")
     run.add_argument("spec")

@@ -330,6 +330,12 @@ Dual views are explicit, not implicit.
 Layout summaries are printable from the CLI.
 ```
 
+Completion record:
+
+```text
+docs/PHASE7_COMPLETION.md
+```
+
 ## Phase 8: MaxSAT Reading
 
 Add the second problem family after binary MILP.

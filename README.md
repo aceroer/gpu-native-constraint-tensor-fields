@@ -458,6 +458,23 @@ PYTHONPATH=src:examples/binary_milp_repair python3 -m unittest discover -s tests
 
 ## 7.8 路线图
 
+当前已有 device layout planner：
+
+```text
+src/apc/layout.py
+src/apc/layout_ledger.py
+docs/DEVICE_LAYOUTS.md
+tests/test_layout_planner.py
+```
+
+示例：
+
+```bash
+PYTHONPATH=src python3 -m apc.cli layout examples/specs/binary_milp_tiny.json
+```
+
+## 7.9 路线图
+
 后续库建设路线见：
 
 ```text
