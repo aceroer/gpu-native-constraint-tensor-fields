@@ -976,6 +976,9 @@ PYTHONPATH=src python3 scripts/run_checked_handoff_demo.py /tmp/apc-vagent-hando
 examples/handoff/vagent_apc_handoff_report.v1.json
 examples/handoff/apc_handoff_check.v1.json
 examples/handoff/apc_checked_handoff_demo.v1.json
+examples/handoff/vagent_binary_milp_handoff_report.v1.json
+examples/handoff/apc_binary_milp_handoff_check.v1.json
+examples/handoff/apc_binary_milp_checked_handoff_demo.v1.json
 ```
 
 后续库建设路线见：

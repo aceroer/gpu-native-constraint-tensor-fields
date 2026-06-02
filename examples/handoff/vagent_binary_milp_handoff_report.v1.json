@@ -1,0 +1,163 @@
+{
+  "artifacts": [
+    {
+      "branch_tensor": {
+        "alive_count": 3,
+        "routes": [
+          [
+            {
+              "action": "inspect_problem",
+              "alive": true,
+              "branch_id": "milp-b0",
+              "canonical_key": [
+                "action",
+                [
+                  0
+                ]
+              ],
+              "move_type": "emit_action",
+              "payload": [
+                0
+              ],
+              "route_index": 0,
+              "state_index": 0
+            }
+          ],
+          [
+            {
+              "action": "propose_bit_flip",
+              "alive": true,
+              "branch_id": "milp-b1",
+              "canonical_key": [
+                "action",
+                [
+                  1
+                ]
+              ],
+              "move_type": "emit_action",
+              "payload": [
+                1
+              ],
+              "route_index": 0,
+              "state_index": 1
+            }
+          ],
+          [
+            {
+              "action": "run_tests",
+              "alive": true,
+              "branch_id": "milp-b2",
+              "canonical_key": [
+                "action",
+                [
+                  2
+                ]
+              ],
+              "move_type": "emit_action",
+              "payload": [
+                2
+              ],
+              "route_index": 0,
+              "state_index": 2
+            }
+          ]
+        ],
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "interface_projection": {
+        "payload": {
+          "problem_family": "binary_milp",
+          "selected_actions": [
+            "propose_bit_flip"
+          ],
+          "selected_count": 1,
+          "source_schema": "vagent.apc_handoff.v1",
+          "task_id": "task_pack_binary_milp_repair"
+        },
+        "projection": {
+          "kind": "adapter_summary",
+          "reason": "public binary_milp task branches projected into APC public handoff shapes"
+        }
+      },
+      "reduction_gate": {
+        "after_count": 1,
+        "before_count": 3,
+        "branch_efficiency": 0.3333333333333333,
+        "selected": [
+          {
+            "energy": -2.0,
+            "move_type": "emit_action",
+            "payload": [
+              1
+            ],
+            "rank": 0,
+            "reduced_score": 2.0,
+            "route_index": 0,
+            "score": 2.0,
+            "state_index": 1,
+            "uncertainty": 0.0
+          }
+        ],
+        "selected_count": 1,
+        "top_k": 1
+      },
+      "schema": "vagent.apc_handoff.v1",
+      "source": {
+        "allowed_actions": [
+          "inspect_problem",
+          "propose_bit_flip",
+          "run_tests"
+        ],
+        "problem_family": "binary_milp",
+        "problem_ref": "examples/specs/binary_milp_tiny.json",
+        "project": "vAgentRT",
+        "task_id": "task_pack_binary_milp_repair"
+      },
+      "state_pool": {
+        "alive_count": 3,
+        "alive_mask": [
+          true,
+          true,
+          true
+        ],
+        "batch_size": 3,
+        "metadata": [
+          {
+            "action": "inspect_problem",
+            "origin": "public_problem_family"
+          },
+          {
+            "action": "propose_bit_flip",
+            "origin": "public_problem_family"
+          },
+          {
+            "action": "run_tests",
+            "origin": "public_problem_family"
+          }
+        ],
+        "n_vars": 3,
+        "scores": [
+          0.0,
+          2.0,
+          1.0
+        ],
+        "uncertainty": [
+          0.25,
+          0.0,
+          0.5
+        ]
+      }
+    }
+  ],
+  "dimensions": 3,
+  "problem_family": "binary_milp",
+  "schema": "vagent.apc_handoff_report.v1",
+  "task_count": 1,
+  "task_ids": [
+    "task_pack_binary_milp_repair"
+  ],
+  "top_k": 1
+}

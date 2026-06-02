@@ -1,0 +1,46 @@
+{
+  "notes": [
+    "This demo consumes a checked handoff report only.",
+    "This route is an inspection demo, not a drop-in runtime compatibility claim."
+  ],
+  "runtime_route": [
+    "checked handoff JSON",
+    "StatePool inspection",
+    "selected action summary",
+    "InterfaceProjection payload"
+  ],
+  "schema": "apc.checked_handoff_runtime_demo.v1",
+  "source_schema": "apc.cross_project_handoff_check.v1",
+  "status": "ok",
+  "task_count": 1,
+  "tasks": [
+    {
+      "branch_efficiency": 0.3333333333333333,
+      "branch_tensor": {
+        "alive_count": 3,
+        "shape": [
+          3,
+          1
+        ]
+      },
+      "checks": {
+        "projection_payload_present": "ok",
+        "selected_actions_present": "ok",
+        "state_pool_present": "ok"
+      },
+      "problem_family": "binary_milp",
+      "projection_kind": "adapter_summary",
+      "selected_actions": [
+        "propose_bit_flip"
+      ],
+      "selected_count": 1,
+      "state_pool": {
+        "alive_count": 3,
+        "batch_size": 3,
+        "score_max": 2.0,
+        "score_min": 0.0
+      },
+      "task_id": "task_pack_binary_milp_repair"
+    }
+  ]
+}

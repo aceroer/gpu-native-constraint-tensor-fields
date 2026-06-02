@@ -65,6 +65,10 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/test_cross_project_handoff.py", [item["path"] for item in file_report["tests"]])
         self.assertIn("tests/test_checked_handoff_demo.py", [item["path"] for item in file_report["tests"]])
         self.assertIn("tests/test_checked_handoff_fixtures.py", [item["path"] for item in file_report["tests"]])
+        self.assertIn(
+            "tests/test_problem_family_handoff_fixture.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
         self.assertEqual(
             example_schemas["examples/handoff/vagent_apc_handoff_report.v1.json"],
@@ -76,6 +80,18 @@ class ReleaseArtifactTests(unittest.TestCase):
         )
         self.assertEqual(
             example_schemas["examples/handoff/apc_checked_handoff_demo.v1.json"],
+            "apc.checked_handoff_runtime_demo.v1",
+        )
+        self.assertEqual(
+            example_schemas["examples/handoff/vagent_binary_milp_handoff_report.v1.json"],
+            "vagent.apc_handoff_report.v1",
+        )
+        self.assertEqual(
+            example_schemas["examples/handoff/apc_binary_milp_handoff_check.v1.json"],
+            "apc.cross_project_handoff_check.v1",
+        )
+        self.assertEqual(
+            example_schemas["examples/handoff/apc_binary_milp_checked_handoff_demo.v1.json"],
             "apc.checked_handoff_runtime_demo.v1",
         )
         self.assertIn(

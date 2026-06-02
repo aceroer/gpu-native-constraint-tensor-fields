@@ -1030,6 +1030,32 @@ Demo output still emits apc.checked_handoff_runtime_demo.v1.
 Fixture route remains JSON-only.
 ```
 
+Completion record:
+
+```text
+docs/PHASE33_COMPLETION.md
+```
+
+## Phase 34: Handoff Fixture Index
+
+Add a compact public index for available handoff fixtures and schemas.
+
+Deliverables:
+
+```text
+examples/handoff/README.md
+docs/CHECKED_HANDOFF_DEMO.md
+tests/test_handoff_fixture_index.py
+```
+
+Acceptance checks:
+
+```text
+Index names each fixture input, checked output, and demo output.
+Index records source, checked, and demo schemas.
+Index keeps all fixtures framed as inspection evidence, not compatibility.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -1042,4 +1068,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 33: problem-family handoff fixture.
+The next concrete step is Phase 34: handoff fixture index.

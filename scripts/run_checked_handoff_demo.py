@@ -69,6 +69,7 @@ def run_checked_handoff_demo(check: dict[str, Any]) -> dict[str, Any]:
 
 def _task_summary(artifact: Any) -> dict[str, Any]:
     artifact = _object_value(artifact, "artifact")
+    source = _object(artifact, "source")
     state_pool = _object(artifact, "state_pool")
     branch_tensor = _object(artifact, "branch_tensor")
     reduction_gate = _object(artifact, "reduction_gate")
@@ -77,7 +78,7 @@ def _task_summary(artifact: Any) -> dict[str, Any]:
     selected = _list(reduction_gate, "selected")
     selected_actions = _selected_actions(selected=selected, payload=payload)
     scores = _number_list(state_pool, "scores")
-    return {
+    summary = {
         "task_id": _str(artifact, "task_id"),
         "state_pool": {
             "batch_size": _int(state_pool, "batch_size"),
@@ -99,6 +100,10 @@ def _task_summary(artifact: Any) -> dict[str, Any]:
             "projection_payload_present": "ok",
         },
     }
+    problem_family = source.get("problem_family")
+    if isinstance(problem_family, str):
+        summary["problem_family"] = problem_family
+    return summary
 
 
 def _selected_actions(*, selected: list[Any], payload: dict[str, Any]) -> list[str]:

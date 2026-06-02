@@ -24,6 +24,7 @@ Release artifact contract for repeatable tag evidence.
 GPU-side vAgentRT handoff consumer with JSON-only dependency boundary.
 Checked handoff runtime demo for StatePool and selected action inspection.
 Checked handoff fixture archive for repeatable demo evidence.
+Problem-family binary_milp handoff fixture with JSON-only inspection boundary.
 ```
 
 ## Stable Commands
@@ -100,6 +101,9 @@ checked_handoff_demo_schema: apc.checked_handoff_runtime_demo.v1
 checked_handoff_fixture_input: examples/handoff/vagent_apc_handoff_report.v1.json
 checked_handoff_fixture_check: examples/handoff/apc_handoff_check.v1.json
 checked_handoff_fixture_demo: examples/handoff/apc_checked_handoff_demo.v1.json
+problem_family_handoff_fixture_input: examples/handoff/vagent_binary_milp_handoff_report.v1.json
+problem_family_handoff_fixture_check: examples/handoff/apc_binary_milp_handoff_check.v1.json
+problem_family_handoff_fixture_demo: examples/handoff/apc_binary_milp_checked_handoff_demo.v1.json
 status: cross-project handoff sketch without claiming drop-in compatibility
 ```
 
@@ -122,5 +126,5 @@ Broader CUDA coverage after CPU/CUDA differential tests are expanded.
 Release artifact archiving for future public releases.
 Release archive handoff for the first public tag.
 Cross-project handoff sketch toward the paired vector-native runtime route.
-Problem-family handoff fixture with the same JSON-only inspection boundary.
+Problem-family handoff fixture index for available public fixtures.
 ```

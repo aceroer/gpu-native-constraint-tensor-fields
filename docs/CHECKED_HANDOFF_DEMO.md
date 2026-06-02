@@ -28,6 +28,20 @@ examples/handoff/apc_handoff_check.v1.json
 examples/handoff/apc_checked_handoff_demo.v1.json
 ```
 
+The `binary_milp` problem-family fixture follows the same route:
+
+```bash
+PYTHONPATH=src python3 scripts/check_vagent_handoff.py examples/handoff/vagent_binary_milp_handoff_report.v1.json --out /tmp/apc-binary-milp-handoff-check.json
+PYTHONPATH=src python3 scripts/run_checked_handoff_demo.py /tmp/apc-binary-milp-handoff-check.json --out /tmp/apc-binary-milp-checked-handoff-demo.json
+```
+
+Fixed outputs:
+
+```text
+examples/handoff/apc_binary_milp_handoff_check.v1.json
+examples/handoff/apc_binary_milp_checked_handoff_demo.v1.json
+```
+
 ## Output
 
 ```text

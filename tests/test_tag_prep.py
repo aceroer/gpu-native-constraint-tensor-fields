@@ -51,7 +51,9 @@ class TagPrepTests(unittest.TestCase):
         self.assertIn("Phase 32", text)
         self.assertIn("docs/PHASE32_COMPLETION.md", text)
         self.assertIn("Phase 33", text)
-        self.assertIn("The next concrete step is Phase 33", text)
+        self.assertIn("docs/PHASE33_COMPLETION.md", text)
+        self.assertIn("Phase 34", text)
+        self.assertIn("The next concrete step is Phase 34", text)
 
 
 if __name__ == "__main__":
