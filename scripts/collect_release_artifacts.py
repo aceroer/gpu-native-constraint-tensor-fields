@@ -34,6 +34,7 @@ REQUIRED_DOCS = (
     "docs/CHECKED_HANDOFF_DEMO.md",
     "docs/MAINTENANCE_RELEASES.md",
     "docs/RUNTIME_CONTRACT.md",
+    "docs/CUDA_OPERATOR_PARITY.md",
     "native/include/apc_runtime.hpp",
     "native/src/cpu_operator_shim.cpp",
     "scripts/probe_native_host.py",
@@ -64,6 +65,7 @@ REQUIRED_TESTS = (
     "tests/test_native_host_abi.py",
     "tests/test_native_cpu_operator_shim.py",
     "tests/test_native_binding_probe.py",
+    "tests/cuda/test_linear_csr_eval.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

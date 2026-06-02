@@ -3,12 +3,28 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+PARITY_DOC = ROOT / "docs" / "CUDA_OPERATOR_PARITY.md"
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from cuda_diff_utils import base_harness_prelude, compile_and_run_harness
 
 
 class CUDALinearCSREvalDifferentialTests(unittest.TestCase):
+    def test_parity_doc_names_linear_csr_contract(self):
+        text = PARITY_DOC.read_text(encoding="utf-8")
+
+        self.assertIn("cuda/src/linear_csr_eval.cu", text)
+        self.assertIn("apc_eval_linear_csr", text)
+        self.assertIn("apc.operators_cpu.eval_constraints", text)
+        self.assertIn("absolute_tolerance: 1e-9", text)
+        self.assertIn("kernel_time_s", text)
+        self.assertIn("copy_time_s", text)
+        self.assertIn("layout_conversion_time_s", text)
+        self.assertIn("end_to_end_time_s", text)
+        self.assertNotIn("speedup", text.lower())
+
     def test_random_small_csr_matches_cpu_response(self):
         source = base_harness_prelude() + r'''
 int main() {

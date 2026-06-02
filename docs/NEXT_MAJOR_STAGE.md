@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 46:
+Continue with Phase 47:
 
 ```text
-cuda/src/linear_csr_eval.cu
-tests/cuda/test_linear_csr_eval.py
+cuda/src/projection.cu
+tests/cuda/test_projection.py
 docs/CUDA_OPERATOR_PARITY.md
 ```
 
-This starts CUDA operator parity with linear CSR evaluation while keeping CPU
-reference behavior as the check.
+This records CUDA projection parity while keeping CPU reference behavior as the
+check.

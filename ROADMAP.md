@@ -1379,6 +1379,33 @@ Parity report keeps tolerance and timing fields explicit.
 No speedup claim is emitted.
 ```
 
+Completion record:
+
+```text
+docs/PHASE46_COMPLETION.md
+```
+
+## Phase 47: Projection CUDA Parity
+
+Record CUDA parity evidence for binary projection.
+
+Deliverables:
+
+```text
+cuda/src/projection.cu
+tests/cuda/test_projection.py
+docs/CUDA_OPERATOR_PARITY.md
+```
+
+Acceptance checks:
+
+```text
+Projection CUDA output matches CPU binary projection behavior.
+CUDA test skips cleanly without nvcc or a CUDA device.
+Parity report keeps domain invariant and timing fields explicit.
+No speedup claim is emitted.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1412,4 +1439,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 46: linear CSR CUDA parity.
+The next concrete step is Phase 47: projection CUDA parity.

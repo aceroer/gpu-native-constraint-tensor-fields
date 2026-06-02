@@ -49,7 +49,7 @@ class MaintenanceReleaseTests(unittest.TestCase):
 
         self.assertIn("docs/MAINTENANCE_RELEASES.md", roadmap)
         self.assertIn("docs/PHASE39_COMPLETION.md", roadmap)
-        self.assertIn("Phase 46", roadmap)
+        self.assertIn("Phase 47", roadmap)
         self.assertIn("docs/MAINTENANCE_RELEASES.md", artifacts)
         self.assertIn("tests/test_maintenance_releases.py", artifacts)
 

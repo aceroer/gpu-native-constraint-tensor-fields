@@ -73,6 +73,7 @@ runtime status code tests
 native host ABI header tests
 native CPU operator shim tests
 native host probe tests
+CUDA operator parity docs
 checked handoff fixture examples
 current commit hash
 ```
@@ -120,6 +121,8 @@ tests/test_runtime_status.py
 tests/test_native_host_abi.py
 tests/test_native_cpu_operator_shim.py
 tests/test_native_binding_probe.py
+docs/CUDA_OPERATOR_PARITY.md
+tests/cuda/test_linear_csr_eval.py
 ```
 
 ## Reader

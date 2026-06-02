@@ -121,6 +121,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             "tests/test_native_binding_probe.py",
             [item["path"] for item in file_report["tests"]],
         )
+        self.assertIn(
+            "tests/cuda/test_linear_csr_eval.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
         self.assertIn("examples/handoff/README.md", example_schemas)
         self.assertEqual(
@@ -224,6 +228,8 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/test_native_host_abi.py", text)
         self.assertIn("tests/test_native_cpu_operator_shim.py", text)
         self.assertIn("tests/test_native_binding_probe.py", text)
+        self.assertIn("docs/CUDA_OPERATOR_PARITY.md", text)
+        self.assertIn("tests/cuda/test_linear_csr_eval.py", text)
         self.assertIn("release artifact contract", notes)
 
 

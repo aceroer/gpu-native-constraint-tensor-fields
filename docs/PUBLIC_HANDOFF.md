@@ -42,6 +42,7 @@ src/apc/runtime_cpu.py
 src/apc/benchmark.py
 native/include/apc_runtime.hpp
 native/src/cpu_operator_shim.cpp
+docs/CUDA_OPERATOR_PARITY.md
 ```
 
 Runnable commands:
@@ -70,6 +71,7 @@ Add a runtime status code with a test.
 Add a native host ABI field with a test.
 Add a native CPU shim probe with a test.
 Add a native host probe field with a test.
+Add a CUDA parity target with a CPU reference test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```
