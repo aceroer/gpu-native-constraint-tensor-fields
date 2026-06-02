@@ -16,6 +16,8 @@ More first-run commands are in:
 docs/QUICKSTART.md
 ```
 
+License: MIT. See `LICENSE`.
+
 ## 0. 定位
 
 本目录用于整理一种 GPU 原生的组合优化/约束求解路线。

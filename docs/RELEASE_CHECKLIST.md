@@ -54,6 +54,7 @@ docs/QUICKSTART.md
 docs/PUBLIC_HANDOFF.md
 docs/VERIFY_RELEASE.md
 docs/RELEASE_NOTES_DRAFT.md
+LICENSE
 ```
 
 Required doc evidence:
@@ -63,6 +64,7 @@ Quickstart commands are still runnable.
 Roadmap names the current completed phase and next phase.
 Release notes summarize the public feature surface.
 Handoff doc names stable entry points and extension areas.
+LICENSE contains the MIT License text.
 No private-only terminology appears in public docs.
 ```
 
