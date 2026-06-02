@@ -199,6 +199,12 @@ Keep binary domain invariants after projection.
 Keep CPU reference deterministic under a fixed seed.
 ```
 
+Completion record:
+
+```text
+docs/PHASE3_COMPLETION.md
+```
+
 ## Phase 4: CLI
 
 Create a small command line interface for the native workflow.

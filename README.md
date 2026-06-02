@@ -330,8 +330,8 @@ problem reading
 
 ```bash
 cd examples/binary_milp_repair
-PYTHONPATH=. python3 -m unittest discover -s tests
-PYTHONPATH=. python3 run_demo.py
+PYTHONPATH=../../src:. python3 -m unittest discover -s tests
+PYTHONPATH=../../src:. python3 run_demo.py
 ```
 
 CUDA 写法示例：
@@ -375,7 +375,24 @@ tests/test_ctir_lowering.py
 PYTHONPATH=src:examples/binary_milp_repair python3 -m unittest discover -s tests
 ```
 
-## 7.4 路线图
+## 7.4 CPU Runtime
+
+当前已有第一版 CPU operator runtime：
+
+```text
+src/apc/operators_cpu.py
+src/apc/runtime_cpu.py
+src/apc/ledger.py
+tests/test_runtime_cpu.py
+```
+
+验证：
+
+```bash
+PYTHONPATH=src:examples/binary_milp_repair python3 -m unittest discover -s tests
+```
+
+## 7.5 路线图
 
 后续库建设路线见：
 
