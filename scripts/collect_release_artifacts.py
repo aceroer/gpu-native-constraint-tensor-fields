@@ -45,6 +45,12 @@ REQUIRED_TESTS = (
     "tests/test_release_archive.py",
     "tests/test_cross_project_handoff.py",
     "tests/test_checked_handoff_demo.py",
+    "tests/test_checked_handoff_fixtures.py",
+)
+REQUIRED_EXAMPLES = (
+    "examples/handoff/vagent_apc_handoff_report.v1.json",
+    "examples/handoff/apc_handoff_check.v1.json",
+    "examples/handoff/apc_checked_handoff_demo.v1.json",
 )
 
 
@@ -91,7 +97,8 @@ def collect_release_artifacts(
     }
     docs = [_file_status(ROOT / relpath, relpath) for relpath in REQUIRED_DOCS]
     tests = [_file_status(ROOT / relpath, relpath) for relpath in REQUIRED_TESTS]
-    checks = _checks(artifacts=artifacts, docs=docs, tests=tests)
+    examples = [_json_file_status(ROOT / relpath, relpath) for relpath in REQUIRED_EXAMPLES]
+    checks = _checks(artifacts=artifacts, docs=docs, tests=tests, examples=examples)
     status = "ok" if all(check["ok"] for check in checks) else "failed"
     return {
         "schema": "apc.release_artifacts.v1",
@@ -101,6 +108,7 @@ def collect_release_artifacts(
         "artifacts": artifacts,
         "docs": docs,
         "tests": tests,
+        "examples": examples,
         "checks": checks,
     }
 
@@ -110,6 +118,7 @@ def _checks(
     artifacts: dict[str, dict[str, Any]],
     docs: list[dict[str, Any]],
     tests: list[dict[str, Any]],
+    examples: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     verifier = artifacts["verifier"]
     cpu_benchmark = artifacts["cpu_benchmark"]
@@ -127,6 +136,8 @@ def _checks(
         ),
         _check("docs_present", all(item["exists"] for item in docs)),
         _check("tests_present", all(item["exists"] for item in tests)),
+        _check("examples_present", all(item["exists"] for item in examples)),
+        _check("handoff_fixture_schemas", _handoff_fixture_schemas_ok(examples)),
     ]
 
 
@@ -189,6 +200,30 @@ def _file_status(path: Path, relpath: str) -> dict[str, Any]:
         "path": relpath,
         "exists": path.exists(),
     }
+
+
+def _json_file_status(path: Path, relpath: str) -> dict[str, Any]:
+    status = _file_status(path, relpath)
+    if not path.exists():
+        status["schema"] = None
+        return status
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        status["schema"] = None
+        return status
+    status["schema"] = payload.get("schema") if isinstance(payload, dict) else None
+    return status
+
+
+def _handoff_fixture_schemas_ok(examples: list[dict[str, Any]]) -> bool:
+    expected = {
+        "examples/handoff/vagent_apc_handoff_report.v1.json": "vagent.apc_handoff_report.v1",
+        "examples/handoff/apc_handoff_check.v1.json": "apc.cross_project_handoff_check.v1",
+        "examples/handoff/apc_checked_handoff_demo.v1.json": "apc.checked_handoff_runtime_demo.v1",
+    }
+    observed = {item["path"]: item.get("schema") for item in examples}
+    return observed == expected
 
 
 def _git_commit() -> str:

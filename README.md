@@ -948,6 +948,7 @@ next adapter sketch route
 scripts/run_checked_handoff_demo.py
 docs/CHECKED_HANDOFF_DEMO.md
 tests/test_checked_handoff_demo.py
+tests/test_checked_handoff_fixtures.py
 ```
 
 demo 输入：
@@ -965,7 +966,16 @@ apc.checked_handoff_runtime_demo.v1
 示例命令：
 
 ```bash
+PYTHONPATH=src python3 scripts/check_vagent_handoff.py examples/handoff/vagent_apc_handoff_report.v1.json --out /tmp/apc-vagent-handoff-check.json
 PYTHONPATH=src python3 scripts/run_checked_handoff_demo.py /tmp/apc-vagent-handoff-check.json --out /tmp/apc-checked-handoff-demo.json
+```
+
+固定 fixture：
+
+```text
+examples/handoff/vagent_apc_handoff_report.v1.json
+examples/handoff/apc_handoff_check.v1.json
+examples/handoff/apc_checked_handoff_demo.v1.json
 ```
 
 后续库建设路线见：

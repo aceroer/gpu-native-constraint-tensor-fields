@@ -38,6 +38,7 @@ commit
 artifacts
 docs
 tests
+examples
 checks
 ```
 
@@ -51,6 +52,7 @@ CPU benchmark schema
 vector-native demo benchmark schema
 release docs
 release tests
+checked handoff fixture examples
 current commit hash
 ```
 
@@ -60,6 +62,9 @@ Required schemas:
 apc.public_release_verification.v1
 apc.benchmark.v1
 apc.vector_demo_benchmark.v1
+vagent.apc_handoff_report.v1
+apc.cross_project_handoff_check.v1
+apc.checked_handoff_runtime_demo.v1
 apc.release_artifacts.v1
 ```
 

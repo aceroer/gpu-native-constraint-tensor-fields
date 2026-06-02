@@ -23,6 +23,7 @@ Release verifier and release checklist for tag readiness.
 Release artifact contract for repeatable tag evidence.
 GPU-side vAgentRT handoff consumer with JSON-only dependency boundary.
 Checked handoff runtime demo for StatePool and selected action inspection.
+Checked handoff fixture archive for repeatable demo evidence.
 ```
 
 ## Stable Commands
@@ -32,7 +33,7 @@ PYTHONPATH=src python3 -m apc.cli validate examples/specs/binary_milp_tiny.json
 PYTHONPATH=src python3 -m apc.cli run examples/specs/binary_milp_tiny.json --max-iters 2 --ledger-out /tmp/apc-ledger.json
 PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-bench.json --max-iters 2
 PYTHONPATH=src:examples/vector_state_repair python3 scripts/run_vector_demo_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-vector-demo-bench.json
-PYTHONPATH=src python3 scripts/check_vagent_handoff.py /tmp/vagent-apc-handoff.json --out /tmp/apc-vagent-handoff-check.json
+PYTHONPATH=src python3 scripts/check_vagent_handoff.py examples/handoff/vagent_apc_handoff_report.v1.json --out /tmp/apc-vagent-handoff-check.json
 PYTHONPATH=src python3 scripts/run_checked_handoff_demo.py /tmp/apc-vagent-handoff-check.json --out /tmp/apc-checked-handoff-demo.json
 python3 scripts/verify_public_release.py --out /tmp/apc-release-verify.json
 python3 scripts/collect_release_artifacts.py --tag v0.1.0-alpha.N --out /tmp/apc-release-artifacts.json
@@ -96,6 +97,9 @@ handoff_consumer: scripts/check_vagent_handoff.py
 handoff_check_schema: apc.cross_project_handoff_check.v1
 checked_handoff_demo: scripts/run_checked_handoff_demo.py
 checked_handoff_demo_schema: apc.checked_handoff_runtime_demo.v1
+checked_handoff_fixture_input: examples/handoff/vagent_apc_handoff_report.v1.json
+checked_handoff_fixture_check: examples/handoff/apc_handoff_check.v1.json
+checked_handoff_fixture_demo: examples/handoff/apc_checked_handoff_demo.v1.json
 status: cross-project handoff sketch without claiming drop-in compatibility
 ```
 
@@ -118,6 +122,5 @@ Broader CUDA coverage after CPU/CUDA differential tests are expanded.
 Release artifact archiving for future public releases.
 Release archive handoff for the first public tag.
 Cross-project handoff sketch toward the paired vector-native runtime route.
-GPU-side StatePool inspection or benchmark route for checked vAgentRT handoff summaries.
-Checked handoff fixture archive for repeatable demo evidence.
+Problem-family handoff fixture with the same JSON-only inspection boundary.
 ```

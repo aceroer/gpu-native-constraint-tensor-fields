@@ -53,6 +53,7 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("verifier", file_report["artifacts"])
         self.assertIn("cpu_benchmark", file_report["artifacts"])
         self.assertIn("vector_demo_benchmark", file_report["artifacts"])
+        self.assertIn("examples", file_report)
         self.assertIn("docs/TAG_PREP.md", [item["path"] for item in file_report["docs"]])
         self.assertIn("docs/TAG_EXECUTION.md", [item["path"] for item in file_report["docs"]])
         self.assertIn("docs/RELEASE_ARCHIVE.md", [item["path"] for item in file_report["docs"]])
@@ -63,6 +64,24 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/test_release_archive.py", [item["path"] for item in file_report["tests"]])
         self.assertIn("tests/test_cross_project_handoff.py", [item["path"] for item in file_report["tests"]])
         self.assertIn("tests/test_checked_handoff_demo.py", [item["path"] for item in file_report["tests"]])
+        self.assertIn("tests/test_checked_handoff_fixtures.py", [item["path"] for item in file_report["tests"]])
+        example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
+        self.assertEqual(
+            example_schemas["examples/handoff/vagent_apc_handoff_report.v1.json"],
+            "vagent.apc_handoff_report.v1",
+        )
+        self.assertEqual(
+            example_schemas["examples/handoff/apc_handoff_check.v1.json"],
+            "apc.cross_project_handoff_check.v1",
+        )
+        self.assertEqual(
+            example_schemas["examples/handoff/apc_checked_handoff_demo.v1.json"],
+            "apc.checked_handoff_runtime_demo.v1",
+        )
+        self.assertIn(
+            "handoff_fixture_schemas",
+            [item["name"] for item in file_report["checks"]],
+        )
 
     def test_collector_marks_missing_artifact_failed(self):
         with tempfile.TemporaryDirectory() as tmpdir:

@@ -971,9 +971,63 @@ tests/test_checked_handoff_fixtures.py
 Acceptance checks:
 
 ```text
-Fixture input uses apc.cross_project_handoff_check.v1.
+Fixture source input uses vagent.apc_handoff_report.v1.
+Fixture checked output uses apc.cross_project_handoff_check.v1.
 Fixture output uses apc.checked_handoff_runtime_demo.v1.
 Fixture route remains an inspection demo and avoids claiming runtime compatibility.
+```
+
+Completion record:
+
+```text
+docs/PHASE31_COMPLETION.md
+```
+
+## Phase 32: Fixture-Backed Release Evidence
+
+Attach the checked handoff fixtures to release artifact collection.
+
+Deliverables:
+
+```text
+scripts/collect_release_artifacts.py
+docs/RELEASE_ARTIFACTS.md
+tests/test_release_artifacts.py
+```
+
+Acceptance checks:
+
+```text
+Release artifacts name the handoff fixture input and outputs.
+Collector checks that fixture schemas are present.
+Release notes keep the fixture route bounded to inspection evidence.
+```
+
+Completion record:
+
+```text
+docs/PHASE32_COMPLETION.md
+```
+
+## Phase 33: Problem-Family Handoff Fixture
+
+Add a slightly richer public handoff fixture tied to a named problem family.
+
+Deliverables:
+
+```text
+examples/handoff/
+docs/CHECKED_HANDOFF_DEMO.md
+tests/test_problem_family_handoff_fixture.py
+```
+
+Acceptance checks:
+
+```text
+Fixture names a public problem family without adding a compatibility promise.
+Checked report still emits apc.cross_project_handoff_check.v1.
+Demo output still emits apc.checked_handoff_runtime_demo.v1.
+Fixture route remains JSON-only.
 ```
 
 ## Non-Goals For Early Versions
@@ -988,4 +1042,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 31: checked handoff fixture archive.
+The next concrete step is Phase 33: problem-family handoff fixture.

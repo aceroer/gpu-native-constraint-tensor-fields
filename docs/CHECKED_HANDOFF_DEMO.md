@@ -17,7 +17,15 @@ project report. This keeps the route bounded to APC public shapes.
 ## Command
 
 ```bash
+PYTHONPATH=src python3 scripts/check_vagent_handoff.py examples/handoff/vagent_apc_handoff_report.v1.json --out /tmp/apc-vagent-handoff-check.json
 PYTHONPATH=src python3 scripts/run_checked_handoff_demo.py /tmp/apc-vagent-handoff-check.json --out /tmp/apc-checked-handoff-demo.json
+```
+
+The repository also carries fixed fixture outputs:
+
+```text
+examples/handoff/apc_handoff_check.v1.json
+examples/handoff/apc_checked_handoff_demo.v1.json
 ```
 
 ## Output
