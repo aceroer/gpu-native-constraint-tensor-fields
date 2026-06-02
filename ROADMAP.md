@@ -1160,9 +1160,36 @@ Smoke command exits nonzero if any evidence step fails.
 Smoke command keeps summaries factual and avoids release-quality claims beyond evidence.
 ```
 
+Completion record:
+
+```text
+docs/PHASE38_COMPLETION.md
+```
+
+## Phase 39: 0.1.x Maintenance Tag Procedure
+
+Add a compact procedure for maintenance tags after the first public release
+evidence route is closed.
+
+Deliverables:
+
+```text
+docs/MAINTENANCE_RELEASES.md
+docs/RELEASE_ARTIFACTS.md
+tests/test_maintenance_releases.py
+```
+
+Acceptance checks:
+
+```text
+Maintenance procedure references the smoke command.
+Maintenance procedure names patch tag inputs and evidence outputs.
+Maintenance procedure keeps release notes factual and avoids compatibility claims.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
-After Phase 37, the next major stage is planned in:
+After the release evidence closure track, the next major stage is planned in:
 
 ```text
 docs/NEXT_MAJOR_STAGE.md
@@ -1193,4 +1220,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 38: release evidence smoke command.
+The next concrete step is Phase 39: 0.1.x maintenance tag procedure.

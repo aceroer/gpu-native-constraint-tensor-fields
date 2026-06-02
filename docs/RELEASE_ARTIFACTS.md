@@ -22,6 +22,12 @@ Then inspect the collected evidence:
 python3 scripts/inspect_release_artifacts.py /tmp/apc-release-artifacts.json
 ```
 
+Or run the evidence route as one smoke command:
+
+```bash
+python3 scripts/smoke_release_evidence.py --tag v0.1.0-alpha.N --out /tmp/apc-release-evidence-smoke.json
+```
+
 The collector reads:
 
 ```text
@@ -76,6 +82,7 @@ apc.cross_project_handoff_check.v1
 apc.checked_handoff_runtime_demo.v1
 apc.release_artifacts.v1
 apc.release_artifacts_summary.v1
+apc.release_evidence_smoke.v1
 ```
 
 ## Release Use
@@ -115,3 +122,28 @@ notes
 
 The reader reports the evidence that is present in the collected artifact. It
 does not infer release quality or compatibility beyond the recorded checks.
+
+## Smoke Command
+
+The smoke command runs:
+
+```text
+scripts/verify_public_release.py
+scripts/collect_release_artifacts.py
+scripts/inspect_release_artifacts.py
+```
+
+It emits:
+
+```text
+schema: apc.release_evidence_smoke.v1
+status
+tag
+mode
+paths
+steps
+notes
+```
+
+The smoke report records output paths and step return codes. If any step fails,
+later evidence steps are skipped and the report status is `failed`.

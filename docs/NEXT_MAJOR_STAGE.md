@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 38:
+Continue with Phase 39:
 
 ```text
-scripts/smoke_release_evidence.py
-tests/test_release_evidence_smoke.py
+docs/MAINTENANCE_RELEASES.md
+tests/test_maintenance_releases.py
 docs/RELEASE_ARTIFACTS.md
 ```
 
-This turns the release-evidence reader into a one-command evidence route before
-the project enters heavier runtime and CUDA work.
+This turns the one-command evidence route into a maintenance tag procedure
+before the project enters heavier runtime and CUDA work.

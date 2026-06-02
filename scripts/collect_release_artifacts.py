@@ -51,6 +51,7 @@ REQUIRED_TESTS = (
     "tests/test_handoff_fixture_index.py",
     "tests/test_handoff_fixture_listing.py",
     "tests/test_release_artifact_reader.py",
+    "tests/test_release_evidence_smoke.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

@@ -64,8 +64,8 @@ class ReleaseArchiveTests(unittest.TestCase):
         self.assertIn("docs/PHASE35_COMPLETION.md", text)
         self.assertIn("Phase 36", text)
         self.assertIn("docs/PHASE36_COMPLETION.md", text)
-        self.assertIn("Phase 38", text)
-        self.assertIn("The next concrete step is Phase 38", text)
+        self.assertIn("Phase 39", text)
+        self.assertIn("The next concrete step is Phase 39", text)
 
 
 def _git(args: list[str]) -> str:

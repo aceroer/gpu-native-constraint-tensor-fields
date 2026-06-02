@@ -89,6 +89,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             "tests/test_release_artifact_reader.py",
             [item["path"] for item in file_report["tests"]],
         )
+        self.assertIn(
+            "tests/test_release_evidence_smoke.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
         self.assertIn("examples/handoff/README.md", example_schemas)
         self.assertEqual(
@@ -178,9 +182,11 @@ class ReleaseArtifactTests(unittest.TestCase):
 
         self.assertIn("apc.release_artifacts.v1", text)
         self.assertIn("apc.release_artifacts_summary.v1", text)
+        self.assertIn("apc.release_evidence_smoke.v1", text)
         self.assertIn("commit", text)
         self.assertIn("scripts/collect_release_artifacts.py", text)
         self.assertIn("scripts/inspect_release_artifacts.py", text)
+        self.assertIn("scripts/smoke_release_evidence.py", text)
         self.assertIn("release artifact contract", notes)
 
 
