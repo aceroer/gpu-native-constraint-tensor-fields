@@ -6,6 +6,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 HANDOFF = DOCS / "PUBLIC_HANDOFF.md"
 RELEASE_NOTES = DOCS / "RELEASE_NOTES_DRAFT.md"
+NEXT_MAJOR_STAGE = DOCS / "NEXT_MAJOR_STAGE.md"
+ROADMAP = ROOT / "ROADMAP.md"
 
 
 class PublicDocsTests(unittest.TestCase):
@@ -27,6 +29,19 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("Benchmark harness", text)
         self.assertIn("StatePool, BranchTensor, ReductionGate, and InterfaceProjection", text)
         self.assertIn("Vector-native repair demo", text)
+
+    def test_next_major_stage_names_solo_buildout_route(self):
+        roadmap = ROADMAP.read_text(encoding="utf-8")
+        text = NEXT_MAJOR_STAGE.read_text(encoding="utf-8")
+
+        self.assertIn("docs/NEXT_MAJOR_STAGE.md", roadmap)
+        self.assertIn("0.2 Native Runtime Buildout", text)
+        self.assertIn("Runtime Execution Contract", text)
+        self.assertIn("C++ Host Runtime Skeleton", text)
+        self.assertIn("CUDA Operator Parity", text)
+        self.assertIn("Benchmark Sweeps", text)
+        self.assertIn("Problem-Family Expansion", text)
+        self.assertIn("Every CUDA path has a CPU reference", text)
 
     def test_public_docs_pass_terminology_boundary(self):
         forbidden = (

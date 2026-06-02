@@ -1134,6 +1134,27 @@ Reader reports release status, tag, commit, artifact schemas, and fixture count.
 Reader keeps summary factual and avoids release-quality claims beyond evidence.
 ```
 
+## Next Major Stage: 0.2 Native Runtime Buildout
+
+After Phase 37, the next major stage is planned in:
+
+```text
+docs/NEXT_MAJOR_STAGE.md
+```
+
+The stage assumes the project may need to be advanced by one maintainer for a
+while. The route keeps each step small and testable:
+
+```text
+release evidence reader
+-> runtime execution contract
+-> C++ host runtime skeleton
+-> CUDA operator parity
+-> benchmark sweeps
+-> problem-family expansion
+-> public 0.2 tag
+```
+
 ## Non-Goals For Early Versions
 
 ```text
