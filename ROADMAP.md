@@ -1352,6 +1352,33 @@ Probe skips cleanly without CMake or a C++ toolchain.
 Probe remains optional and does not change Python runtime behavior.
 ```
 
+Completion record:
+
+```text
+docs/PHASE45_COMPLETION.md
+```
+
+## Phase 46: Linear CSR CUDA Parity
+
+Start CUDA operator parity with the linear CSR evaluation operator.
+
+Deliverables:
+
+```text
+cuda/src/linear_csr_eval.cu
+tests/cuda/test_linear_csr_eval.py
+docs/CUDA_OPERATOR_PARITY.md
+```
+
+Acceptance checks:
+
+```text
+Linear CSR CUDA output matches CPU reference on small cases.
+CUDA test skips cleanly without nvcc or a CUDA device.
+Parity report keeps tolerance and timing fields explicit.
+No speedup claim is emitted.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1385,4 +1412,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 45: Python binding probe.
+The next concrete step is Phase 46: linear CSR CUDA parity.

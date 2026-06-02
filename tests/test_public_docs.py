@@ -30,6 +30,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("Add a runtime status code", text)
         self.assertIn("Add a native host ABI field", text)
         self.assertIn("Add a native CPU shim probe", text)
+        self.assertIn("python3 scripts/probe_native_host.py", text)
 
     def test_release_notes_summarize_public_phases(self):
         text = RELEASE_NOTES.read_text(encoding="utf-8")

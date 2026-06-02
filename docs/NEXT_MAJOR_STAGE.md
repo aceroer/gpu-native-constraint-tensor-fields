@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 45:
+Continue with Phase 46:
 
 ```text
-scripts/probe_native_host.py
-tests/test_native_binding_probe.py
-docs/RUNTIME_CONTRACT.md
+cuda/src/linear_csr_eval.cu
+tests/cuda/test_linear_csr_eval.py
+docs/CUDA_OPERATOR_PARITY.md
 ```
 
-This adds a Python-facing native host probe while keeping Python runtime
-behavior unchanged.
+This starts CUDA operator parity with linear CSR evaluation while keeping CPU
+reference behavior as the check.

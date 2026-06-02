@@ -72,6 +72,7 @@ operator call ledger tests
 runtime status code tests
 native host ABI header tests
 native CPU operator shim tests
+native host probe tests
 checked handoff fixture examples
 current commit hash
 ```
@@ -118,6 +119,7 @@ tests/test_operator_call_ledger.py
 tests/test_runtime_status.py
 tests/test_native_host_abi.py
 tests/test_native_cpu_operator_shim.py
+tests/test_native_binding_probe.py
 ```
 
 ## Reader

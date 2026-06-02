@@ -53,6 +53,7 @@ python3 scripts/run_bench.py
 python3 scripts/run_cuda_bench.py
 python3 examples/vector_state_repair/run_demo.py
 python3 scripts/run_vector_demo_bench.py
+python3 scripts/probe_native_host.py
 ```
 
 ## Extension Areas
@@ -68,6 +69,7 @@ Add an operator call ledger row with a test.
 Add a runtime status code with a test.
 Add a native host ABI field with a test.
 Add a native CPU shim probe with a test.
+Add a native host probe field with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```

@@ -36,6 +36,7 @@ REQUIRED_DOCS = (
     "docs/RUNTIME_CONTRACT.md",
     "native/include/apc_runtime.hpp",
     "native/src/cpu_operator_shim.cpp",
+    "scripts/probe_native_host.py",
     "LICENSE",
     "NOTICE",
     "CITATION.cff",
@@ -62,6 +63,7 @@ REQUIRED_TESTS = (
     "tests/test_runtime_status.py",
     "tests/test_native_host_abi.py",
     "tests/test_native_cpu_operator_shim.py",
+    "tests/test_native_binding_probe.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

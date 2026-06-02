@@ -209,6 +209,34 @@ The C++ host target is optional and should configure cleanly when disabled:
 cmake -S native -B /tmp/apc-native-build -DAPC_ENABLE_NATIVE_HOST=OFF
 ```
 
+## Native Host Probe
+
+The Python-facing native host probe is:
+
+```text
+scripts/probe_native_host.py
+```
+
+It emits:
+
+```text
+schema: apc.native_host_probe.v1
+status
+reason
+paths
+steps
+notes
+```
+
+Use it to collect optional configure/build evidence:
+
+```bash
+python3 scripts/probe_native_host.py --out /tmp/apc-native-host-probe.json
+```
+
+If CMake is unavailable, the probe returns `status: unavailable` and exits
+cleanly. Failed configure or build steps return `status: failed`.
+
 ## Non-Goals
 
 The runtime contract does not claim:
