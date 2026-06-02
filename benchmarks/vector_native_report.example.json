@@ -1,0 +1,77 @@
+{
+  "payload": {
+    "benchmark": {
+      "notes": [
+        "Vector-native demo benchmark reports CPU runtime path timing.",
+        "No speedup claim is emitted without copy-time accounting."
+      ],
+      "runtime_path": [
+        "CTIR",
+        "StatePool",
+        "BranchTensor",
+        "ReductionGate",
+        "InterfaceProjection"
+      ],
+      "schema": "apc.vector_demo_benchmark.v1",
+      "timing": {
+        "copy_time_s": 0.0,
+        "end_to_end_time_s": 0.0,
+        "kernel_time_s": 0.0,
+        "layout_conversion_time_s": 0.0
+      }
+    },
+    "branch_tensor": {
+      "alive_count": 12,
+      "branch_count": 12,
+      "shape": [
+        4,
+        3
+      ]
+    },
+    "metrics": {
+      "branch_count": 12,
+      "selected_action_count": 2,
+      "success": true
+    },
+    "problem": {
+      "family": "binary_milp",
+      "path": "examples/specs/binary_milp_tiny.json"
+    },
+    "reduction": {
+      "diversity_weight": 0.0,
+      "penalty_weight": 10.0,
+      "selected": [],
+      "selected_count": 2,
+      "top_k": 2
+    },
+    "schema": "apc.vector_state_repair_demo.v1",
+    "state_pool": {
+      "alive_count": 4,
+      "alive_mask": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "batch_size": 4,
+      "metadata": [],
+      "n_vars": 3,
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "uncertainty": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "projection": {
+    "kind": "runtime_summary",
+    "reason": "vector-native repair demo projected from state pool, branch tensor, and reduction gate"
+  }
+}

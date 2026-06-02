@@ -659,6 +659,32 @@ Report includes runtime path metrics and benchmark timing fields.
 No speedup claim is emitted without copy-time accounting.
 ```
 
+Completion record:
+
+```text
+docs/PHASE19_COMPLETION.md
+```
+
+## Phase 20: Public Quickstart Packaging
+
+Package the public examples into a compact first-run path.
+
+Deliverables:
+
+```text
+docs/QUICKSTART.md
+examples/README.md
+benchmarks/README.md
+```
+
+Acceptance checks:
+
+```text
+Quickstart covers validate, run, benchmark, and vector-native demo benchmark.
+Commands are copy-paste runnable from the repository root.
+No internal-only terminology appears in public quickstart docs.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -671,4 +697,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 19: demo benchmark integration.
+The next concrete step is Phase 20: public quickstart packaging.

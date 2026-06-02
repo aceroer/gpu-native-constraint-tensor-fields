@@ -695,6 +695,30 @@ payload.metrics.success
 
 ## 7.20 路线图
 
+当前已有 vector-native demo benchmark：
+
+```text
+scripts/run_vector_demo_bench.py
+benchmarks/vector_native_report.example.json
+tests/test_vector_demo_benchmark.py
+```
+
+示例：
+
+```bash
+PYTHONPATH=src:examples/vector_state_repair python3 scripts/run_vector_demo_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/vector_native_report.latest.json
+```
+
+输出仍是 projected JSON report，并额外包含：
+
+```text
+payload.benchmark.runtime_path
+payload.benchmark.timing
+payload.benchmark.notes
+```
+
+## 7.21 路线图
+
 后续库建设路线见：
 
 ```text
@@ -713,6 +737,7 @@ problem spec
 -> reduction gate
 -> interface projection
 -> vector-native demo
+-> vector-native demo benchmark
 -> repair runtime
 -> validation ledger
 -> benchmark harness
