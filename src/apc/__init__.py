@@ -44,6 +44,13 @@ from .readings.maxsat import (
 )
 from .runtime_cpu import RuntimeConfig, RuntimeResult, run_repair, run_repair_from_json
 from .spec import BinaryDomainSpec, LinearCSRSpec, ObjectiveSpec, ProblemSpec
+from .state_pool import (
+    StatePool,
+    initialize_state_pool,
+    mask_state_pool,
+    state_pool_summary,
+    state_pool_with_scores,
+)
 
 __all__ = [
     "ActiveViolationCompact",
@@ -71,6 +78,7 @@ __all__ = [
     "RuntimeConfig",
     "RuntimeResult",
     "StateBatch",
+    "StatePool",
     "VarDomain",
     "ViolationBatch",
     "adapter_result_to_dict",
@@ -78,6 +86,7 @@ __all__ = [
     "ctir_to_dict",
     "default_operator_registry",
     "eval_unsatisfied_clauses",
+    "initialize_state_pool",
     "inspect_ctir",
     "layout_summary",
     "ledger_to_dicts",
@@ -86,6 +95,7 @@ __all__ = [
     "lower_native_binary_milp_dict",
     "lower_problem_to_ctir",
     "lower_maxsat_to_ctir",
+    "mask_state_pool",
     "materialize_active_violations",
     "materialize_linear_csc",
     "materialize_variable_major",
@@ -99,5 +109,7 @@ __all__ = [
     "run_cuda_benchmark_report",
     "registry_summary",
     "save_problem_json",
+    "state_pool_summary",
+    "state_pool_with_scores",
     "write_benchmark_report",
 ]

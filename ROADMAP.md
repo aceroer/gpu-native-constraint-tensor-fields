@@ -511,16 +511,48 @@ Completion record:
 docs/PHASE13_COMPLETION.md
 ```
 
-## Post Phase 13: Decision Points
+## Phase 14: State Pool Runtime
 
-After the native path and narrow adapters exist, the next branch should be chosen
-by expected public usefulness:
+Make candidate batches first-class runtime state pools.
 
 ```text
-Deepen CUDA materialized runtime coverage.
-Broaden public problem-family adapters.
-Add generated examples and reproducible reports.
-Prepare a small public release tag.
+src/apc/state_pool.py
+docs/STATE_POOL.md
+tests/test_state_pool.py
+```
+
+Acceptance checks:
+
+```text
+StatePool can initialize from CTIR.
+StatePool records batch score and alive mask.
+StatePool exports a JSON-ready summary.
+```
+
+Completion record:
+
+```text
+docs/PHASE14_COMPLETION.md
+```
+
+## Phase 15: Branch Tensor / Move Routes
+
+Turn move batches into explicit branch tensors.
+
+Deliverables:
+
+```text
+src/apc/branch_tensor.py
+docs/BRANCH_TENSOR.md
+tests/test_branch_tensor.py
+```
+
+Acceptance checks:
+
+```text
+BranchTensor shape is explicit.
+Equivalent branches can be canonicalized.
+Low-priority branches can be masked without changing tensor shape.
 ```
 
 ## Non-Goals For Early Versions
@@ -535,5 +567,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is to choose a post-Phase-13 direction: CUDA runtime
-depth, public adapter breadth, or release packaging.
+The next concrete step is Phase 15: branch tensor / move routes.

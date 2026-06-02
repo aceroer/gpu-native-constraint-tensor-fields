@@ -592,6 +592,26 @@ ProblemSpec
 
 ## 7.15 路线图
 
+当前已有 state pool runtime：
+
+```text
+src/apc/state_pool.py
+docs/STATE_POOL.md
+tests/test_state_pool.py
+```
+
+它把 candidate-major batch 提升为公开 runtime 对象：
+
+```text
+states
+scores
+uncertainty
+alive_mask
+metadata
+```
+
+## 7.16 路线图
+
 后续库建设路线见：
 
 ```text
@@ -605,6 +625,7 @@ problem spec
 -> CTIR lowering
 -> device layout planning
 -> operator registry
+-> state pool
 -> repair runtime
 -> validation ledger
 -> benchmark harness
