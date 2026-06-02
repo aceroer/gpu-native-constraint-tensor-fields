@@ -633,6 +633,32 @@ Demo emits a reproducible report.
 Report includes branch count, selected action count, and success signal.
 ```
 
+Completion record:
+
+```text
+docs/PHASE18_COMPLETION.md
+```
+
+## Phase 19: Demo Benchmark Integration
+
+Connect vector-native demo reports to the benchmark harness.
+
+Deliverables:
+
+```text
+scripts/run_vector_demo_bench.py
+benchmarks/vector_native_report.example.json
+tests/test_vector_demo_benchmark.py
+```
+
+Acceptance checks:
+
+```text
+Benchmark script writes a projected JSON report.
+Report includes runtime path metrics and benchmark timing fields.
+No speedup claim is emitted without copy-time accounting.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -645,4 +671,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 18: vector-native repair demo bridge.
+The next concrete step is Phase 19: demo benchmark integration.

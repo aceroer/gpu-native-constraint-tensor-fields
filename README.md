@@ -670,6 +670,31 @@ native runtime state
 
 ## 7.19 路线图
 
+当前已有 vector-native repair demo bridge：
+
+```text
+examples/vector_state_repair/
+docs/VECTOR_NATIVE_REPAIR_DEMO.md
+tests/test_vector_state_repair_demo.py
+```
+
+示例：
+
+```bash
+PYTHONPATH=src:examples/vector_state_repair python3 examples/vector_state_repair/run_demo.py
+```
+
+它输出 projected JSON report：
+
+```text
+projection
+payload.metrics.branch_count
+payload.metrics.selected_action_count
+payload.metrics.success
+```
+
+## 7.20 路线图
+
 后续库建设路线见：
 
 ```text
@@ -687,6 +712,7 @@ problem spec
 -> branch tensor
 -> reduction gate
 -> interface projection
+-> vector-native demo
 -> repair runtime
 -> validation ledger
 -> benchmark harness
