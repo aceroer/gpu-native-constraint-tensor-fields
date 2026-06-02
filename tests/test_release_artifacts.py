@@ -18,8 +18,9 @@ class ReleaseArtifactTests(unittest.TestCase):
             verify = tmp / "verify.json"
             bench = tmp / "bench.json"
             vector = tmp / "vector.json"
+            handoff = tmp / "handoff-fixtures.json"
             out = tmp / "artifacts.json"
-            _write_fixture_artifacts(verify=verify, bench=bench, vector=vector)
+            _write_fixture_artifacts(verify=verify, bench=bench, vector=vector, handoff=handoff)
 
             completed = subprocess.run(
                 [
@@ -33,6 +34,8 @@ class ReleaseArtifactTests(unittest.TestCase):
                     str(bench),
                     "--vector-bench",
                     str(vector),
+                    "--handoff-fixtures",
+                    str(handoff),
                     "--out",
                     str(out),
                 ],
@@ -53,6 +56,11 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("verifier", file_report["artifacts"])
         self.assertIn("cpu_benchmark", file_report["artifacts"])
         self.assertIn("vector_demo_benchmark", file_report["artifacts"])
+        self.assertIn("handoff_fixture_listing", file_report["artifacts"])
+        self.assertEqual(
+            file_report["artifacts"]["handoff_fixture_listing"]["schema"],
+            "apc.handoff_fixture_index.v1",
+        )
         self.assertIn("examples", file_report)
         self.assertIn("docs/TAG_PREP.md", [item["path"] for item in file_report["docs"]])
         self.assertIn("docs/TAG_EXECUTION.md", [item["path"] for item in file_report["docs"]])
@@ -114,7 +122,13 @@ class ReleaseArtifactTests(unittest.TestCase):
             verify = tmp / "verify.json"
             bench = tmp / "bench.json"
             vector = tmp / "missing-vector.json"
-            _write_fixture_artifacts(verify=verify, bench=bench, vector=tmp / "unused.json")
+            handoff = tmp / "handoff-fixtures.json"
+            _write_fixture_artifacts(
+                verify=verify,
+                bench=bench,
+                vector=tmp / "unused.json",
+                handoff=handoff,
+            )
             vector.unlink(missing_ok=True)
 
             report = collect_release_artifacts(
@@ -122,10 +136,37 @@ class ReleaseArtifactTests(unittest.TestCase):
                 verify_path=verify,
                 bench_path=bench,
                 vector_bench_path=vector,
+                handoff_fixtures_path=handoff,
             )
 
         self.assertEqual(report["status"], "failed")
         self.assertFalse(report["artifacts"]["vector_demo_benchmark"]["exists"])
+
+    def test_collector_marks_missing_handoff_listing_failed(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp = Path(tmpdir)
+            verify = tmp / "verify.json"
+            bench = tmp / "bench.json"
+            vector = tmp / "vector.json"
+            handoff = tmp / "missing-handoff-fixtures.json"
+            _write_fixture_artifacts(
+                verify=verify,
+                bench=bench,
+                vector=vector,
+                handoff=tmp / "unused-handoff.json",
+            )
+            handoff.unlink(missing_ok=True)
+
+            report = collect_release_artifacts(
+                tag="v0.1.0-test",
+                verify_path=verify,
+                bench_path=bench,
+                vector_bench_path=vector,
+                handoff_fixtures_path=handoff,
+            )
+
+        self.assertEqual(report["status"], "failed")
+        self.assertFalse(report["artifacts"]["handoff_fixture_listing"]["exists"])
 
     def test_release_artifacts_doc_names_contract(self):
         text = (ROOT / "docs" / "RELEASE_ARTIFACTS.md").read_text(encoding="utf-8")
@@ -137,7 +178,7 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("release artifact contract", notes)
 
 
-def _write_fixture_artifacts(*, verify: Path, bench: Path, vector: Path) -> None:
+def _write_fixture_artifacts(*, verify: Path, bench: Path, vector: Path, handoff: Path) -> None:
     verify.write_text(
         json.dumps(
             {
@@ -167,6 +208,17 @@ def _write_fixture_artifacts(*, verify: Path, bench: Path, vector: Path) -> None
                         "schema": "apc.vector_demo_benchmark.v1",
                     }
                 }
+            }
+        ),
+        encoding="utf-8",
+    )
+    handoff.write_text(
+        json.dumps(
+            {
+                "schema": "apc.handoff_fixture_index.v1",
+                "status": "ok",
+                "fixture_count": 2,
+                "fixtures": [],
             }
         ),
         encoding="utf-8",

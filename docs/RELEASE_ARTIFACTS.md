@@ -22,6 +22,7 @@ The collector reads:
 /tmp/apc-release-verify.json
 /tmp/apc-release-bench.json
 /tmp/apc-release-vector-demo-bench.json
+/tmp/apc-handoff-fixtures.json
 ```
 
 The verifier creates the benchmark artifacts during quick and full runs.
@@ -50,6 +51,7 @@ The artifact contract records:
 release verifier schema and status
 CPU benchmark schema
 vector-native demo benchmark schema
+handoff fixture listing schema and status
 release docs
 release tests
 checked handoff fixture examples
@@ -62,6 +64,7 @@ Required schemas:
 apc.public_release_verification.v1
 apc.benchmark.v1
 apc.vector_demo_benchmark.v1
+apc.handoff_fixture_index.v1
 vagent.apc_handoff_report.v1
 apc.cross_project_handoff_check.v1
 apc.checked_handoff_runtime_demo.v1
@@ -77,6 +80,7 @@ For a tag candidate, keep:
 /tmp/apc-release-verify-full.json
 /tmp/apc-release-bench.json
 /tmp/apc-release-vector-demo-bench.json
+/tmp/apc-handoff-fixtures.json
 /tmp/apc-release-artifacts.json
 ```
 

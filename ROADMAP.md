@@ -1108,6 +1108,32 @@ Collector checks the fixture index schema and status.
 Release notes keep fixture listing scoped to public inspection evidence.
 ```
 
+Completion record:
+
+```text
+docs/PHASE36_COMPLETION.md
+```
+
+## Phase 37: Release Evidence Reader
+
+Add a small CLI helper that summarizes release artifact evidence.
+
+Deliverables:
+
+```text
+scripts/inspect_release_artifacts.py
+docs/RELEASE_ARTIFACTS.md
+tests/test_release_artifact_reader.py
+```
+
+Acceptance checks:
+
+```text
+Reader consumes apc.release_artifacts.v1.
+Reader reports release status, tag, commit, artifact schemas, and fixture count.
+Reader keeps summary factual and avoids release-quality claims beyond evidence.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -1120,4 +1146,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 36: fixture listing release evidence.
+The next concrete step is Phase 37: release evidence reader.

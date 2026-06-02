@@ -26,7 +26,7 @@ Checked handoff runtime demo for StatePool and selected action inspection.
 Checked handoff fixture archive for repeatable demo evidence.
 Problem-family binary_milp handoff fixture with JSON-only inspection boundary.
 Handoff fixture index for available public fixture sets.
-Handoff fixture listing helper emitting apc.handoff_fixture_index.v1.
+Handoff fixture listing helper emitted as apc.handoff_fixture_index.v1 release evidence.
 ```
 
 ## Stable Commands
@@ -62,6 +62,7 @@ release_verifier_full_artifact: /tmp/apc-release-verify-full.json
 release_artifact_report: /tmp/apc-release-artifacts.json
 cpu_benchmark_artifact: /tmp/apc-release-bench.json
 vector_demo_benchmark_artifact: /tmp/apc-release-vector-demo-bench.json
+handoff_fixture_listing_artifact: /tmp/apc-handoff-fixtures.json
 ```
 
 ## Final Tag
@@ -74,6 +75,7 @@ release_verifier_full_artifact: /tmp/apc-release-verify-full.json
 release_artifact_report: /tmp/apc-release-artifacts.json
 cpu_benchmark_artifact: /tmp/apc-release-bench.json
 vector_demo_benchmark_artifact: /tmp/apc-release-vector-demo-bench.json
+handoff_fixture_listing_artifact: /tmp/apc-handoff-fixtures.json
 ```
 
 ## Release Archive
@@ -110,6 +112,7 @@ problem_family_handoff_fixture_demo: examples/handoff/apc_binary_milp_checked_ha
 handoff_fixture_index: examples/handoff/README.md
 handoff_fixture_listing: scripts/list_handoff_fixtures.py
 handoff_fixture_listing_schema: apc.handoff_fixture_index.v1
+handoff_fixture_listing_artifact: /tmp/apc-handoff-fixtures.json
 status: cross-project handoff sketch without claiming drop-in compatibility
 ```
 
@@ -132,5 +135,5 @@ Broader CUDA coverage after CPU/CUDA differential tests are expanded.
 Release artifact archiving for future public releases.
 Release archive handoff for the first public tag.
 Cross-project handoff sketch toward the paired vector-native runtime route.
-Fixture listing release evidence for apc.handoff_fixture_index.v1.
+Release evidence reader for apc.release_artifacts.v1 summaries.
 ```

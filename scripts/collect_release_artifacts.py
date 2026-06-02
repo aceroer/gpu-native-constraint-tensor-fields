@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_VERIFY = Path("/tmp/apc-release-verify.json")
 DEFAULT_BENCH = Path("/tmp/apc-release-bench.json")
 DEFAULT_VECTOR_BENCH = Path("/tmp/apc-release-vector-demo-bench.json")
+DEFAULT_HANDOFF_FIXTURES = Path("/tmp/apc-handoff-fixtures.json")
 REQUIRED_DOCS = (
     "README.md",
     "ROADMAP.md",
@@ -71,6 +72,11 @@ def main(argv: list[str] | None = None) -> int:
         default=str(DEFAULT_VECTOR_BENCH),
         help="vector-native demo benchmark JSON path",
     )
+    parser.add_argument(
+        "--handoff-fixtures",
+        default=str(DEFAULT_HANDOFF_FIXTURES),
+        help="handoff fixture listing JSON path",
+    )
     parser.add_argument("--out", help="optional JSON output path")
     args = parser.parse_args(argv)
 
@@ -79,6 +85,7 @@ def main(argv: list[str] | None = None) -> int:
         verify_path=Path(args.verify),
         bench_path=Path(args.bench),
         vector_bench_path=Path(args.vector_bench),
+        handoff_fixtures_path=Path(args.handoff_fixtures),
     )
     if args.out:
         output = Path(args.out)
@@ -94,6 +101,7 @@ def collect_release_artifacts(
     verify_path: Path,
     bench_path: Path,
     vector_bench_path: Path,
+    handoff_fixtures_path: Path = DEFAULT_HANDOFF_FIXTURES,
 ) -> dict[str, Any]:
     """Return a JSON-ready release evidence report."""
 
@@ -101,6 +109,7 @@ def collect_release_artifacts(
         "verifier": _load_json_artifact(verify_path),
         "cpu_benchmark": _load_json_artifact(bench_path),
         "vector_demo_benchmark": _load_json_artifact(vector_bench_path),
+        "handoff_fixture_listing": _load_json_artifact(handoff_fixtures_path),
     }
     docs = [_file_status(ROOT / relpath, relpath) for relpath in REQUIRED_DOCS]
     tests = [_file_status(ROOT / relpath, relpath) for relpath in REQUIRED_TESTS]
@@ -130,6 +139,8 @@ def _checks(
     verifier = artifacts["verifier"]
     cpu_benchmark = artifacts["cpu_benchmark"]
     vector_benchmark = artifacts["vector_demo_benchmark"]
+    handoff_fixtures = artifacts["handoff_fixture_listing"]
+    handoff_payload = _payload(handoff_fixtures)
     return [
         _check(
             "verifier_schema",
@@ -141,6 +152,14 @@ def _checks(
             "vector_demo_benchmark_schema",
             _vector_demo_benchmark_schema(vector_benchmark) == "apc.vector_demo_benchmark.v1",
         ),
+        _check(
+            "handoff_fixture_listing_schema",
+            handoff_payload.get("schema") == "apc.handoff_fixture_index.v1",
+        ),
+        _check(
+            "handoff_fixture_listing_status",
+            handoff_payload.get("status") == "ok",
+        ),
         _check("docs_present", all(item["exists"] for item in docs)),
         _check("tests_present", all(item["exists"] for item in tests)),
         _check("examples_present", all(item["exists"] for item in examples)),
@@ -150,6 +169,11 @@ def _checks(
 
 def _check(name: str, ok: bool) -> dict[str, Any]:
     return {"name": name, "ok": bool(ok)}
+
+
+def _payload(artifact: dict[str, Any]) -> dict[str, Any]:
+    payload = artifact.get("payload")
+    return payload if isinstance(payload, dict) else {}
 
 
 def _load_json_artifact(path: Path) -> dict[str, Any]:

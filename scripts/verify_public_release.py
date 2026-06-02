@@ -99,6 +99,16 @@ def _checks(*, full: bool) -> list[Check]:
             env=_env("src:."),
         ),
         Check(
+            "handoff_fixture_listing_artifact",
+            [
+                py,
+                "scripts/list_handoff_fixtures.py",
+                "--out",
+                "/tmp/apc-handoff-fixtures.json",
+            ],
+            env=_env("src"),
+        ),
+        Check(
             "cpu_benchmark",
             [
                 py,
