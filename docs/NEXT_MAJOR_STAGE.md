@@ -301,12 +301,12 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 57:
+Continue with Phase 58:
 
 ```text
-docs/TAG_EXECUTION_0_2.md
-docs/RELEASE_ARCHIVE_0_2.md
-tests/test_tag_execution_0_2.py
+docs/POST_0_2_RUNTIME_PLAN.md
+docs/NEXT_MAJOR_STAGE.md
+tests/test_post_0_2_runtime_plan.py
 ```
 
-This defines the public 0.2 tag execution procedure.
+This plans the next public runtime expansion after the 0.2 closure track.

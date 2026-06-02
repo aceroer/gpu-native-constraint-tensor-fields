@@ -1682,6 +1682,33 @@ Archive draft defines how to become a final archive after tag verification.
 Procedure avoids claiming a published tag before the tag exists.
 ```
 
+Completion record:
+
+```text
+docs/PHASE57_COMPLETION.md
+```
+
+## Phase 58: Post-0.2 Runtime Expansion Plan
+
+Plan the next public runtime expansion after the 0.2 tag procedure.
+
+Deliverables:
+
+```text
+docs/POST_0_2_RUNTIME_PLAN.md
+docs/NEXT_MAJOR_STAGE.md
+tests/test_post_0_2_runtime_plan.py
+```
+
+Acceptance checks:
+
+```text
+Plan names QUBO CPU reference execution as a gated future route.
+Plan names broader CUDA parity only after CPU references exist.
+Plan names benchmark and fixture expansion without performance claims.
+Plan keeps public terminology and solver-compatibility boundaries visible.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1715,4 +1742,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 57: 0.2 public tag.
+The next concrete step is Phase 58: post-0.2 runtime expansion plan.

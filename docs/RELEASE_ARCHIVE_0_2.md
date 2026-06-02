@@ -74,6 +74,29 @@ problem-family fixture index status: ok
 public terminology boundary scan: empty
 ```
 
+## Finalization Procedure
+
+This draft becomes a final archive only after:
+
+```text
+git rev-parse v0.2.0-alpha.N^{commit}
+git rev-parse HEAD
+git ls-remote --tags origin 'v0.2.0-alpha.N*'
+```
+
+The tag commit, `HEAD`, remote peeled tag commit, and artifact report commit
+must match.
+
+After verification, replace:
+
+```text
+candidate_tag -> tag
+candidate_commit -> tag_commit
+tag_kind: pending -> tag_kind: annotated
+```
+
+Until then, this file remains a candidate archive draft.
+
 ## Included 0.2 Gates
 
 ```text
