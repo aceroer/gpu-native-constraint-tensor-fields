@@ -1433,6 +1433,33 @@ Parity report keeps tolerance and timing fields explicit.
 No speedup claim is emitted.
 ```
 
+Completion record:
+
+```text
+docs/PHASE48_COMPLETION.md
+```
+
+## Phase 49: Benchmark Sweep Config
+
+Add checked JSON-ready benchmark sweep configuration.
+
+Deliverables:
+
+```text
+benchmarks/sweeps/
+docs/BENCHMARK_SWEEPS.md
+tests/test_benchmark_sweep.py
+```
+
+Acceptance checks:
+
+```text
+Sweep configs name problem specs, backend, max_iters, and output paths.
+Sweep configs are JSON-ready and validated.
+Sweep docs keep timing fields explicit.
+Sweep docs avoid speedup claims without complete timing evidence.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1466,4 +1493,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 48: penalty reduction CUDA parity.
+The next concrete step is Phase 49: benchmark sweep config.

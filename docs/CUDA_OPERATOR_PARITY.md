@@ -88,6 +88,57 @@ end_to_end_time_s
 The current binary projection parity test is correctness-focused. It does not
 emit a performance comparison.
 
+## Weighted Penalty Reduction
+
+The weighted penalty reduction parity target is:
+
+```text
+operator: reduce_penalty
+cuda_symbols: apc_rectify_linear_violation, apc_reduce_weighted_penalty
+cuda_source: cuda/src/violation_reduce.cu
+cpu_reference: apc.operators_cpu.rectify_violations, apc.operators_cpu.reduce_penalty
+test: tests/cuda/test_penalty_reduce.py
+```
+
+The penalty parity test builds a small CUDA harness when `nvcc` is available.
+The harness:
+
+```text
+generates dense linear responses
+computes CPU expected nonnegative violations in host code
+computes CPU expected weighted penalties in host code
+launches apc_rectify_linear_violation
+launches apc_reduce_weighted_penalty
+copies CUDA violations and penalties back to host
+checks every violation is nonnegative
+compares every violation and penalty with explicit tolerance
+```
+
+Tolerance:
+
+```text
+absolute_tolerance: 1e-9
+```
+
+Penalty invariant:
+
+```text
+violation_values: nonnegative
+penalty_rule: sum(weight[row] * violation[row])
+```
+
+Timing fields for later parity reports:
+
+```text
+kernel_time_s
+copy_time_s
+layout_conversion_time_s
+end_to_end_time_s
+```
+
+The current weighted penalty parity test is correctness-focused. It does not
+emit a performance comparison.
+
 ## Skip Behavior
 
 CUDA parity tests must skip cleanly when:
@@ -125,7 +176,6 @@ full runtime coverage claim
 The next target is:
 
 ```text
-operator: reduce_penalty
-cuda_symbol: apc_reduce_weighted_penalty
-test: tests/cuda/test_penalty_reduce.py
+operator: benchmark_sweep
+test: tests for benchmark sweep config and reports
 ```

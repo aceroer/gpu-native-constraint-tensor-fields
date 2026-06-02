@@ -3,12 +3,32 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+PARITY_DOC = ROOT / "docs" / "CUDA_OPERATOR_PARITY.md"
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from cuda_diff_utils import base_harness_prelude, compile_and_run_harness
 
 
 class CUDAPenaltyReduceDifferentialTests(unittest.TestCase):
+    def test_parity_doc_names_penalty_contract(self):
+        text = PARITY_DOC.read_text(encoding="utf-8")
+
+        self.assertIn("cuda/src/violation_reduce.cu", text)
+        self.assertIn("apc_rectify_linear_violation", text)
+        self.assertIn("apc_reduce_weighted_penalty", text)
+        self.assertIn("apc.operators_cpu.rectify_violations", text)
+        self.assertIn("apc.operators_cpu.reduce_penalty", text)
+        self.assertIn("absolute_tolerance: 1e-9", text)
+        self.assertIn("violation_values: nonnegative", text)
+        self.assertIn("penalty_rule: sum(weight[row] * violation[row])", text)
+        self.assertIn("kernel_time_s", text)
+        self.assertIn("copy_time_s", text)
+        self.assertIn("layout_conversion_time_s", text)
+        self.assertIn("end_to_end_time_s", text)
+        self.assertNotIn("speedup", text.lower())
+
     def test_violation_and_penalty_match_cpu_reference(self):
         source = base_harness_prelude() + r'''
 int main() {

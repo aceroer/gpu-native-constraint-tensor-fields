@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 48:
+Continue with Phase 49:
 
 ```text
-cuda/src/violation_reduce.cu
-tests/cuda/test_penalty_reduce.py
-docs/CUDA_OPERATOR_PARITY.md
+benchmarks/sweeps/
+docs/BENCHMARK_SWEEPS.md
+tests/test_benchmark_sweep.py
 ```
 
-This records CUDA weighted penalty reduction parity while keeping CPU reference
-behavior as the check.
+This starts repeatable benchmark sweep configuration without adding performance
+claims.
