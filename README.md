@@ -341,7 +341,24 @@ examples/binary_milp_repair/cuda/include/apc_runtime.h
 examples/binary_milp_repair/cuda/src/binary_milp_kernels.cu
 ```
 
-## 7.2 路线图
+## 7.2 Native Problem Spec
+
+当前已有第一版 native JSON spec loader：
+
+```text
+src/apc/spec.py
+src/apc/io_json.py
+examples/specs/binary_milp_tiny.json
+tests/test_spec_loading.py
+```
+
+验证：
+
+```bash
+PYTHONPATH=src python3 -m unittest discover -s tests
+```
+
+## 7.3 路线图
 
 后续库建设路线见：
 

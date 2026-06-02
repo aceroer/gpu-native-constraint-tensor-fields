@@ -63,6 +63,8 @@ docs/PHASE0_COMPLETION.md
 
 ## Phase 1: Native Problem Spec
 
+Status: complete.
+
 Build a small JSON or YAML problem format that can describe first-stage repair
 instances without importing a traditional solver model.
 
@@ -108,6 +110,12 @@ Load a JSON spec into typed Python objects.
 Reject malformed CSR structures.
 Reject unsupported domain and row-sense values.
 Round-trip one tiny spec without semantic loss.
+```
+
+Completion record:
+
+```text
+docs/PHASE1_COMPLETION.md
 ```
 
 ## Phase 2: CTIR Core
