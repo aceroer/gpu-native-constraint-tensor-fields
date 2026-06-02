@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 47:
+Continue with Phase 48:
 
 ```text
-cuda/src/projection.cu
-tests/cuda/test_projection.py
+cuda/src/violation_reduce.cu
+tests/cuda/test_penalty_reduce.py
 docs/CUDA_OPERATOR_PARITY.md
 ```
 
-This records CUDA projection parity while keeping CPU reference behavior as the
-check.
+This records CUDA weighted penalty reduction parity while keeping CPU reference
+behavior as the check.

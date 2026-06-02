@@ -45,6 +45,49 @@ end_to_end_time_s
 The current linear CSR parity test is correctness-focused. It does not emit a
 performance comparison.
 
+## Binary Projection
+
+The binary projection parity target is:
+
+```text
+operator: apply_projection
+cuda_symbol: apc_project_binary
+cuda_source: cuda/src/projection.cu
+cpu_reference: apc.operators_cpu.apply_projection
+test: tests/cuda/test_projection.py
+```
+
+The projection parity test builds a small CUDA harness when `nvcc` is available.
+The harness:
+
+```text
+generates out-of-domain integer states
+computes CPU expected binary projection in host code
+launches apc_project_binary
+copies CUDA states back to host
+checks every projected value is in {0, 1}
+checks every projected value matches the CPU projection rule
+```
+
+Domain invariant:
+
+```text
+projected_values: 0_or_1
+projection_rule: x >= 1 -> 1, otherwise 0
+```
+
+Timing fields for later parity reports:
+
+```text
+kernel_time_s
+copy_time_s
+layout_conversion_time_s
+end_to_end_time_s
+```
+
+The current binary projection parity test is correctness-focused. It does not
+emit a performance comparison.
+
 ## Skip Behavior
 
 CUDA parity tests must skip cleanly when:
@@ -82,7 +125,7 @@ full runtime coverage claim
 The next target is:
 
 ```text
-operator: apply_projection
-cuda_symbol: apc_project_binary
-test: tests/cuda/test_projection.py
+operator: reduce_penalty
+cuda_symbol: apc_reduce_weighted_penalty
+test: tests/cuda/test_penalty_reduce.py
 ```

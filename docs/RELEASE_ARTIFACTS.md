@@ -123,6 +123,7 @@ tests/test_native_cpu_operator_shim.py
 tests/test_native_binding_probe.py
 docs/CUDA_OPERATOR_PARITY.md
 tests/cuda/test_linear_csr_eval.py
+tests/cuda/test_projection.py
 ```
 
 ## Reader

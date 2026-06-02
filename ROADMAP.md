@@ -1406,6 +1406,33 @@ Parity report keeps domain invariant and timing fields explicit.
 No speedup claim is emitted.
 ```
 
+Completion record:
+
+```text
+docs/PHASE47_COMPLETION.md
+```
+
+## Phase 48: Penalty Reduction CUDA Parity
+
+Record CUDA parity evidence for weighted penalty reduction.
+
+Deliverables:
+
+```text
+cuda/src/violation_reduce.cu
+tests/cuda/test_penalty_reduce.py
+docs/CUDA_OPERATOR_PARITY.md
+```
+
+Acceptance checks:
+
+```text
+Penalty reduction CUDA output matches CPU weighted penalty behavior.
+CUDA test skips cleanly without nvcc or a CUDA device.
+Parity report keeps tolerance and timing fields explicit.
+No speedup claim is emitted.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1439,4 +1466,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 47: projection CUDA parity.
+The next concrete step is Phase 48: penalty reduction CUDA parity.

@@ -3,12 +3,29 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+PARITY_DOC = ROOT / "docs" / "CUDA_OPERATOR_PARITY.md"
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from cuda_diff_utils import base_harness_prelude, compile_and_run_harness
 
 
 class CUDAProjectionDifferentialTests(unittest.TestCase):
+    def test_parity_doc_names_projection_contract(self):
+        text = PARITY_DOC.read_text(encoding="utf-8")
+
+        self.assertIn("cuda/src/projection.cu", text)
+        self.assertIn("apc_project_binary", text)
+        self.assertIn("apc.operators_cpu.apply_projection", text)
+        self.assertIn("projected_values: 0_or_1", text)
+        self.assertIn("projection_rule: x >= 1 -> 1, otherwise 0", text)
+        self.assertIn("kernel_time_s", text)
+        self.assertIn("copy_time_s", text)
+        self.assertIn("layout_conversion_time_s", text)
+        self.assertIn("end_to_end_time_s", text)
+        self.assertNotIn("speedup", text.lower())
+
     def test_projection_keeps_binary_domain(self):
         source = base_harness_prelude() + r'''
 int main() {
