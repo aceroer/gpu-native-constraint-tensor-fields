@@ -108,4 +108,5 @@ Broader CUDA coverage after CPU/CUDA differential tests are expanded.
 Release artifact archiving for future public releases.
 Release archive handoff for the first public tag.
 Cross-project handoff sketch toward the paired vector-native runtime route.
+GPU-side consumer for vagent.apc_handoff_report.v1.
 ```

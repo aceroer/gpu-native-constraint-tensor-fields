@@ -29,6 +29,8 @@ class CrossProjectHandoffTests(unittest.TestCase):
         self.assertIn("docs/API_REFERENCE.md", text)
         self.assertIn("docs/APC_ADAPTER.md", text)
         self.assertIn("docs/TASK_PACKS.md", text)
+        self.assertIn("vagent.apc_handoff_report.v1", text)
+        self.assertIn("scripts/run_apc_handoff.py", text)
 
     def test_handoff_avoids_compatibility_claim(self):
         text = HANDOFF.read_text(encoding="utf-8")

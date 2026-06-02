@@ -95,6 +95,19 @@ paired runtime task state
 For now, this route is a sketch for future adapter work. It should preserve the
 native entry points on both sides.
 
+The paired project now exposes a first public handoff artifact:
+
+```text
+script: scripts/run_apc_handoff.py
+report_schema: vagent.apc_handoff_report.v1
+artifact_schema: vagent.apc_handoff.v1
+paired_commit: 616fcf0
+```
+
+The artifact carries StatePool-shaped, BranchTensor-shaped,
+ReductionGate-shaped, and InterfaceProjection-shaped summaries without importing
+this repository.
+
 ## Evidence Contract
 
 The GPU side uses:
@@ -138,6 +151,7 @@ stable external adapter ABI
 
 ## Next Work
 
-The next public step should be a small adapter sketch that maps one paired
-runtime task pack into the GPU-side StatePool, BranchTensor, ReductionGate, and
-InterfaceProjection path while keeping both release artifacts reproducible.
+The next public step should be a small GPU-side consumer that validates one
+`vagent.apc_handoff_report.v1` file against this repository's StatePool,
+BranchTensor, ReductionGate, and InterfaceProjection public shapes while keeping
+both release artifacts reproducible.
