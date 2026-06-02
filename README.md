@@ -775,6 +775,31 @@ public language boundary
 
 ## 7.23 路线图
 
+当前已有 release verification script：
+
+```text
+scripts/verify_public_release.py
+docs/VERIFY_RELEASE.md
+tests/test_release_verifier.py
+```
+
+示例：
+
+```bash
+python3 scripts/verify_public_release.py --out /tmp/apc-release-verify.json
+```
+
+verifier 输出：
+
+```text
+schema
+status
+mode
+checks
+```
+
+## 7.24 路线图
+
 后续库建设路线见：
 
 ```text

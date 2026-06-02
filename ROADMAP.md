@@ -737,6 +737,32 @@ Verifier emits a JSON-ready result summary.
 Verifier exits nonzero on failed command.
 ```
 
+Completion record:
+
+```text
+docs/PHASE22_COMPLETION.md
+```
+
+## Phase 23: Release Tag Checklist
+
+Prepare a small tag-ready release checklist.
+
+Deliverables:
+
+```text
+docs/RELEASE_CHECKLIST.md
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_release_checklist.py
+```
+
+Acceptance checks:
+
+```text
+Checklist references the release verifier.
+Checklist names tag, docs, tests, and benchmark artifacts.
+Release notes remain public-only and current.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -749,4 +775,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 22: release verification script.
+The next concrete step is Phase 23: release tag checklist.
