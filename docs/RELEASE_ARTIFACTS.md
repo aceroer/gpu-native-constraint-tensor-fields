@@ -129,8 +129,10 @@ tests/cuda/test_penalty_reduce.py
 docs/BENCHMARK_SWEEPS.md
 benchmarks/sweeps/binary_milp_smoke.json
 scripts/run_benchmark_sweep.py
+scripts/inspect_benchmark_sweep.py
 tests/test_benchmark_sweep.py
 tests/test_benchmark_sweep_runner.py
+tests/test_benchmark_sweep_report.py
 ```
 
 ## Reader

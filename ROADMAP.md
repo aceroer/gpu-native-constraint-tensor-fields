@@ -1514,6 +1514,35 @@ Report reader keeps unavailable CUDA factual.
 Report reader avoids speedup claims without complete timing evidence.
 ```
 
+Completion record:
+
+```text
+docs/PHASE51_COMPLETION.md
+```
+
+## Phase 52: MaxSAT Runtime Route
+
+Add a small MaxSAT route through the public runtime path.
+
+Deliverables:
+
+```text
+src/apc/readings/maxsat.py
+examples/specs/maxsat_tiny.json
+docs/PROBLEM_FAMILIES.md
+tests/test_maxsat_runtime_route.py
+```
+
+Acceptance checks:
+
+```text
+MaxSAT example lowers through the existing public runtime contract.
+Weighted soft clauses record objective contributions explicitly.
+Hard clause violations record penalty contributions explicitly.
+Unsupported MaxSAT features fail with structured status.
+The CPU reference path remains the behavioral baseline.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1547,4 +1576,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 51: benchmark sweep report.
+The next concrete step is Phase 52: MaxSAT runtime route.

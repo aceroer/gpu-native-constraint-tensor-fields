@@ -70,6 +70,36 @@ failed
 `unavailable` records a backend that could not run on the current machine. It
 is not treated as a failed sweep case.
 
-The sweep config and runner summary do not make performance claims. A
-comparison layer must include complete timing evidence before making any
-performance statement.
+## Reader
+
+Inspect a sweep summary with:
+
+```bash
+python3 scripts/inspect_benchmark_sweep.py /tmp/apc-benchmark-sweep.json --out /tmp/apc-benchmark-sweep-summary.json
+```
+
+The reader emits:
+
+```text
+apc.benchmark_sweep_summary.v1
+```
+
+The summary records:
+
+```text
+source_schema
+source_path
+status
+name
+config_path
+case_count
+case_statuses
+timing_fields
+unavailable_cases
+failed_cases
+notes
+```
+
+The sweep config, runner summary, and reader summary do not make performance
+claims. A comparison layer must include complete timing evidence before making
+any performance statement.

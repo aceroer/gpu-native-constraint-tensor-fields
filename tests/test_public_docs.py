@@ -27,6 +27,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("docs/CUDA_OPERATOR_PARITY.md", text)
         self.assertIn("docs/BENCHMARK_SWEEPS.md", text)
         self.assertIn("python3 scripts/run_benchmark_sweep.py", text)
+        self.assertIn("python3 scripts/inspect_benchmark_sweep.py", text)
         self.assertIn("Add a new small native problem spec", text)
         self.assertIn("Add a runtime contract step", text)
         self.assertIn("Add an operator call ledger row", text)
@@ -37,6 +38,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("Add a CUDA parity target", text)
         self.assertIn("Add a benchmark sweep config", text)
         self.assertIn("Add a benchmark sweep runner check", text)
+        self.assertIn("Add a benchmark sweep reader check", text)
 
     def test_release_notes_summarize_public_phases(self):
         text = RELEASE_NOTES.read_text(encoding="utf-8")

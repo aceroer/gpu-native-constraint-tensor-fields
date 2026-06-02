@@ -57,6 +57,7 @@ python3 examples/vector_state_repair/run_demo.py
 python3 scripts/run_vector_demo_bench.py
 python3 scripts/probe_native_host.py
 python3 scripts/run_benchmark_sweep.py benchmarks/sweeps/binary_milp_smoke.json --out /tmp/apc-benchmark-sweep.json
+python3 scripts/inspect_benchmark_sweep.py /tmp/apc-benchmark-sweep.json --out /tmp/apc-benchmark-sweep-summary.json
 ```
 
 ## Extension Areas
@@ -76,6 +77,7 @@ Add a native host probe field with a test.
 Add a CUDA parity target with a CPU reference test.
 Add a benchmark sweep config with a test.
 Add a benchmark sweep runner check with a test.
+Add a benchmark sweep reader check with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```

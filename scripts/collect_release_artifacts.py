@@ -41,6 +41,7 @@ REQUIRED_DOCS = (
     "native/src/cpu_operator_shim.cpp",
     "scripts/probe_native_host.py",
     "scripts/run_benchmark_sweep.py",
+    "scripts/inspect_benchmark_sweep.py",
     "LICENSE",
     "NOTICE",
     "CITATION.cff",
@@ -73,6 +74,7 @@ REQUIRED_TESTS = (
     "tests/cuda/test_penalty_reduce.py",
     "tests/test_benchmark_sweep.py",
     "tests/test_benchmark_sweep_runner.py",
+    "tests/test_benchmark_sweep_report.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

@@ -141,6 +141,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             "tests/test_benchmark_sweep_runner.py",
             [item["path"] for item in file_report["tests"]],
         )
+        self.assertIn(
+            "tests/test_benchmark_sweep_report.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
         self.assertIn("examples/handoff/README.md", example_schemas)
         self.assertEqual(
@@ -251,8 +255,10 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("docs/BENCHMARK_SWEEPS.md", text)
         self.assertIn("benchmarks/sweeps/binary_milp_smoke.json", text)
         self.assertIn("scripts/run_benchmark_sweep.py", text)
+        self.assertIn("scripts/inspect_benchmark_sweep.py", text)
         self.assertIn("tests/test_benchmark_sweep.py", text)
         self.assertIn("tests/test_benchmark_sweep_runner.py", text)
+        self.assertIn("tests/test_benchmark_sweep_report.py", text)
         self.assertIn("release artifact contract", notes)
 
 

@@ -206,9 +206,11 @@ Deliverable shape:
 ```text
 benchmarks/sweeps/
 scripts/run_benchmark_sweep.py
+scripts/inspect_benchmark_sweep.py
 docs/BENCHMARK_SWEEPS.md
 tests/test_benchmark_sweep.py
 tests/test_benchmark_sweep_runner.py
+tests/test_benchmark_sweep_report.py
 ```
 
 Acceptance:
@@ -298,12 +300,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 51:
+Continue with Phase 52:
 
 ```text
-scripts/inspect_benchmark_sweep.py
-docs/BENCHMARK_SWEEPS.md
-tests/test_benchmark_sweep_report.py
+src/apc/readings/maxsat.py
+examples/specs/maxsat_tiny.json
+docs/PROBLEM_FAMILIES.md
+tests/test_maxsat_runtime_route.py
 ```
 
-This consumes benchmark sweep summaries and writes compact factual reports.
+This starts problem-family expansion with a small MaxSAT runtime route.
