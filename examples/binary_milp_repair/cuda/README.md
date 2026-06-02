@@ -24,6 +24,15 @@ include/apc_runtime.h
 src/binary_milp_kernels.cu
 ```
 
+The repository-level optional build skeleton now lives at:
+
+```text
+../../../cuda/
+```
+
+Use that directory for compiled CUDA work. This example directory remains a
+small, local guide for the binary MILP repair example.
+
 ## Notes
 
 This machine may not have `nvcc`; the CPU reference in the parent directory is
@@ -40,4 +49,3 @@ CUDA event timing
 host-device copy ledger
 CPU/GPU differential tests
 ```
-

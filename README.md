@@ -413,6 +413,32 @@ PYTHONPATH=src python3 -m apc.cli ledger runs/latest/ledger.json
 
 ## 7.6 路线图
 
+当前已有第一版可选 CUDA build skeleton：
+
+```text
+cuda/include/apc_runtime.h
+cuda/src/linear_csr_eval.cu
+cuda/src/violation_reduce.cu
+cuda/src/projection.cu
+cuda/CMakeLists.txt
+tests/test_cuda_build_skeleton.py
+```
+
+无 CUDA 机器上的配置验证：
+
+```bash
+cmake -S cuda -B /tmp/apc-cuda-disabled -DAPC_ENABLE_CUDA=OFF
+```
+
+有 nvcc 时构建：
+
+```bash
+cmake -S cuda -B /tmp/apc-cuda-build -DAPC_ENABLE_CUDA=ON
+cmake --build /tmp/apc-cuda-build
+```
+
+## 7.7 路线图
+
 后续库建设路线见：
 
 ```text

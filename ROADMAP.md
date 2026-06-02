@@ -263,6 +263,12 @@ Header ABI stays operator-based.
 Kernel launch wrappers expose status codes.
 ```
 
+Completion record:
+
+```text
+docs/PHASE5_COMPLETION.md
+```
+
 ## Phase 6: CPU/GPU Differential Validation
 
 Add differential tests for every CUDA operator.
