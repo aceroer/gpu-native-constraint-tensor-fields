@@ -297,13 +297,12 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 49:
+Continue with Phase 50:
 
 ```text
-benchmarks/sweeps/
+scripts/run_benchmark_sweep.py
 docs/BENCHMARK_SWEEPS.md
-tests/test_benchmark_sweep.py
+tests/test_benchmark_sweep_runner.py
 ```
 
-This starts repeatable benchmark sweep configuration without adding performance
-claims.
+This consumes benchmark sweep configs and writes factual sweep summaries.

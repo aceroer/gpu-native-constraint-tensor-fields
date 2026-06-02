@@ -133,6 +133,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             "tests/cuda/test_penalty_reduce.py",
             [item["path"] for item in file_report["tests"]],
         )
+        self.assertIn(
+            "tests/test_benchmark_sweep.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
         self.assertIn("examples/handoff/README.md", example_schemas)
         self.assertEqual(
@@ -240,6 +244,9 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/cuda/test_linear_csr_eval.py", text)
         self.assertIn("tests/cuda/test_projection.py", text)
         self.assertIn("tests/cuda/test_penalty_reduce.py", text)
+        self.assertIn("docs/BENCHMARK_SWEEPS.md", text)
+        self.assertIn("benchmarks/sweeps/binary_milp_smoke.json", text)
+        self.assertIn("tests/test_benchmark_sweep.py", text)
         self.assertIn("release artifact contract", notes)
 
 

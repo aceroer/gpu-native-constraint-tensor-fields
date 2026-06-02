@@ -1460,6 +1460,33 @@ Sweep docs keep timing fields explicit.
 Sweep docs avoid speedup claims without complete timing evidence.
 ```
 
+Completion record:
+
+```text
+docs/PHASE49_COMPLETION.md
+```
+
+## Phase 50: Benchmark Sweep Runner
+
+Add a runner that consumes benchmark sweep configs.
+
+Deliverables:
+
+```text
+scripts/run_benchmark_sweep.py
+docs/BENCHMARK_SWEEPS.md
+tests/test_benchmark_sweep_runner.py
+```
+
+Acceptance checks:
+
+```text
+Runner consumes apc.benchmark_sweep_config.v1.
+Runner writes per-case benchmark reports and a JSON-ready sweep summary.
+Runner keeps CUDA unavailable behavior factual.
+Runner avoids speedup claims without complete timing evidence.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1493,4 +1520,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 49: benchmark sweep config.
+The next concrete step is Phase 50: benchmark sweep runner.

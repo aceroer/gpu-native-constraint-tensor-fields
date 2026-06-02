@@ -35,6 +35,8 @@ REQUIRED_DOCS = (
     "docs/MAINTENANCE_RELEASES.md",
     "docs/RUNTIME_CONTRACT.md",
     "docs/CUDA_OPERATOR_PARITY.md",
+    "docs/BENCHMARK_SWEEPS.md",
+    "benchmarks/sweeps/binary_milp_smoke.json",
     "native/include/apc_runtime.hpp",
     "native/src/cpu_operator_shim.cpp",
     "scripts/probe_native_host.py",
@@ -68,6 +70,7 @@ REQUIRED_TESTS = (
     "tests/cuda/test_linear_csr_eval.py",
     "tests/cuda/test_projection.py",
     "tests/cuda/test_penalty_reduce.py",
+    "tests/test_benchmark_sweep.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

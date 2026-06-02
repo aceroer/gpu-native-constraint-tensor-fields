@@ -25,6 +25,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("native/include/apc_runtime.hpp", text)
         self.assertIn("native/src/cpu_operator_shim.cpp", text)
         self.assertIn("docs/CUDA_OPERATOR_PARITY.md", text)
+        self.assertIn("docs/BENCHMARK_SWEEPS.md", text)
         self.assertIn("Add a new small native problem spec", text)
         self.assertIn("Add a runtime contract step", text)
         self.assertIn("Add an operator call ledger row", text)
@@ -33,6 +34,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("Add a native CPU shim probe", text)
         self.assertIn("python3 scripts/probe_native_host.py", text)
         self.assertIn("Add a CUDA parity target", text)
+        self.assertIn("Add a benchmark sweep config", text)
 
     def test_release_notes_summarize_public_phases(self):
         text = RELEASE_NOTES.read_text(encoding="utf-8")

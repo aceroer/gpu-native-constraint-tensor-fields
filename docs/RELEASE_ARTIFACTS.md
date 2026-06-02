@@ -74,6 +74,7 @@ native host ABI header tests
 native CPU operator shim tests
 native host probe tests
 CUDA operator parity docs
+benchmark sweep config docs
 checked handoff fixture examples
 current commit hash
 ```
@@ -125,6 +126,9 @@ docs/CUDA_OPERATOR_PARITY.md
 tests/cuda/test_linear_csr_eval.py
 tests/cuda/test_projection.py
 tests/cuda/test_penalty_reduce.py
+docs/BENCHMARK_SWEEPS.md
+benchmarks/sweeps/binary_milp_smoke.json
+tests/test_benchmark_sweep.py
 ```
 
 ## Reader

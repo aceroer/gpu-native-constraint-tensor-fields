@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "backend": "cpu",
+      "batch_size": 4,
+      "max_iters": 2,
+      "name": "binary_milp_tiny_cpu",
+      "out": "benchmarks/sweeps/out/binary_milp_tiny_cpu.json",
+      "penalty_weight": 10.0,
+      "seed": 0,
+      "spec": "examples/specs/binary_milp_tiny.json"
+    },
+    {
+      "backend": "cuda",
+      "batch_size": 4,
+      "max_iters": 2,
+      "name": "binary_milp_tiny_cuda",
+      "out": "benchmarks/sweeps/out/binary_milp_tiny_cuda.json",
+      "penalty_weight": 10.0,
+      "seed": 0,
+      "spec": "examples/specs/binary_milp_tiny.json"
+    }
+  ],
+  "name": "binary_milp_smoke",
+  "notes": [
+    "Sweep configs define benchmark evidence inputs only.",
+    "No performance claim is made without complete timing evidence."
+  ],
+  "schema": "apc.benchmark_sweep_config.v1",
+  "timing_fields": [
+    "kernel_time_s",
+    "copy_time_s",
+    "layout_conversion_time_s",
+    "end_to_end_time_s"
+  ]
+}
