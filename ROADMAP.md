@@ -1242,6 +1242,33 @@ CPU runtime behavior remains unchanged when a call ledger is produced separately
 The ledger stays factual and avoids performance or compatibility claims.
 ```
 
+Completion record:
+
+```text
+docs/PHASE41_COMPLETION.md
+```
+
+## Phase 42: Runtime Error and Status Codes
+
+Add public status code records for runtime contract steps.
+
+Deliverables:
+
+```text
+src/apc/runtime_status.py
+docs/RUNTIME_CONTRACT.md
+tests/test_runtime_status.py
+```
+
+Acceptance checks:
+
+```text
+Status codes are stable strings with public descriptions.
+Runtime status records are JSON-ready.
+Operator call ledger rows can reference status codes.
+Status records stay factual and do not imply solver compatibility.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1275,4 +1302,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 41: operator call ledger.
+The next concrete step is Phase 42: runtime error and status codes.

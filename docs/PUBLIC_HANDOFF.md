@@ -36,6 +36,7 @@ src/apc/branch_tensor.py
 src/apc/reduction_gate.py
 src/apc/interface_projection.py
 src/apc/runtime_contract.py
+src/apc/operator_call_ledger.py
 src/apc/runtime_cpu.py
 src/apc/benchmark.py
 ```
@@ -60,6 +61,7 @@ Add a new small native problem spec under examples/specs/.
 Add a new CPU reference operator with tests.
 Add a new branch route type and canonical key.
 Add a runtime contract step with a test.
+Add an operator call ledger row with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```

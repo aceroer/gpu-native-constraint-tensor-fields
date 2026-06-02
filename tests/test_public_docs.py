@@ -20,8 +20,10 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("src/apc/reduction_gate.py", text)
         self.assertIn("Extension Areas", text)
         self.assertIn("src/apc/runtime_contract.py", text)
+        self.assertIn("src/apc/operator_call_ledger.py", text)
         self.assertIn("Add a new small native problem spec", text)
         self.assertIn("Add a runtime contract step", text)
+        self.assertIn("Add an operator call ledger row", text)
 
     def test_release_notes_summarize_public_phases(self):
         text = RELEASE_NOTES.read_text(encoding="utf-8")

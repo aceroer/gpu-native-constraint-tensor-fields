@@ -93,6 +93,43 @@ report = describe_cpu_runtime_contract()
 The report is JSON-ready and can be consumed by future host-runtime and CUDA
 buildout work.
 
+## Operator Call Ledger
+
+The operator call ledger records runtime contract step calls as factual rows:
+
+```text
+schema: apc.operator_call_ledger.v1
+contract_schema
+backend
+rows
+notes
+```
+
+Each row records:
+
+```text
+step_name
+backend
+status
+timing
+inputs
+outputs
+operator_name
+```
+
+Use it separately from the CPU runtime:
+
+```python
+from apc.operator_call_ledger import describe_contract_call_ledger
+from apc.runtime_contract import default_runtime_execution_contract
+
+contract = default_runtime_execution_contract()
+ledger = describe_contract_call_ledger(contract)
+```
+
+The ledger can carry measured timing values when evidence exists. Empty timing
+values remain explicit fields and should not be read as performance claims.
+
 ## Non-Goals
 
 The runtime contract does not claim:

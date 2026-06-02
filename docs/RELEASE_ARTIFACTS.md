@@ -68,6 +68,7 @@ release docs
 release tests
 maintenance release procedure
 runtime execution contract
+operator call ledger tests
 checked handoff fixture examples
 current commit hash
 ```
@@ -110,6 +111,7 @@ docs/MAINTENANCE_RELEASES.md
 docs/RUNTIME_CONTRACT.md
 tests/test_maintenance_releases.py
 tests/test_runtime_contract.py
+tests/test_operator_call_ledger.py
 ```
 
 ## Reader

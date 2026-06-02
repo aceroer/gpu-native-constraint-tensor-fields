@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 41:
+Continue with Phase 42:
 
 ```text
-src/apc/operator_call_ledger.py
-tests/test_operator_call_ledger.py
+src/apc/runtime_status.py
+tests/test_runtime_status.py
 docs/RUNTIME_CONTRACT.md
 ```
 
-This records runtime contract step calls before the project enters heavier
-native host and CUDA work.
+This adds runtime status code records before the project enters heavier native
+host and CUDA work.

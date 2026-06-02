@@ -56,6 +56,7 @@ REQUIRED_TESTS = (
     "tests/test_release_evidence_smoke.py",
     "tests/test_maintenance_releases.py",
     "tests/test_runtime_contract.py",
+    "tests/test_operator_call_ledger.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",
