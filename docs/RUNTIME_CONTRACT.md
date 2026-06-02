@@ -163,6 +163,37 @@ Operator call ledger rows use these status codes. `failed` marks a terminal
 failure for an evidence run. `unavailable` records that a required backend or
 device is not available.
 
+## C++ Host ABI Header
+
+The optional native host ABI begins with:
+
+```text
+native/include/apc_runtime.hpp
+```
+
+The header mirrors public records:
+
+```text
+apc.runtime_execution_contract.v1
+apc.operator_call_ledger.v1
+apc.runtime_status_codes.v1
+```
+
+It names:
+
+```text
+RuntimeStatus
+RuntimeTiming
+OperatorCallRecord
+```
+
+The C++ host target is an interface target. It is optional and should configure
+cleanly when disabled:
+
+```bash
+cmake -S native -B /tmp/apc-native-build -DAPC_ENABLE_NATIVE_HOST=OFF
+```
+
 ## Non-Goals
 
 The runtime contract does not claim:

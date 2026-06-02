@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 43:
+Continue with Phase 44:
 
 ```text
-native/include/apc_runtime.hpp
+native/src/cpu_operator_shim.cpp
+tests/test_native_cpu_operator_shim.py
 native/CMakeLists.txt
-tests/test_native_host_abi.py
 ```
 
-This starts the optional C++ host runtime skeleton while keeping Python runtime
+This adds a tiny optional C++ CPU operator shim while keeping Python runtime
 behavior unchanged.

@@ -70,6 +70,7 @@ maintenance release procedure
 runtime execution contract
 operator call ledger tests
 runtime status code tests
+native host ABI header tests
 checked handoff fixture examples
 current commit hash
 ```
@@ -114,6 +115,7 @@ tests/test_maintenance_releases.py
 tests/test_runtime_contract.py
 tests/test_operator_call_ledger.py
 tests/test_runtime_status.py
+tests/test_native_host_abi.py
 ```
 
 ## Reader

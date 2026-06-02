@@ -34,6 +34,7 @@ REQUIRED_DOCS = (
     "docs/CHECKED_HANDOFF_DEMO.md",
     "docs/MAINTENANCE_RELEASES.md",
     "docs/RUNTIME_CONTRACT.md",
+    "native/include/apc_runtime.hpp",
     "LICENSE",
     "NOTICE",
     "CITATION.cff",
@@ -58,6 +59,7 @@ REQUIRED_TESTS = (
     "tests/test_runtime_contract.py",
     "tests/test_operator_call_ledger.py",
     "tests/test_runtime_status.py",
+    "tests/test_native_host_abi.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

@@ -1297,6 +1297,34 @@ Python tests can inspect the header text for public ABI fields.
 The header mirrors public contracts without changing Python runtime behavior.
 ```
 
+Completion record:
+
+```text
+docs/PHASE43_COMPLETION.md
+```
+
+## Phase 44: C++ CPU Operator Shim
+
+Add a tiny optional C++ CPU operator shim behind the host ABI.
+
+Deliverables:
+
+```text
+native/src/cpu_operator_shim.cpp
+native/CMakeLists.txt
+docs/RUNTIME_CONTRACT.md
+tests/test_native_cpu_operator_shim.py
+```
+
+Acceptance checks:
+
+```text
+Shim exposes a small public function behind the host ABI.
+Native build remains optional and skips cleanly without a C++ toolchain.
+Python tests can build or inspect the shim without changing Python runtime behavior.
+The shim remains a probe and does not claim solver compatibility.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1330,4 +1358,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 43: C++ host ABI header.
+The next concrete step is Phase 44: C++ CPU operator shim.
