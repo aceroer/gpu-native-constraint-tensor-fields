@@ -341,6 +341,26 @@ examples/binary_milp_repair/cuda/include/apc_runtime.h
 examples/binary_milp_repair/cuda/src/binary_milp_kernels.cu
 ```
 
+## 7.2 路线图
+
+后续库建设路线见：
+
+```text
+ROADMAP.md
+```
+
+当前方向不是先兼容传统 solver API，而是先建立自己的轻量工具链：
+
+```text
+problem spec
+-> CTIR lowering
+-> device layout planning
+-> operator registry
+-> repair runtime
+-> validation ledger
+-> benchmark harness
+```
+
 ## 8. 研究判断
 
 这条路线的关键不是“GPU 加速局部搜索”，而是：
