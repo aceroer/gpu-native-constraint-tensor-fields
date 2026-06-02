@@ -49,6 +49,8 @@ class CUDABenchReportTests(unittest.TestCase):
                     str(output),
                     "--element-count",
                     "16",
+                    "--cuda-arch",
+                    "sm_89",
                 ],
                 cwd=ROOT,
                 text=True,
@@ -63,6 +65,7 @@ class CUDABenchReportTests(unittest.TestCase):
 
         self.assertEqual(stdout_payload["schema"], "apc.benchmark.v1")
         self.assertEqual(file_payload["backend"]["name"], "cuda")
+        self.assertIn("cuda_arch", file_payload["config"])
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@ def run_cuda_benchmark_report(
     config: BenchmarkConfig | None = None,
     *,
     element_count: int = 1024,
+    cuda_arch: str | None = None,
 ) -> dict[str, Any]:
     """Run the CUDA timing probe when available and return benchmark JSON."""
 
@@ -30,20 +31,28 @@ def run_cuda_benchmark_report(
         raise ValueError("CUDA benchmark report requires backend=cuda")
     nvcc = shutil.which("nvcc")
     if nvcc is None:
-        return _unavailable_report(spec_path, cfg, "nvcc not found")
+        return _unavailable_report(spec_path, cfg, "nvcc not found", cuda_arch=cuda_arch)
 
     start = time.perf_counter()
     with tempfile.TemporaryDirectory() as tmpdir:
         binary = Path(tmpdir) / "apc_cuda_timing_probe"
+        build_cmd = [nvcc, "-std=c++17", str(TIMING_PROBE), "-o", str(binary)]
+        if cuda_arch:
+            build_cmd.insert(1, f"-arch={cuda_arch}")
         build = subprocess.run(
-            [nvcc, "-std=c++17", str(TIMING_PROBE), "-o", str(binary)],
+            build_cmd,
             cwd=ROOT,
             text=True,
             capture_output=True,
             check=False,
         )
         if build.returncode != 0:
-            return _unavailable_report(spec_path, cfg, f"nvcc build failed: {build.stderr.strip()}")
+            return _unavailable_report(
+                spec_path,
+                cfg,
+                f"nvcc build failed: {build.stderr.strip()}",
+                cuda_arch=cuda_arch,
+            )
         run = subprocess.run(
             [str(binary), str(element_count)],
             cwd=ROOT,
@@ -55,7 +64,7 @@ def run_cuda_benchmark_report(
 
     if run.returncode != 0:
         reason = _probe_reason(run.stderr)
-        return _unavailable_report(spec_path, cfg, reason)
+        return _unavailable_report(spec_path, cfg, reason, cuda_arch=cuda_arch)
 
     probe = json.loads(run.stdout)
     copy_time = float(probe["copy_time_s"])
@@ -75,6 +84,7 @@ def run_cuda_benchmark_report(
             "batch_size": cfg.batch_size,
             "seed": cfg.seed,
             "penalty_weight": cfg.penalty_weight,
+            "cuda_arch": cuda_arch,
         },
         "metrics": {
             "best_objective": None,
@@ -97,7 +107,13 @@ def run_cuda_benchmark_report(
     }
 
 
-def _unavailable_report(spec_path: str | Path, config: BenchmarkConfig, reason: str) -> dict[str, Any]:
+def _unavailable_report(
+    spec_path: str | Path,
+    config: BenchmarkConfig,
+    reason: str,
+    *,
+    cuda_arch: str | None = None,
+) -> dict[str, Any]:
     return {
         "schema": "apc.benchmark.v1",
         "problem": {
@@ -114,6 +130,7 @@ def _unavailable_report(spec_path: str | Path, config: BenchmarkConfig, reason: 
             "batch_size": config.batch_size,
             "seed": config.seed,
             "penalty_weight": config.penalty_weight,
+            "cuda_arch": cuda_arch,
         },
         "metrics": {
             "best_objective": None,

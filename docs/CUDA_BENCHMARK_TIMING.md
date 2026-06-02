@@ -8,6 +8,12 @@ Run:
 PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/latest_cuda.json
 ```
 
+For Ada GPUs, use:
+
+```bash
+PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/latest_cuda.json --cuda-arch sm_89
+```
+
 When `nvcc` or a CUDA device is unavailable, the report is still JSON and marks
 the CUDA backend as unavailable.
 

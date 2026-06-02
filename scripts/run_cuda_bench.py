@@ -27,6 +27,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--penalty-weight", type=float, default=10.0)
     parser.add_argument("--element-count", type=int, default=1024)
+    parser.add_argument("--cuda-arch", default=None, help="Optional nvcc arch, for example sm_89.")
     args = parser.parse_args(argv)
 
     config = BenchmarkConfig(
@@ -36,7 +37,12 @@ def main(argv: list[str] | None = None) -> int:
         seed=args.seed,
         penalty_weight=args.penalty_weight,
     )
-    report = run_cuda_benchmark_report(args.spec, config, element_count=args.element_count)
+    report = run_cuda_benchmark_report(
+        args.spec,
+        config,
+        element_count=args.element_count,
+        cuda_arch=args.cuda_arch,
+    )
     write_benchmark_report(report, args.out)
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0

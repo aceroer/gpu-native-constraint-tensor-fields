@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.22)
 project(apc_cuda_runtime LANGUAGES CXX)
 
 option(APC_ENABLE_CUDA "Build APC CUDA runtime kernels" OFF)
+set(APC_CUDA_ARCHITECTURES "" CACHE STRING "CUDA architectures, for example 75 or 89")
 
 add_library(apc_cuda_headers INTERFACE)
 target_include_directories(
@@ -41,3 +42,6 @@ set_target_properties(
     CUDA_STANDARD_REQUIRED ON
     POSITION_INDEPENDENT_CODE ON
 )
+if(APC_CUDA_ARCHITECTURES)
+  set_target_properties(apc_cuda_runtime PROPERTIES CUDA_ARCHITECTURES "${APC_CUDA_ARCHITECTURES}")
+endif()
