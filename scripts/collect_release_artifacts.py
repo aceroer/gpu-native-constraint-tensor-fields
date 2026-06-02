@@ -32,6 +32,7 @@ REQUIRED_DOCS = (
     "docs/RELEASE_ARCHIVE.md",
     "docs/CROSS_PROJECT_HANDOFF.md",
     "docs/CHECKED_HANDOFF_DEMO.md",
+    "docs/MAINTENANCE_RELEASES.md",
     "LICENSE",
     "NOTICE",
     "CITATION.cff",
@@ -52,6 +53,7 @@ REQUIRED_TESTS = (
     "tests/test_handoff_fixture_listing.py",
     "tests/test_release_artifact_reader.py",
     "tests/test_release_evidence_smoke.py",
+    "tests/test_maintenance_releases.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

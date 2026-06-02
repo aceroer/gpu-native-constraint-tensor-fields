@@ -297,13 +297,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 39:
+Continue with Phase 40:
 
 ```text
-docs/MAINTENANCE_RELEASES.md
-tests/test_maintenance_releases.py
-docs/RELEASE_ARTIFACTS.md
+src/apc/runtime_contract.py
+tests/test_runtime_contract.py
+docs/RUNTIME_CONTRACT.md
 ```
 
-This turns the one-command evidence route into a maintenance tag procedure
-before the project enters heavier runtime and CUDA work.
+This defines the public execution contract before the project enters heavier
+runtime and CUDA work.

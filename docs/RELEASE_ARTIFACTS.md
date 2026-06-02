@@ -66,6 +66,7 @@ vector-native demo benchmark schema
 handoff fixture listing schema and status
 release docs
 release tests
+maintenance release procedure
 checked handoff fixture examples
 current commit hash
 ```
@@ -100,6 +101,13 @@ For a tag candidate, keep:
 
 The release notes should reference this artifact contract when a public tag is
 prepared.
+
+Maintenance tags should also keep:
+
+```text
+docs/MAINTENANCE_RELEASES.md
+tests/test_maintenance_releases.py
+```
 
 ## Reader
 
@@ -147,3 +155,14 @@ notes
 
 The smoke report records output paths and step return codes. If any step fails,
 later evidence steps are skipped and the report status is `failed`.
+
+## Maintenance Tags
+
+Maintenance release procedures are recorded in:
+
+```text
+docs/MAINTENANCE_RELEASES.md
+```
+
+The procedure uses the smoke command as the compact evidence route for 0.1.x
+patch tags.

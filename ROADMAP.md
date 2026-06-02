@@ -1187,6 +1187,34 @@ Maintenance procedure names patch tag inputs and evidence outputs.
 Maintenance procedure keeps release notes factual and avoids compatibility claims.
 ```
 
+Completion record:
+
+```text
+docs/PHASE39_COMPLETION.md
+```
+
+## Phase 40: Runtime Execution Contract
+
+Define the public execution contract between CTIR, layout materialization,
+operators, state pools, branch routes, projections, and ledgers.
+
+Deliverables:
+
+```text
+src/apc/runtime_contract.py
+docs/RUNTIME_CONTRACT.md
+tests/test_runtime_contract.py
+```
+
+Acceptance checks:
+
+```text
+Runtime steps have named inputs, outputs, status, and timing fields.
+Runtime plans are JSON-ready.
+The CPU runtime can be described without changing algorithm behavior.
+The contract stays public and does not promise solver compatibility.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1220,4 +1248,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 39: 0.1.x maintenance tag procedure.
+The next concrete step is Phase 40: runtime execution contract.
