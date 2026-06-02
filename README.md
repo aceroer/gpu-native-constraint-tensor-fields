@@ -439,6 +439,25 @@ cmake --build /tmp/apc-cuda-build
 
 ## 7.7 路线图
 
+当前已有 CPU/GPU differential validation 测试：
+
+```text
+tests/cuda/test_linear_csr_eval.py
+tests/cuda/test_projection.py
+tests/cuda/test_penalty_reduce.py
+```
+
+无 `nvcc` 时这些测试会跳过；有 `nvcc` 时会编译临时 CUDA harness，
+并把 GPU operator 输出和 CPU 期望值逐项比较。
+
+验证：
+
+```bash
+PYTHONPATH=src:examples/binary_milp_repair python3 -m unittest discover -s tests -v
+```
+
+## 7.8 路线图
+
 后续库建设路线见：
 
 ```text

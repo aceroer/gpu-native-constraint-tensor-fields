@@ -291,6 +291,12 @@ Floating point comparisons use explicit tolerance.
 CUDA tests skip cleanly when CUDA is unavailable.
 ```
 
+Completion record:
+
+```text
+docs/PHASE6_COMPLETION.md
+```
+
 ## Phase 7: Device Layout Planner
 
 Introduce layout planning as a first-class step.
