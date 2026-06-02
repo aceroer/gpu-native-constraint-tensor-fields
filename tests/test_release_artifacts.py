@@ -69,7 +69,12 @@ class ReleaseArtifactTests(unittest.TestCase):
             "tests/test_problem_family_handoff_fixture.py",
             [item["path"] for item in file_report["tests"]],
         )
+        self.assertIn(
+            "tests/test_handoff_fixture_index.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
+        self.assertIn("examples/handoff/README.md", example_schemas)
         self.assertEqual(
             example_schemas["examples/handoff/vagent_apc_handoff_report.v1.json"],
             "vagent.apc_handoff_report.v1",

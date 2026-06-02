@@ -1056,6 +1056,32 @@ Index records source, checked, and demo schemas.
 Index keeps all fixtures framed as inspection evidence, not compatibility.
 ```
 
+Completion record:
+
+```text
+docs/PHASE34_COMPLETION.md
+```
+
+## Phase 35: Handoff Fixture Listing Helper
+
+Add a small CLI helper that lists available handoff fixture sets.
+
+Deliverables:
+
+```text
+scripts/list_handoff_fixtures.py
+docs/CHECKED_HANDOFF_DEMO.md
+tests/test_handoff_fixture_listing.py
+```
+
+Acceptance checks:
+
+```text
+Helper emits JSON with fixture names, file paths, schemas, and problem_family.
+Helper reads repository fixtures only and does not import paired projects.
+Helper frames fixture sets as inspection evidence, not compatibility.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -1068,4 +1094,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 34: handoff fixture index.
+The next concrete step is Phase 35: handoff fixture listing helper.

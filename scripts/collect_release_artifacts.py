@@ -47,8 +47,10 @@ REQUIRED_TESTS = (
     "tests/test_checked_handoff_demo.py",
     "tests/test_checked_handoff_fixtures.py",
     "tests/test_problem_family_handoff_fixture.py",
+    "tests/test_handoff_fixture_index.py",
 )
 REQUIRED_EXAMPLES = (
+    "examples/handoff/README.md",
     "examples/handoff/vagent_apc_handoff_report.v1.json",
     "examples/handoff/apc_handoff_check.v1.json",
     "examples/handoff/apc_checked_handoff_demo.v1.json",
@@ -208,6 +210,9 @@ def _file_status(path: Path, relpath: str) -> dict[str, Any]:
 
 def _json_file_status(path: Path, relpath: str) -> dict[str, Any]:
     status = _file_status(path, relpath)
+    if path.suffix != ".json":
+        status["schema"] = None
+        return status
     if not path.exists():
         status["schema"] = None
         return status
@@ -222,6 +227,7 @@ def _json_file_status(path: Path, relpath: str) -> dict[str, Any]:
 
 def _handoff_fixture_schemas_ok(examples: list[dict[str, Any]]) -> bool:
     expected = {
+        "examples/handoff/README.md": None,
         "examples/handoff/vagent_apc_handoff_report.v1.json": "vagent.apc_handoff_report.v1",
         "examples/handoff/apc_handoff_check.v1.json": "apc.cross_project_handoff_check.v1",
         "examples/handoff/apc_checked_handoff_demo.v1.json": "apc.checked_handoff_runtime_demo.v1",

@@ -4,6 +4,12 @@ This note describes the public Phase 30 route. It consumes the APC-side checked
 handoff report emitted by `scripts/check_vagent_handoff.py` and produces a small
 runtime inspection summary.
 
+For the compact fixture list, see:
+
+```text
+examples/handoff/README.md
+```
+
 ## Input
 
 ```text

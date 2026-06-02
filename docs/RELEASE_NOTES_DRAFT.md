@@ -25,6 +25,7 @@ GPU-side vAgentRT handoff consumer with JSON-only dependency boundary.
 Checked handoff runtime demo for StatePool and selected action inspection.
 Checked handoff fixture archive for repeatable demo evidence.
 Problem-family binary_milp handoff fixture with JSON-only inspection boundary.
+Handoff fixture index for available public fixture sets.
 ```
 
 ## Stable Commands
@@ -104,6 +105,7 @@ checked_handoff_fixture_demo: examples/handoff/apc_checked_handoff_demo.v1.json
 problem_family_handoff_fixture_input: examples/handoff/vagent_binary_milp_handoff_report.v1.json
 problem_family_handoff_fixture_check: examples/handoff/apc_binary_milp_handoff_check.v1.json
 problem_family_handoff_fixture_demo: examples/handoff/apc_binary_milp_checked_handoff_demo.v1.json
+handoff_fixture_index: examples/handoff/README.md
 status: cross-project handoff sketch without claiming drop-in compatibility
 ```
 
@@ -126,5 +128,5 @@ Broader CUDA coverage after CPU/CUDA differential tests are expanded.
 Release artifact archiving for future public releases.
 Release archive handoff for the first public tag.
 Cross-project handoff sketch toward the paired vector-native runtime route.
-Problem-family handoff fixture index for available public fixtures.
+Handoff fixture listing helper for available public fixture sets.
 ```
