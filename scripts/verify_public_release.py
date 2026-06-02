@@ -94,6 +94,11 @@ def _checks(*, full: bool) -> list[Check]:
             env=_env("src:."),
         ),
         Check(
+            "handoff_fixture_listing",
+            [py, "-m", "unittest", "tests.test_handoff_fixture_listing", "-v"],
+            env=_env("src:."),
+        ),
+        Check(
             "cpu_benchmark",
             [
                 py,

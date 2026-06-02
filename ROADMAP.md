@@ -1082,6 +1082,32 @@ Helper reads repository fixtures only and does not import paired projects.
 Helper frames fixture sets as inspection evidence, not compatibility.
 ```
 
+Completion record:
+
+```text
+docs/PHASE35_COMPLETION.md
+```
+
+## Phase 36: Fixture Listing Release Evidence
+
+Attach the handoff fixture listing helper to release evidence.
+
+Deliverables:
+
+```text
+scripts/collect_release_artifacts.py
+docs/RELEASE_ARTIFACTS.md
+tests/test_release_artifacts.py
+```
+
+Acceptance checks:
+
+```text
+Release artifacts include apc.handoff_fixture_index.v1 evidence.
+Collector checks the fixture index schema and status.
+Release notes keep fixture listing scoped to public inspection evidence.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -1094,4 +1120,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 35: handoff fixture listing helper.
+The next concrete step is Phase 36: fixture listing release evidence.

@@ -26,6 +26,7 @@ Checked handoff runtime demo for StatePool and selected action inspection.
 Checked handoff fixture archive for repeatable demo evidence.
 Problem-family binary_milp handoff fixture with JSON-only inspection boundary.
 Handoff fixture index for available public fixture sets.
+Handoff fixture listing helper emitting apc.handoff_fixture_index.v1.
 ```
 
 ## Stable Commands
@@ -37,6 +38,7 @@ PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json
 PYTHONPATH=src:examples/vector_state_repair python3 scripts/run_vector_demo_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-vector-demo-bench.json
 PYTHONPATH=src python3 scripts/check_vagent_handoff.py examples/handoff/vagent_apc_handoff_report.v1.json --out /tmp/apc-vagent-handoff-check.json
 PYTHONPATH=src python3 scripts/run_checked_handoff_demo.py /tmp/apc-vagent-handoff-check.json --out /tmp/apc-checked-handoff-demo.json
+PYTHONPATH=src python3 scripts/list_handoff_fixtures.py --out /tmp/apc-handoff-fixtures.json
 python3 scripts/verify_public_release.py --out /tmp/apc-release-verify.json
 python3 scripts/collect_release_artifacts.py --tag v0.1.0-alpha.N --out /tmp/apc-release-artifacts.json
 ```
@@ -106,6 +108,8 @@ problem_family_handoff_fixture_input: examples/handoff/vagent_binary_milp_handof
 problem_family_handoff_fixture_check: examples/handoff/apc_binary_milp_handoff_check.v1.json
 problem_family_handoff_fixture_demo: examples/handoff/apc_binary_milp_checked_handoff_demo.v1.json
 handoff_fixture_index: examples/handoff/README.md
+handoff_fixture_listing: scripts/list_handoff_fixtures.py
+handoff_fixture_listing_schema: apc.handoff_fixture_index.v1
 status: cross-project handoff sketch without claiming drop-in compatibility
 ```
 
@@ -128,5 +132,5 @@ Broader CUDA coverage after CPU/CUDA differential tests are expanded.
 Release artifact archiving for future public releases.
 Release archive handoff for the first public tag.
 Cross-project handoff sketch toward the paired vector-native runtime route.
-Handoff fixture listing helper for available public fixture sets.
+Fixture listing release evidence for apc.handoff_fixture_index.v1.
 ```

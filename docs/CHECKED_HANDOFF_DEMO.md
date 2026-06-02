@@ -10,6 +10,12 @@ For the compact fixture list, see:
 examples/handoff/README.md
 ```
 
+Or emit the fixture list as JSON:
+
+```bash
+PYTHONPATH=src python3 scripts/list_handoff_fixtures.py --out /tmp/apc-handoff-fixtures.json
+```
+
 ## Input
 
 ```text

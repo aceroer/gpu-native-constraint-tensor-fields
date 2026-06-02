@@ -73,6 +73,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             "tests/test_handoff_fixture_index.py",
             [item["path"] for item in file_report["tests"]],
         )
+        self.assertIn(
+            "tests/test_handoff_fixture_listing.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
         self.assertIn("examples/handoff/README.md", example_schemas)
         self.assertEqual(
