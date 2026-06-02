@@ -854,6 +854,27 @@ checks
 
 ## 7.26 路线图
 
+当前已有 first public tag preparation：
+
+```text
+docs/TAG_PREP.md
+tests/test_tag_prep.py
+docs/RELEASE_NOTES_DRAFT.md
+```
+
+tag prep 覆盖：
+
+```text
+candidate_tag
+verified_commit
+release verifier artifacts
+release artifact report
+benchmark artifacts
+limits and non-goals
+```
+
+## 7.27 路线图
+
 后续库建设路线见：
 
 ```text

@@ -1,0 +1,48 @@
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+TAG_PREP = ROOT / "docs" / "TAG_PREP.md"
+RELEASE_NOTES = ROOT / "docs" / "RELEASE_NOTES_DRAFT.md"
+ROADMAP = ROOT / "ROADMAP.md"
+
+
+class TagPrepTests(unittest.TestCase):
+    def test_tag_prep_references_verifier_and_artifact_collector(self):
+        text = TAG_PREP.read_text(encoding="utf-8")
+
+        self.assertIn("python3 scripts/verify_public_release.py --full", text)
+        self.assertIn("python3 scripts/collect_release_artifacts.py", text)
+        self.assertIn("/tmp/apc-release-verify-full.json", text)
+        self.assertIn("/tmp/apc-release-artifacts.json", text)
+        self.assertIn("apc.release_artifacts.v1", text)
+
+    def test_release_notes_name_candidate_tag_and_commit_fields(self):
+        text = RELEASE_NOTES.read_text(encoding="utf-8")
+
+        self.assertIn("candidate_tag: v0.1.0-alpha.0", text)
+        self.assertIn("verified_commit:", text)
+        self.assertIn("release_artifact_report:", text)
+        self.assertIn("cpu_benchmark_artifact:", text)
+        self.assertIn("vector_demo_benchmark_artifact:", text)
+
+    def test_tag_prep_keeps_limits_and_non_goals_visible(self):
+        text = TAG_PREP.read_text(encoding="utf-8")
+
+        self.assertIn("No full MIP optimality proof", text)
+        self.assertIn("No drop-in replacement for existing solvers", text)
+        self.assertIn("No broad performance claim without CUDA timing evidence", text)
+        self.assertIn("Full solver compatibility", text)
+        self.assertIn("Stable external adapter compatibility", text)
+
+    def test_roadmap_advances_after_phase_25(self):
+        text = ROADMAP.read_text(encoding="utf-8")
+
+        self.assertIn("docs/PHASE25_COMPLETION.md", text)
+        self.assertIn("Phase 26", text)
+        self.assertIn("The next concrete step is Phase 26", text)
+
+
+if __name__ == "__main__":
+    unittest.main()

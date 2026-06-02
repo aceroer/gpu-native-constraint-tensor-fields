@@ -26,6 +26,7 @@ REQUIRED_DOCS = (
     "docs/RELEASE_CHECKLIST.md",
     "docs/RELEASE_NOTES_DRAFT.md",
     "docs/RELEASE_ARTIFACTS.md",
+    "docs/TAG_PREP.md",
     "LICENSE",
     "NOTICE",
     "CITATION.cff",
@@ -35,6 +36,7 @@ REQUIRED_TESTS = (
     "tests/test_release_verifier.py",
     "tests/test_release_checklist.py",
     "tests/test_release_artifacts.py",
+    "tests/test_tag_prep.py",
 )
 
 

@@ -815,6 +815,32 @@ Release notes name the candidate tag and commit hash fields.
 Tag prep keeps limits and non-goals visible.
 ```
 
+Completion record:
+
+```text
+docs/PHASE25_COMPLETION.md
+```
+
+## Phase 26: First Public Tag Execution
+
+Create the first public tag after Phase 25 evidence is clean.
+
+Deliverables:
+
+```text
+docs/TAG_EXECUTION.md
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_tag_execution.py
+```
+
+Acceptance checks:
+
+```text
+Tag execution verifies the tag points to the collected commit hash.
+Release notes record the final tag and evidence artifact paths.
+Tag execution preserves the public language boundary.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -827,4 +853,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 25: first public tag preparation.
+The next concrete step is Phase 26: first public tag execution.

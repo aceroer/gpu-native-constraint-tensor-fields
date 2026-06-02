@@ -53,6 +53,8 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("verifier", file_report["artifacts"])
         self.assertIn("cpu_benchmark", file_report["artifacts"])
         self.assertIn("vector_demo_benchmark", file_report["artifacts"])
+        self.assertIn("docs/TAG_PREP.md", [item["path"] for item in file_report["docs"]])
+        self.assertIn("tests/test_tag_prep.py", [item["path"] for item in file_report["tests"]])
 
     def test_collector_marks_missing_artifact_failed(self):
         with tempfile.TemporaryDirectory() as tmpdir:
