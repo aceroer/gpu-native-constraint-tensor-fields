@@ -711,6 +711,32 @@ Release notes summarize public phases without internal-only terminology.
 Public docs pass terminology boundary checks.
 ```
 
+Completion record:
+
+```text
+docs/PHASE21_COMPLETION.md
+```
+
+## Phase 22: Release Verification Script
+
+Collect the public verification commands into one script.
+
+Deliverables:
+
+```text
+scripts/verify_public_release.py
+docs/VERIFY_RELEASE.md
+tests/test_release_verifier.py
+```
+
+Acceptance checks:
+
+```text
+Verifier runs tests, compileall, quickstart smoke commands, and boundary scan.
+Verifier emits a JSON-ready result summary.
+Verifier exits nonzero on failed command.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -723,4 +749,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 21: public handoff checklist.
+The next concrete step is Phase 22: release verification script.

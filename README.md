@@ -754,6 +754,27 @@ CUDA unavailable report
 
 ## 7.22 路线图
 
+当前已有 public handoff checklist：
+
+```text
+docs/PUBLIC_HANDOFF.md
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_public_docs.py
+```
+
+handoff 文档说明：
+
+```text
+stable first-run path
+stable entry points
+extension areas
+testing expectations
+benchmark expectations
+public language boundary
+```
+
+## 7.23 路线图
+
 后续库建设路线见：
 
 ```text
