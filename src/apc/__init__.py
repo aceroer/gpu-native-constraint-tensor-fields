@@ -2,6 +2,14 @@
 
 from .adapters import AdapterResult, adapter_result_to_dict, lower_native_binary_milp_dict
 from .benchmark import BenchmarkConfig, run_benchmark, write_benchmark_report
+from .branch_tensor import (
+    BranchRoute,
+    BranchTensor,
+    branch_tensor_from_state_pool,
+    branch_tensor_summary,
+    canonical_branch_keys,
+    mask_branch_tensor,
+)
 from .cuda_benchmark import run_cuda_benchmark_report
 from .ctir import (
     CTIRProblem,
@@ -56,6 +64,8 @@ __all__ = [
     "ActiveViolationCompact",
     "AdapterResult",
     "BinaryDomainSpec",
+    "BranchRoute",
+    "BranchTensor",
     "BenchmarkConfig",
     "CTIRProblem",
     "LedgerSpec",
@@ -82,6 +92,9 @@ __all__ = [
     "VarDomain",
     "ViolationBatch",
     "adapter_result_to_dict",
+    "branch_tensor_from_state_pool",
+    "branch_tensor_summary",
+    "canonical_branch_keys",
     "ctir_json",
     "ctir_to_dict",
     "default_operator_registry",
@@ -95,6 +108,7 @@ __all__ = [
     "lower_native_binary_milp_dict",
     "lower_problem_to_ctir",
     "lower_maxsat_to_ctir",
+    "mask_branch_tensor",
     "mask_state_pool",
     "materialize_active_violations",
     "materialize_linear_csc",

@@ -612,6 +612,25 @@ metadata
 
 ## 7.16 路线图
 
+当前已有 branch tensor / move routes：
+
+```text
+src/apc/branch_tensor.py
+docs/BRANCH_TENSOR.md
+tests/test_branch_tensor.py
+```
+
+它把 repair move 提升成固定形状的 route tensor：
+
+```text
+StatePool
+-> BranchTensor
+-> canonical branch keys
+-> alive route mask
+```
+
+## 7.17 路线图
+
 后续库建设路线见：
 
 ```text
@@ -626,6 +645,7 @@ problem spec
 -> device layout planning
 -> operator registry
 -> state pool
+-> branch tensor
 -> repair runtime
 -> validation ledger
 -> benchmark harness

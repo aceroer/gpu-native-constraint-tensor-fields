@@ -555,6 +555,32 @@ Equivalent branches can be canonicalized.
 Low-priority branches can be masked without changing tensor shape.
 ```
 
+Completion record:
+
+```text
+docs/PHASE15_COMPLETION.md
+```
+
+## Phase 16: Reduction Gate
+
+Select external actions from branch tensors deterministically.
+
+Deliverables:
+
+```text
+src/apc/reduction_gate.py
+docs/REDUCTION_GATE.md
+tests/test_reduction_gate.py
+```
+
+Acceptance checks:
+
+```text
+Top-k filtering is reproducible.
+Diversity penalty can be recorded.
+Selected actions can be summarized for the ledger.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -567,4 +593,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 15: branch tensor / move routes.
+The next concrete step is Phase 16: deterministic reduction gate.
