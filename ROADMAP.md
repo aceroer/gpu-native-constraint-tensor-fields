@@ -949,6 +949,33 @@ Demo reports StatePool and selected action summaries.
 Demo avoids claiming drop-in runtime compatibility.
 ```
 
+Completion record:
+
+```text
+docs/PHASE30_COMPLETION.md
+```
+
+## Phase 31: Checked Handoff Fixture Archive
+
+Archive a small checked handoff demo input/output pair for repeatable public
+release evidence.
+
+Deliverables:
+
+```text
+examples/handoff/
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_checked_handoff_fixtures.py
+```
+
+Acceptance checks:
+
+```text
+Fixture input uses apc.cross_project_handoff_check.v1.
+Fixture output uses apc.checked_handoff_runtime_demo.v1.
+Fixture route remains an inspection demo and avoids claiming runtime compatibility.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -961,4 +988,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 30: checked handoff runtime route.
+The next concrete step is Phase 31: checked handoff fixture archive.

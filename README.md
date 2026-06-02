@@ -942,6 +942,32 @@ next adapter sketch route
 
 ## 7.30 路线图
 
+当前已有 checked handoff runtime demo：
+
+```text
+scripts/run_checked_handoff_demo.py
+docs/CHECKED_HANDOFF_DEMO.md
+tests/test_checked_handoff_demo.py
+```
+
+demo 输入：
+
+```text
+apc.cross_project_handoff_check.v1
+```
+
+demo 输出：
+
+```text
+apc.checked_handoff_runtime_demo.v1
+```
+
+示例命令：
+
+```bash
+PYTHONPATH=src python3 scripts/run_checked_handoff_demo.py /tmp/apc-vagent-handoff-check.json --out /tmp/apc-checked-handoff-demo.json
+```
+
 后续库建设路线见：
 
 ```text

@@ -57,10 +57,12 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("docs/TAG_EXECUTION.md", [item["path"] for item in file_report["docs"]])
         self.assertIn("docs/RELEASE_ARCHIVE.md", [item["path"] for item in file_report["docs"]])
         self.assertIn("docs/CROSS_PROJECT_HANDOFF.md", [item["path"] for item in file_report["docs"]])
+        self.assertIn("docs/CHECKED_HANDOFF_DEMO.md", [item["path"] for item in file_report["docs"]])
         self.assertIn("tests/test_tag_prep.py", [item["path"] for item in file_report["tests"]])
         self.assertIn("tests/test_tag_execution.py", [item["path"] for item in file_report["tests"]])
         self.assertIn("tests/test_release_archive.py", [item["path"] for item in file_report["tests"]])
         self.assertIn("tests/test_cross_project_handoff.py", [item["path"] for item in file_report["tests"]])
+        self.assertIn("tests/test_checked_handoff_demo.py", [item["path"] for item in file_report["tests"]])
 
     def test_collector_marks_missing_artifact_failed(self):
         with tempfile.TemporaryDirectory() as tmpdir:

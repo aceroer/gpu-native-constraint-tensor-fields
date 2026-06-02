@@ -22,6 +22,7 @@ Public quickstart and handoff docs.
 Release verifier and release checklist for tag readiness.
 Release artifact contract for repeatable tag evidence.
 GPU-side vAgentRT handoff consumer with JSON-only dependency boundary.
+Checked handoff runtime demo for StatePool and selected action inspection.
 ```
 
 ## Stable Commands
@@ -32,6 +33,7 @@ PYTHONPATH=src python3 -m apc.cli run examples/specs/binary_milp_tiny.json --max
 PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-bench.json --max-iters 2
 PYTHONPATH=src:examples/vector_state_repair python3 scripts/run_vector_demo_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-vector-demo-bench.json
 PYTHONPATH=src python3 scripts/check_vagent_handoff.py /tmp/vagent-apc-handoff.json --out /tmp/apc-vagent-handoff-check.json
+PYTHONPATH=src python3 scripts/run_checked_handoff_demo.py /tmp/apc-vagent-handoff-check.json --out /tmp/apc-checked-handoff-demo.json
 python3 scripts/verify_public_release.py --out /tmp/apc-release-verify.json
 python3 scripts/collect_release_artifacts.py --tag v0.1.0-alpha.N --out /tmp/apc-release-artifacts.json
 ```
@@ -92,6 +94,8 @@ gpu_windows_sm89_cuda_benchmark: RTX 4070 Laptop GPU benchmark backend available
 handoff_doc: docs/CROSS_PROJECT_HANDOFF.md
 handoff_consumer: scripts/check_vagent_handoff.py
 handoff_check_schema: apc.cross_project_handoff_check.v1
+checked_handoff_demo: scripts/run_checked_handoff_demo.py
+checked_handoff_demo_schema: apc.checked_handoff_runtime_demo.v1
 status: cross-project handoff sketch without claiming drop-in compatibility
 ```
 
@@ -115,4 +119,5 @@ Release artifact archiving for future public releases.
 Release archive handoff for the first public tag.
 Cross-project handoff sketch toward the paired vector-native runtime route.
 GPU-side StatePool inspection or benchmark route for checked vAgentRT handoff summaries.
+Checked handoff fixture archive for repeatable demo evidence.
 ```
