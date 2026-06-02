@@ -301,13 +301,12 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 54:
+Continue with Phase 55:
 
 ```text
-examples/specs/
-examples/handoff/
-docs/PROBLEM_FAMILIES.md
-tests/test_problem_family_fixture_set.py
+docs/RELEASE_CHECKLIST_0_2.md
+docs/RELEASE_NOTES_0_2_DRAFT.md
+tests/test_release_checklist_0_2.py
 ```
 
-This collects problem-family fixtures into one public fixture set.
+This starts the public 0.2 release closure track.

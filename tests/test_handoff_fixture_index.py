@@ -38,6 +38,7 @@ class HandoffFixtureIndexTests(unittest.TestCase):
     def test_index_records_schema_names(self) -> None:
         text = INDEX.read_text(encoding="utf-8")
 
+        self.assertIn("apc.problem_family_fixture_index.v1", text)
         self.assertIn("vagent.apc_handoff_report.v1", text)
         self.assertIn("apc.cross_project_handoff_check.v1", text)
         self.assertIn("apc.checked_handoff_runtime_demo.v1", text)
@@ -45,10 +46,13 @@ class HandoffFixtureIndexTests(unittest.TestCase):
     def test_index_problem_families_match_json(self) -> None:
         text = INDEX.read_text(encoding="utf-8")
 
+        self.assertIn("problem_families: binary_milp, maxsat, qubo", text)
         self.assertIn("problem_family: none", text)
         self.assertIn("problem_family: binary_milp", text)
+        family_index = _load(FIXTURE_DIR / "problem_family_fixtures.v1.json")
         source = _load(FIXTURE_DIR / "vagent_binary_milp_handoff_report.v1.json")
         demo = _load(FIXTURE_DIR / "apc_binary_milp_checked_handoff_demo.v1.json")
+        self.assertEqual(family_index["schema"], "apc.problem_family_fixture_index.v1")
         self.assertEqual(source["problem_family"], "binary_milp")
         self.assertEqual(demo["tasks"][0]["problem_family"], "binary_milp")
 

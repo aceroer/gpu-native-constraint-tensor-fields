@@ -129,9 +129,53 @@ status: failed
 reason
 ```
 
+## Fixture Set
+
+The public fixture index is:
+
+```text
+examples/handoff/problem_family_fixtures.v1.json
+```
+
+It emits:
+
+```text
+apc.problem_family_fixture_index.v1
+```
+
+The index lists:
+
+```text
+binary_milp
+maxsat
+qubo
+```
+
+Each fixture records:
+
+```text
+name
+family
+spec
+spec_schema
+route_status
+execution_status
+command
+checked_report
+```
+
+Reproduce the index with:
+
+```bash
+PYTHONPATH=src python3 scripts/list_problem_family_fixtures.py --out /tmp/apc-problem-family-fixtures.json
+```
+
+Implemented routes include compact checked reports. Planned execution routes
+remain marked as `planned`.
+
 ## Boundary
 
 The CPU reference path remains the behavioral baseline for implemented runtime
 routes. MaxSAT is a small public runtime route. QUBO is currently a spec and
-lowering route only. Neither route claims full solver coverage, optimality
-proof, or external solver compatibility.
+lowering route only. The fixture set does not claim full solver coverage,
+optimality proof, external solver compatibility, or accelerator comparison.

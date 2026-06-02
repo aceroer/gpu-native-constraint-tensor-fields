@@ -47,6 +47,7 @@ REQUIRED_DOCS = (
     "scripts/probe_native_host.py",
     "scripts/run_benchmark_sweep.py",
     "scripts/inspect_benchmark_sweep.py",
+    "scripts/list_problem_family_fixtures.py",
     "LICENSE",
     "NOTICE",
     "CITATION.cff",
@@ -82,9 +83,11 @@ REQUIRED_TESTS = (
     "tests/test_benchmark_sweep_report.py",
     "tests/test_maxsat_runtime_route.py",
     "tests/test_qubo_spec_lowering.py",
+    "tests/test_problem_family_fixture_set.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",
+    "examples/handoff/problem_family_fixtures.v1.json",
     "examples/handoff/vagent_apc_handoff_report.v1.json",
     "examples/handoff/apc_handoff_check.v1.json",
     "examples/handoff/apc_checked_handoff_demo.v1.json",
@@ -285,6 +288,7 @@ def _json_file_status(path: Path, relpath: str) -> dict[str, Any]:
 def _handoff_fixture_schemas_ok(examples: list[dict[str, Any]]) -> bool:
     expected = {
         "examples/handoff/README.md": None,
+        "examples/handoff/problem_family_fixtures.v1.json": "apc.problem_family_fixture_index.v1",
         "examples/handoff/vagent_apc_handoff_report.v1.json": "vagent.apc_handoff_report.v1",
         "examples/handoff/apc_handoff_check.v1.json": "apc.cross_project_handoff_check.v1",
         "examples/handoff/apc_checked_handoff_demo.v1.json": "apc.checked_handoff_runtime_demo.v1",

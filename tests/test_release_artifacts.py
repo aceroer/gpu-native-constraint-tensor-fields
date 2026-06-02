@@ -153,8 +153,16 @@ class ReleaseArtifactTests(unittest.TestCase):
             "tests/test_qubo_spec_lowering.py",
             [item["path"] for item in file_report["tests"]],
         )
+        self.assertIn(
+            "tests/test_problem_family_fixture_set.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
         self.assertIn("examples/handoff/README.md", example_schemas)
+        self.assertEqual(
+            example_schemas["examples/handoff/problem_family_fixtures.v1.json"],
+            "apc.problem_family_fixture_index.v1",
+        )
         self.assertEqual(
             example_schemas["examples/handoff/vagent_apc_handoff_report.v1.json"],
             "vagent.apc_handoff_report.v1",
@@ -274,6 +282,9 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("src/apc/readings/qubo.py", text)
         self.assertIn("examples/specs/qubo_tiny.json", text)
         self.assertIn("tests/test_qubo_spec_lowering.py", text)
+        self.assertIn("scripts/list_problem_family_fixtures.py", text)
+        self.assertIn("examples/handoff/problem_family_fixtures.v1.json", text)
+        self.assertIn("tests/test_problem_family_fixture_set.py", text)
         self.assertIn("release artifact contract", notes)
 
 

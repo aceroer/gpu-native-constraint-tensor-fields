@@ -1601,6 +1601,33 @@ Planned execution routes remain marked as planned.
 Fixture docs avoid solver compatibility or performance claims.
 ```
 
+Completion record:
+
+```text
+docs/PHASE54_COMPLETION.md
+```
+
+## Phase 55: 0.2 Release Checklist
+
+Add the public checklist for the 0.2 Native Runtime Buildout release.
+
+Deliverables:
+
+```text
+docs/RELEASE_CHECKLIST_0_2.md
+docs/RELEASE_NOTES_0_2_DRAFT.md
+tests/test_release_checklist_0_2.py
+```
+
+Acceptance checks:
+
+```text
+Checklist names the required verifier, artifact collector, and smoke commands.
+Checklist includes runtime contract, native host, CUDA parity, benchmark sweep, and problem-family fixture gates.
+Release notes state limits and non-goals clearly.
+Checklist avoids solver compatibility or performance claims without evidence.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1634,4 +1661,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 54: problem-family fixture set.
+The next concrete step is Phase 55: 0.2 release checklist.

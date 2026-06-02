@@ -47,6 +47,7 @@ native/src/cpu_operator_shim.cpp
 docs/CUDA_OPERATOR_PARITY.md
 docs/BENCHMARK_SWEEPS.md
 docs/PROBLEM_FAMILIES.md
+examples/handoff/problem_family_fixtures.v1.json
 ```
 
 Runnable commands:
@@ -61,6 +62,7 @@ python3 scripts/run_vector_demo_bench.py
 python3 scripts/probe_native_host.py
 python3 scripts/run_benchmark_sweep.py benchmarks/sweeps/binary_milp_smoke.json --out /tmp/apc-benchmark-sweep.json
 python3 scripts/inspect_benchmark_sweep.py /tmp/apc-benchmark-sweep.json --out /tmp/apc-benchmark-sweep-summary.json
+PYTHONPATH=src python3 scripts/list_problem_family_fixtures.py --out /tmp/apc-problem-family-fixtures.json
 ```
 
 ## Extension Areas
@@ -83,6 +85,7 @@ Add a benchmark sweep runner check with a test.
 Add a benchmark sweep reader check with a test.
 Add a problem-family runtime route with a test.
 Add a problem-family lowering route with a test.
+Add a problem-family fixture record with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```

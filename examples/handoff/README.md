@@ -15,6 +15,20 @@ demo report: apc.checked_handoff_runtime_demo.v1
 
 ## Fixtures
 
+### Problem-Family Fixture Index
+
+```text
+index: problem_family_fixtures.v1.json
+schema: apc.problem_family_fixture_index.v1
+problem_families: binary_milp, maxsat, qubo
+```
+
+Reproduce:
+
+```bash
+PYTHONPATH=src python3 scripts/list_problem_family_fixtures.py --out /tmp/apc-problem-family-fixtures.json
+```
+
 ### Generic Task-Pack Fixture
 
 ```text

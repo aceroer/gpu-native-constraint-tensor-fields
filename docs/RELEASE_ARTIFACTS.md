@@ -140,6 +140,9 @@ tests/test_maxsat_runtime_route.py
 src/apc/readings/qubo.py
 examples/specs/qubo_tiny.json
 tests/test_qubo_spec_lowering.py
+scripts/list_problem_family_fixtures.py
+examples/handoff/problem_family_fixtures.v1.json
+tests/test_problem_family_fixture_set.py
 ```
 
 ## Reader

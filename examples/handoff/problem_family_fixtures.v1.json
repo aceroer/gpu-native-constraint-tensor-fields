@@ -1,0 +1,62 @@
+{
+  "fixture_count": 3,
+  "fixtures": [
+    {
+      "checked_report": {
+        "available": true,
+        "backend": "cpu",
+        "problem_family": "binary_milp",
+        "schema": "apc.benchmark.v1",
+        "status": "implemented"
+      },
+      "command": "PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-binary-milp-bench.json",
+      "execution_status": "implemented",
+      "exists": true,
+      "family": "binary_milp",
+      "name": "binary_milp_tiny",
+      "route_status": "implemented",
+      "spec": "examples/specs/binary_milp_tiny.json",
+      "spec_schema": "apc.native_binary_milp_spec.v1"
+    },
+    {
+      "checked_report": {
+        "backend": "cpu",
+        "problem_family": "maxsat",
+        "schema": "apc.maxsat_runtime_route.v1",
+        "status": "implemented"
+      },
+      "command": "PYTHONPATH=src python3 -c \"from apc import run_maxsat_runtime_route_from_json; print(run_maxsat_runtime_route_from_json('examples/specs/maxsat_tiny.json'))\"",
+      "execution_status": "implemented",
+      "exists": true,
+      "family": "maxsat",
+      "name": "maxsat_tiny",
+      "route_status": "implemented",
+      "spec": "examples/specs/maxsat_tiny.json",
+      "spec_schema": "apc.weighted_maxsat_spec.v1"
+    },
+    {
+      "checked_report": {
+        "execution_status": "planned",
+        "problem_family": "qubo",
+        "schema": "apc.qubo_lowering.v1",
+        "status": "implemented"
+      },
+      "command": "PYTHONPATH=src python3 -c \"from apc import describe_qubo_lowering_from_json; print(describe_qubo_lowering_from_json('examples/specs/qubo_tiny.json'))\"",
+      "execution_status": "planned",
+      "exists": true,
+      "family": "qubo",
+      "name": "qubo_tiny",
+      "route_status": "implemented",
+      "spec": "examples/specs/qubo_tiny.json",
+      "spec_schema": "apc.qubo_spec.v1"
+    }
+  ],
+  "notes": [
+    "Problem-family fixtures are public repository inspection evidence.",
+    "Fixture records do not claim external solver compatibility.",
+    "Planned execution routes remain marked as planned.",
+    "No accelerator comparison claim is made by this index."
+  ],
+  "schema": "apc.problem_family_fixture_index.v1",
+  "status": "ok"
+}
