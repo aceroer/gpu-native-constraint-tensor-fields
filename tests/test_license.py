@@ -11,7 +11,7 @@ class LicenseTests(unittest.TestCase):
 
         self.assertIn("MIT License", text)
         self.assertIn("Permission is hereby granted, free of charge", text)
-        self.assertIn("APC contributors", text)
+        self.assertIn("aceroer", text)
 
     def test_pyproject_license_matches_file(self):
         text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
