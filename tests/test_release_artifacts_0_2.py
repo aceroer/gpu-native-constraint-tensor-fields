@@ -35,13 +35,13 @@ class ReleaseArtifacts02Tests(unittest.TestCase):
         ):
             self.assertIn(path, text)
 
-    def test_archive_draft_records_candidate_tag_and_commit_field(self):
+    def test_archive_records_final_tag_and_commit_field(self):
         text = ARCHIVE.read_text(encoding="utf-8")
 
-        self.assertIn("candidate_tag: v0.2.0-alpha.N", text)
-        self.assertIn("candidate_commit: fill from /tmp/apc-release-artifacts-0-2.json commit", text)
-        self.assertIn("tag_kind: pending", text)
-        self.assertIn("This document is the durable handoff draft", text)
+        self.assertIn("tag: v0.2.0-alpha.0", text)
+        self.assertIn("tag_commit: 795e051f92c87b19f7827410f223dea6a7450fcc", text)
+        self.assertIn("tag_kind: annotated", text)
+        self.assertIn("This document is the durable handoff archive", text)
 
     def test_archive_draft_names_required_evidence_schemas(self):
         text = ARCHIVE.read_text(encoding="utf-8")
@@ -57,14 +57,15 @@ class ReleaseArtifacts02Tests(unittest.TestCase):
         ):
             self.assertIn(schema, text)
 
-    def test_archive_draft_avoids_final_tag_claim(self):
+    def test_archive_records_verified_tag_without_unchecked_claims(self):
         text = ARCHIVE.read_text(encoding="utf-8").lower()
 
-        self.assertIn("not a final tag archive", text)
-        self.assertIn("pending", text)
-        self.assertNotIn("tag_commit:", text)
+        self.assertIn("tag verification", text)
+        self.assertIn("remote peeled tag commit", text)
+        self.assertIn("tag_commit:", text)
         self.assertNotIn("archived_tag:", text)
-        self.assertNotIn("published tag", text)
+        self.assertNotIn("candidate_tag:", text)
+        self.assertNotIn("pending", text)
 
     def test_0_2_docs_keep_limits_visible(self):
         text = "\n".join(path.read_text(encoding="utf-8") for path in (ARCHIVE, CHECKLIST, NOTES)).lower()

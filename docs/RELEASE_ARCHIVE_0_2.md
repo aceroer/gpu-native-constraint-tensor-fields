@@ -1,15 +1,16 @@
-# 0.2 Release Archive Draft
+# 0.2 Release Archive
 
-This document is the durable handoff draft for a future public `0.2` tag.
+This document is the durable handoff archive for the public `0.2` tag.
 
-It is not a final tag archive until the candidate tag is created and verified.
+The tag has been created, pushed, and verified against the release artifact
+commit.
 
-## Candidate Tag
+## Tag
 
 ```text
-candidate_tag: v0.2.0-alpha.N
-candidate_commit: fill from /tmp/apc-release-artifacts-0-2.json commit
-tag_kind: pending
+tag: v0.2.0-alpha.0
+tag_commit: 795e051f92c87b19f7827410f223dea6a7450fcc
+tag_kind: annotated
 release_artifact_schema: apc.release_artifacts.v1
 release_artifact_summary_schema: apc.release_artifacts_summary.v1
 release_verifier_schema: apc.public_release_verification.v1
@@ -39,9 +40,9 @@ From the repository root:
 python3 scripts/verify_public_release.py --full --out /tmp/apc-release-verify-full.json
 python3 scripts/verify_public_release.py --out /tmp/apc-release-verify.json
 PYTHONPATH=src python3 scripts/list_handoff_fixtures.py --out /tmp/apc-handoff-fixtures.json
-python3 scripts/collect_release_artifacts.py --tag v0.2.0-alpha.N --out /tmp/apc-release-artifacts-0-2.json
+python3 scripts/collect_release_artifacts.py --tag v0.2.0-alpha.0 --out /tmp/apc-release-artifacts-0-2.json
 python3 scripts/inspect_release_artifacts.py /tmp/apc-release-artifacts-0-2.json --out /tmp/apc-release-artifacts-summary-0-2.json
-python3 scripts/smoke_release_evidence.py --tag v0.2.0-alpha.N --out /tmp/apc-release-evidence-smoke-0-2.json
+python3 scripts/smoke_release_evidence.py --tag v0.2.0-alpha.0 --out /tmp/apc-release-evidence-smoke-0-2.json
 PYTHONPATH=src python3 scripts/run_benchmark_sweep.py benchmarks/sweeps/binary_milp_smoke.json --out /tmp/apc-benchmark-sweep.json
 PYTHONPATH=src python3 scripts/inspect_benchmark_sweep.py /tmp/apc-benchmark-sweep.json --out /tmp/apc-benchmark-sweep-summary.json
 PYTHONPATH=src python3 scripts/list_problem_family_fixtures.py --out /tmp/apc-problem-family-fixtures.json
@@ -74,28 +75,22 @@ problem-family fixture index status: ok
 public terminology boundary scan: empty
 ```
 
-## Finalization Procedure
+## Tag Verification
 
-This draft becomes a final archive only after:
-
-```text
-git rev-parse v0.2.0-alpha.N^{commit}
-git rev-parse HEAD
-git ls-remote --tags origin 'v0.2.0-alpha.N*'
-```
-
-The tag commit, `HEAD`, remote peeled tag commit, and artifact report commit
-must match.
-
-After verification, replace:
+Verified commands:
 
 ```text
-candidate_tag -> tag
-candidate_commit -> tag_commit
-tag_kind: pending -> tag_kind: annotated
+git rev-parse v0.2.0-alpha.0^{commit}
+git rev-parse 795e051f92c87b19f7827410f223dea6a7450fcc
+git ls-remote --tags origin 'v0.2.0-alpha.0*'
 ```
 
-Until then, this file remains a candidate archive draft.
+The local tag commit, remote peeled tag commit, and artifact report commit all
+match:
+
+```text
+795e051f92c87b19f7827410f223dea6a7450fcc
+```
 
 ## Included 0.2 Gates
 
@@ -115,5 +110,4 @@ No full MIP, MaxSAT, or QUBO optimality proof.
 No drop-in replacement for existing solvers.
 QUBO execution remains planned.
 No accelerator comparison claim is made without complete timing evidence.
-This archive draft is not a final tag record until the public tag exists.
 ```

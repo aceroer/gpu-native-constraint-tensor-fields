@@ -38,12 +38,12 @@ class TagExecution02Tests(unittest.TestCase):
     def test_archive_finalization_rules_are_explicit(self):
         text = ARCHIVE.read_text(encoding="utf-8")
 
-        self.assertIn("Finalization Procedure", text)
-        self.assertIn("git rev-parse v0.2.0-alpha.N^{commit}", text)
-        self.assertIn("git ls-remote --tags origin 'v0.2.0-alpha.N*'", text)
-        self.assertIn("candidate_tag -> tag", text)
-        self.assertIn("candidate_commit -> tag_commit", text)
-        self.assertIn("tag_kind: pending -> tag_kind: annotated", text)
+        self.assertIn("Tag Verification", text)
+        self.assertIn("git rev-parse v0.2.0-alpha.0^{commit}", text)
+        self.assertIn("git ls-remote --tags origin 'v0.2.0-alpha.0*'", text)
+        self.assertIn("tag: v0.2.0-alpha.0", text)
+        self.assertIn("tag_commit: 795e051f92c87b19f7827410f223dea6a7450fcc", text)
+        self.assertIn("tag_kind: annotated", text)
 
     def test_tag_execution_keeps_limits_visible(self):
         text = TAG_EXECUTION.read_text(encoding="utf-8").lower()
