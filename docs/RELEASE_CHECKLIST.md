@@ -58,6 +58,7 @@ docs/RELEASE_ARTIFACTS.md
 docs/TAG_PREP.md
 docs/TAG_EXECUTION.md
 docs/RELEASE_ARCHIVE.md
+docs/CROSS_PROJECT_HANDOFF.md
 LICENSE
 NOTICE
 CITATION.cff
@@ -79,6 +80,7 @@ Release artifact doc names verifier, benchmark, tests, docs, and commit evidence
 Tag prep names the candidate tag, verified commit field, and stop conditions.
 Tag execution names final tag, tag target field, and evidence artifacts.
 Release archive names the tag, verifier, artifact report, and benchmark evidence.
+Cross-project handoff names public tags, stable entry points, and non-compatibility scope.
 No private-only terminology appears in public docs.
 ```
 

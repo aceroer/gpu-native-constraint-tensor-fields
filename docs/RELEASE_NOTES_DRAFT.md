@@ -77,6 +77,17 @@ release_artifact_report: /tmp/apc-release-artifacts.json
 release_verifier_full_artifact: /tmp/apc-release-verify-full.json
 ```
 
+## Cross-Project Handoff
+
+```text
+gpu_tag: v0.1.0-alpha.0
+gpu_release_artifact_schema: apc.release_artifacts.v1
+paired_project: vAgentRT
+paired_tag: v0.1.0
+handoff_doc: docs/CROSS_PROJECT_HANDOFF.md
+status: cross-project handoff sketch without claiming drop-in compatibility
+```
+
 ## Current Limits
 
 ```text
@@ -95,4 +106,5 @@ More CUDA operator coverage.
 Broader CUDA coverage after CPU/CUDA differential tests are expanded.
 Release artifact archiving for future public releases.
 Release archive handoff for the first public tag.
+Cross-project handoff sketch toward the paired vector-native runtime route.
 ```

@@ -29,6 +29,7 @@ REQUIRED_DOCS = (
     "docs/TAG_PREP.md",
     "docs/TAG_EXECUTION.md",
     "docs/RELEASE_ARCHIVE.md",
+    "docs/CROSS_PROJECT_HANDOFF.md",
     "LICENSE",
     "NOTICE",
     "CITATION.cff",
@@ -41,6 +42,7 @@ REQUIRED_TESTS = (
     "tests/test_tag_prep.py",
     "tests/test_tag_execution.py",
     "tests/test_release_archive.py",
+    "tests/test_cross_project_handoff.py",
 )
 
 

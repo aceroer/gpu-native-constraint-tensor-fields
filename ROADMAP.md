@@ -894,6 +894,32 @@ Handoff sketch names stable public entry points without private terminology.
 Release notes describe the next cross-project route without claiming compatibility.
 ```
 
+Completion record:
+
+```text
+docs/PHASE28_COMPLETION.md
+```
+
+## Phase 29: Public Adapter Sketch
+
+Prepare a small public adapter sketch after the cross-project handoff exists.
+
+Deliverables:
+
+```text
+docs/ADAPTER_SKETCH.md
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_adapter_sketch.py
+```
+
+Acceptance checks:
+
+```text
+Adapter sketch maps task-pack shaped input into StatePool and BranchTensor terms.
+Adapter sketch names ReductionGate and InterfaceProjection outputs.
+Adapter sketch remains a sketch and avoids claiming stable adapter ABI.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -906,4 +932,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 28: cross-project handoff sketch.
+The next concrete step is Phase 29: public adapter sketch.

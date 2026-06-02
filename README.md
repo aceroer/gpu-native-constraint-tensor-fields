@@ -917,6 +917,27 @@ reproduction commands
 
 ## 7.29 路线图
 
+当前已有 cross-project handoff sketch：
+
+```text
+docs/CROSS_PROJECT_HANDOFF.md
+tests/test_cross_project_handoff.py
+docs/RELEASE_NOTES_DRAFT.md
+```
+
+handoff sketch 覆盖：
+
+```text
+GPU release tag
+paired runtime release tag
+release artifact schema
+stable public entry points
+non-compatibility scope
+next adapter sketch route
+```
+
+## 7.30 路线图
+
 后续库建设路线见：
 
 ```text

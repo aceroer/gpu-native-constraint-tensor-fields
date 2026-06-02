@@ -5,6 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TAG = "v0.1.0-alpha.0"
+TAG_COMMIT = "b051c20b38ff19cf99992daa72dc1e9558ec7b84"
 TAG_EXECUTION = ROOT / "docs" / "TAG_EXECUTION.md"
 RELEASE_NOTES = ROOT / "docs" / "RELEASE_NOTES_DRAFT.md"
 
@@ -26,11 +27,10 @@ class TagExecutionTests(unittest.TestCase):
         self.assertIn("release_artifact_report: /tmp/apc-release-artifacts.json", text)
         self.assertIn("release_verifier_full_artifact: /tmp/apc-release-verify-full.json", text)
 
-    def test_local_tag_points_to_head(self):
-        head = _git(["rev-parse", "HEAD"])
+    def test_local_tag_points_to_recorded_release_commit(self):
         tag_target = _git(["rev-parse", f"{TAG}^{{commit}}"])
 
-        self.assertEqual(tag_target, head)
+        self.assertEqual(tag_target, TAG_COMMIT)
 
 
 def _git(args: list[str]) -> str:
