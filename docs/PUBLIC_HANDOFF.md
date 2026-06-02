@@ -51,6 +51,7 @@ docs/RELEASE_CHECKLIST_0_2.md
 docs/RELEASE_NOTES_0_2_DRAFT.md
 docs/RELEASE_ARCHIVE_0_2.md
 docs/TAG_EXECUTION_0_2.md
+docs/POST_0_2_RUNTIME_PLAN.md
 examples/handoff/problem_family_fixtures.v1.json
 ```
 
@@ -90,6 +91,7 @@ Add a benchmark sweep reader check with a test.
 Add a problem-family runtime route with a test.
 Add a problem-family lowering route with a test.
 Add a problem-family fixture record with a test.
+Add a QUBO CPU reference execution route with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```
@@ -101,6 +103,7 @@ Add QUBO/HUBO runtime support.
 Add richer MaxSAT repair routes.
 Add CUDA implementations behind existing CPU references.
 Connect vector-native demo benchmark reports to longer benchmark sweeps.
+Follow docs/POST_0_2_RUNTIME_PLAN.md for reference-first runtime expansion.
 ```
 
 ## Testing Expectations

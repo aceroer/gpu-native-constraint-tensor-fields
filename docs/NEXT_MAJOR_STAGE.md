@@ -301,7 +301,7 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 58:
+Phase 58 is now the planning bridge into the next major public runtime stage:
 
 ```text
 docs/POST_0_2_RUNTIME_PLAN.md
@@ -310,3 +310,15 @@ tests/test_post_0_2_runtime_plan.py
 ```
 
 This plans the next public runtime expansion after the 0.2 closure track.
+
+After Phase 58, continue with Phase 59:
+
+```text
+QUBO CPU reference contract
+docs/POST_0_2_RUNTIME_PLAN.md
+tests/test_qubo_cpu_reference_contract.py
+```
+
+The next stage is reference-first: QUBO CPU reference execution comes before
+broader CUDA parity, and benchmark sweep expansion stays factual until complete
+timing evidence exists.

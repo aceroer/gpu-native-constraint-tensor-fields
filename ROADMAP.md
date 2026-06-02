@@ -1709,6 +1709,33 @@ Plan names benchmark and fixture expansion without performance claims.
 Plan keeps public terminology and solver-compatibility boundaries visible.
 ```
 
+Completion record:
+
+```text
+docs/PHASE58_COMPLETION.md
+```
+
+## Phase 59: QUBO CPU Reference Contract
+
+Define the executable CPU reference contract for the QUBO runtime route.
+
+Deliverables:
+
+```text
+docs/POST_0_2_RUNTIME_PLAN.md
+src/apc/runtime_qubo_cpu.py
+tests/test_qubo_cpu_reference_contract.py
+```
+
+Acceptance checks:
+
+```text
+Contract names QUBO runtime inputs, outputs, status fields, and ledger fields.
+Contract requires deterministic CPU reference behavior before CUDA parity.
+Contract keeps unsupported QUBO features explicit.
+Contract avoids solver compatibility or performance claims.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1742,4 +1769,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 58: post-0.2 runtime expansion plan.
+The next concrete step is Phase 59: QUBO CPU reference contract.

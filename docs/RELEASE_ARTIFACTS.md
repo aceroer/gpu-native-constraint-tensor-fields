@@ -75,6 +75,7 @@ native CPU operator shim tests
 native host probe tests
 CUDA operator parity docs
 benchmark sweep config docs
+post-0.2 runtime expansion plan
 checked handoff fixture examples
 current commit hash
 ```
@@ -158,10 +159,12 @@ docs/RELEASE_CHECKLIST_0_2.md
 docs/RELEASE_NOTES_0_2_DRAFT.md
 docs/RELEASE_ARCHIVE_0_2.md
 docs/TAG_EXECUTION_0_2.md
+docs/POST_0_2_RUNTIME_PLAN.md
 docs/RUNTIME_CONTRACT.md
 tests/test_release_checklist_0_2.py
 tests/test_release_artifacts_0_2.py
 tests/test_tag_execution_0_2.py
+tests/test_post_0_2_runtime_plan.py
 tests/test_maintenance_releases.py
 tests/test_runtime_contract.py
 tests/test_operator_call_ledger.py
