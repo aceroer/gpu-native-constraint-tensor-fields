@@ -27,7 +27,7 @@ problem spec
 
 ## Phase 0: Public Scaffold
 
-Status: started.
+Status: complete.
 
 Deliverables:
 
@@ -53,6 +53,12 @@ Current verification:
 cd examples/binary_milp_repair
 PYTHONPATH=. python3 -m unittest discover -s tests
 PYTHONPATH=. python3 run_demo.py
+```
+
+Completion record:
+
+```text
+docs/PHASE0_COMPLETION.md
 ```
 
 ## Phase 1: Native Problem Spec
@@ -361,4 +367,3 @@ Add a native JSON spec and a loader for the existing binary MILP example.
 
 This makes the library usable through a stable input format before expanding the
 CUDA runtime.
-
