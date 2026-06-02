@@ -31,6 +31,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("docs/PROBLEM_FAMILIES.md", text)
         self.assertIn("docs/RELEASE_CHECKLIST_0_2.md", text)
         self.assertIn("docs/RELEASE_NOTES_0_2_DRAFT.md", text)
+        self.assertIn("docs/RELEASE_ARCHIVE_0_2.md", text)
         self.assertIn("examples/handoff/problem_family_fixtures.v1.json", text)
         self.assertIn("python3 scripts/run_benchmark_sweep.py", text)
         self.assertIn("python3 scripts/inspect_benchmark_sweep.py", text)

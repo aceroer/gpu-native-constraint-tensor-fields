@@ -110,14 +110,56 @@ For a tag candidate, keep:
 The release notes should reference this artifact contract when a public tag is
 prepared.
 
+## 0.2 Candidate Artifacts
+
+For a `0.2` candidate, keep:
+
+```text
+/tmp/apc-release-verify-full.json
+/tmp/apc-release-verify.json
+/tmp/apc-release-bench.json
+/tmp/apc-release-vector-demo-bench.json
+/tmp/apc-handoff-fixtures.json
+/tmp/apc-release-artifacts-0-2.json
+/tmp/apc-release-artifacts-summary-0-2.json
+/tmp/apc-release-evidence-smoke-0-2.json
+/tmp/apc-benchmark-sweep.json
+/tmp/apc-benchmark-sweep-summary.json
+/tmp/apc-problem-family-fixtures.json
+```
+
+0.2 collection commands:
+
+```bash
+python3 scripts/verify_public_release.py --full --out /tmp/apc-release-verify-full.json
+python3 scripts/collect_release_artifacts.py --tag v0.2.0-alpha.N --out /tmp/apc-release-artifacts-0-2.json
+python3 scripts/inspect_release_artifacts.py /tmp/apc-release-artifacts-0-2.json --out /tmp/apc-release-artifacts-summary-0-2.json
+python3 scripts/smoke_release_evidence.py --tag v0.2.0-alpha.N --out /tmp/apc-release-evidence-smoke-0-2.json
+PYTHONPATH=src python3 scripts/run_benchmark_sweep.py benchmarks/sweeps/binary_milp_smoke.json --out /tmp/apc-benchmark-sweep.json
+PYTHONPATH=src python3 scripts/inspect_benchmark_sweep.py /tmp/apc-benchmark-sweep.json --out /tmp/apc-benchmark-sweep-summary.json
+PYTHONPATH=src python3 scripts/list_problem_family_fixtures.py --out /tmp/apc-problem-family-fixtures.json
+```
+
+0.2 artifact checks include:
+
+```text
+docs/RELEASE_CHECKLIST_0_2.md
+docs/RELEASE_NOTES_0_2_DRAFT.md
+docs/RELEASE_ARCHIVE_0_2.md
+benchmark sweep evidence
+problem-family fixture evidence
+```
+
 Maintenance tags should also keep:
 
 ```text
 docs/MAINTENANCE_RELEASES.md
 docs/RELEASE_CHECKLIST_0_2.md
 docs/RELEASE_NOTES_0_2_DRAFT.md
+docs/RELEASE_ARCHIVE_0_2.md
 docs/RUNTIME_CONTRACT.md
 tests/test_release_checklist_0_2.py
+tests/test_release_artifacts_0_2.py
 tests/test_maintenance_releases.py
 tests/test_runtime_contract.py
 tests/test_operator_call_ledger.py

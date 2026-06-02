@@ -1655,6 +1655,33 @@ Artifact checks include 0.2 checklist, release notes, benchmark sweep, and probl
 Archive draft avoids tag-final claims before a checked public tag exists.
 ```
 
+Completion record:
+
+```text
+docs/PHASE56_COMPLETION.md
+```
+
+## Phase 57: 0.2 Public Tag
+
+Add the public 0.2 tag execution procedure.
+
+Deliverables:
+
+```text
+docs/TAG_EXECUTION_0_2.md
+docs/RELEASE_ARCHIVE_0_2.md
+tests/test_tag_execution_0_2.py
+```
+
+Acceptance checks:
+
+```text
+Tag procedure requires full verifier, artifact collector, reader, and smoke success.
+Tag procedure requires candidate commit to match artifact report commit.
+Archive draft defines how to become a final archive after tag verification.
+Procedure avoids claiming a published tag before the tag exists.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1688,4 +1715,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 56: 0.2 artifact collection.
+The next concrete step is Phase 57: 0.2 public tag.

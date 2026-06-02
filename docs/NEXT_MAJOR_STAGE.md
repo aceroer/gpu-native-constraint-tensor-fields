@@ -301,12 +301,12 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 56:
+Continue with Phase 57:
 
 ```text
-docs/RELEASE_ARTIFACTS.md
+docs/TAG_EXECUTION_0_2.md
 docs/RELEASE_ARCHIVE_0_2.md
-tests/test_release_artifacts_0_2.py
+tests/test_tag_execution_0_2.py
 ```
 
-This collects and inspects 0.2 release candidate artifacts.
+This defines the public 0.2 tag execution procedure.
