@@ -1487,6 +1487,33 @@ Runner keeps CUDA unavailable behavior factual.
 Runner avoids speedup claims without complete timing evidence.
 ```
 
+Completion record:
+
+```text
+docs/PHASE50_COMPLETION.md
+```
+
+## Phase 51: Benchmark Sweep Report
+
+Add a compact reader for benchmark sweep summaries.
+
+Deliverables:
+
+```text
+scripts/inspect_benchmark_sweep.py
+docs/BENCHMARK_SWEEPS.md
+tests/test_benchmark_sweep_report.py
+```
+
+Acceptance checks:
+
+```text
+Report reader consumes apc.benchmark_sweep.v1.
+Report reader lists case statuses, output paths, backends, and timing fields.
+Report reader keeps unavailable CUDA factual.
+Report reader avoids speedup claims without complete timing evidence.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1520,4 +1547,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 50: benchmark sweep runner.
+The next concrete step is Phase 51: benchmark sweep report.

@@ -208,6 +208,7 @@ benchmarks/sweeps/
 scripts/run_benchmark_sweep.py
 docs/BENCHMARK_SWEEPS.md
 tests/test_benchmark_sweep.py
+tests/test_benchmark_sweep_runner.py
 ```
 
 Acceptance:
@@ -297,12 +298,12 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 50:
+Continue with Phase 51:
 
 ```text
-scripts/run_benchmark_sweep.py
+scripts/inspect_benchmark_sweep.py
 docs/BENCHMARK_SWEEPS.md
-tests/test_benchmark_sweep_runner.py
+tests/test_benchmark_sweep_report.py
 ```
 
-This consumes benchmark sweep configs and writes factual sweep summaries.
+This consumes benchmark sweep summaries and writes compact factual reports.
