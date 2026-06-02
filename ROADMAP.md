@@ -902,22 +902,51 @@ docs/PHASE28_COMPLETION.md
 
 ## Phase 29: Public Adapter Sketch
 
-Prepare a small public adapter sketch after the cross-project handoff exists.
+Prepare a small public adapter consumer after the cross-project handoff exists.
 
 Deliverables:
 
 ```text
-docs/ADAPTER_SKETCH.md
+src/apc/adapters/vagent_handoff.py
+scripts/check_vagent_handoff.py
 docs/RELEASE_NOTES_DRAFT.md
-tests/test_adapter_sketch.py
+tests/test_vagent_handoff_consumer.py
 ```
 
 Acceptance checks:
 
 ```text
-Adapter sketch maps task-pack shaped input into StatePool and BranchTensor terms.
-Adapter sketch names ReductionGate and InterfaceProjection outputs.
-Adapter sketch remains a sketch and avoids claiming stable adapter ABI.
+Consumer validates vagent.apc_handoff_report.v1 JSON.
+Consumer emits apc.cross_project_handoff_check.v1.
+Consumer materializes StatePool, BranchTensor, ReductionGate, and InterfaceProjection public shapes.
+Consumer remains a handoff check and avoids claiming stable adapter ABI.
+```
+
+Completion record:
+
+```text
+docs/PHASE29_COMPLETION.md
+```
+
+## Phase 30: Checked Handoff Runtime Route
+
+Feed a checked handoff summary into a small GPU-side inspection or benchmark
+route.
+
+Deliverables:
+
+```text
+scripts/run_checked_handoff_demo.py
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_checked_handoff_demo.py
+```
+
+Acceptance checks:
+
+```text
+Demo consumes apc.cross_project_handoff_check.v1.
+Demo reports StatePool and selected action summaries.
+Demo avoids claiming drop-in runtime compatibility.
 ```
 
 ## Non-Goals For Early Versions
@@ -932,4 +961,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 29: public adapter sketch.
+The next concrete step is Phase 30: checked handoff runtime route.

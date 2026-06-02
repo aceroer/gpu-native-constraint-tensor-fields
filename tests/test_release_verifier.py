@@ -37,6 +37,7 @@ class ReleaseVerifierTests(unittest.TestCase):
         self.assertEqual(file_report["status"], "ok")
         self.assertEqual(file_report["mode"], "quick")
         self.assertIn("compileall", [check["name"] for check in file_report["checks"]])
+        self.assertIn("vagent_handoff_consumer", [check["name"] for check in file_report["checks"]])
         self.assertIn("boundary_scan", [check["name"] for check in file_report["checks"]])
 
     def test_verifier_marks_failed_command(self):

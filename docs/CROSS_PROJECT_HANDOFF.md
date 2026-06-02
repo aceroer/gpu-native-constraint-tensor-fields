@@ -22,6 +22,7 @@ gpu_windows_sm89_cuda_benchmark: RTX 4070 Laptop GPU benchmark backend available
 This is a handoff sketch, not a compatibility claim.
 The paired CUDA smoke is kernel-equivalence evidence. The GPU-side CUDA
 benchmark is timing-accounting evidence. Neither is a broad speedup claim.
+In short, the paired CUDA smoke is kernel-equivalence evidence, not a speedup claim.
 
 ## Stable GPU Entry Points
 
@@ -111,6 +112,16 @@ The artifact carries StatePool-shaped, BranchTensor-shaped,
 ReductionGate-shaped, and InterfaceProjection-shaped summaries without importing
 this repository.
 
+The GPU-side consumer is:
+
+```text
+module: src/apc/adapters/vagent_handoff.py
+script: scripts/check_vagent_handoff.py
+check_schema: apc.cross_project_handoff_check.v1
+input_schema: vagent.apc_handoff_report.v1
+dependency_rule: consumes JSON only and does not import vAgentRT
+```
+
 ## Evidence Contract
 
 The GPU side uses:
@@ -120,6 +131,7 @@ apc.public_release_verification.v1
 apc.benchmark.v1
 apc.vector_demo_benchmark.v1
 apc.release_artifacts.v1
+apc.cross_project_handoff_check.v1
 ```
 
 The handoff should start by carrying:
@@ -154,9 +166,18 @@ GPU speedup without measured copy-time accounting
 stable external adapter ABI
 ```
 
+## Consumer Command
+
+```bash
+PYTHONPATH=src python3 scripts/check_vagent_handoff.py /tmp/vagent-apc-handoff.json --out /tmp/apc-vagent-handoff-check.json
+```
+
+The consumer validates one `vagent.apc_handoff_report.v1` file against this
+repository's StatePool, BranchTensor, ReductionGate, and InterfaceProjection
+public shapes while keeping both release artifacts reproducible.
+
 ## Next Work
 
-The next public step should be a small GPU-side consumer that validates one
-`vagent.apc_handoff_report.v1` file against this repository's StatePool,
-BranchTensor, ReductionGate, and InterfaceProjection public shapes while keeping
-both release artifacts reproducible.
+The next public step should be a narrow example that feeds the checked handoff
+summary into a GPU-side StatePool inspection or benchmark route without claiming
+drop-in runtime compatibility.
