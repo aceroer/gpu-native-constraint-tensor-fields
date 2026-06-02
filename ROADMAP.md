@@ -685,6 +685,32 @@ Commands are copy-paste runnable from the repository root.
 No internal-only terminology appears in public quickstart docs.
 ```
 
+Completion record:
+
+```text
+docs/PHASE20_COMPLETION.md
+```
+
+## Phase 21: Public Handoff Checklist
+
+Prepare the repo for outside contributors to inspect and extend.
+
+Deliverables:
+
+```text
+docs/PUBLIC_HANDOFF.md
+docs/RELEASE_NOTES_DRAFT.md
+tests/test_public_docs.py
+```
+
+Acceptance checks:
+
+```text
+Handoff document names stable entry points and next extension areas.
+Release notes summarize public phases without internal-only terminology.
+Public docs pass terminology boundary checks.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -697,4 +723,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 20: public quickstart packaging.
+The next concrete step is Phase 21: public handoff checklist.

@@ -2,6 +2,20 @@
 
 日期：2026-06-02
 
+Quickstart:
+
+```bash
+PYTHONPATH=src python3 -m apc.cli validate examples/specs/binary_milp_tiny.json
+PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-bench.json --max-iters 2
+PYTHONPATH=src:examples/vector_state_repair python3 scripts/run_vector_demo_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-vector-demo-bench.json
+```
+
+More first-run commands are in:
+
+```text
+docs/QUICKSTART.md
+```
+
 ## 0. 定位
 
 本目录用于整理一种 GPU 原生的组合优化/约束求解路线。
@@ -718,6 +732,27 @@ payload.benchmark.notes
 ```
 
 ## 7.21 路线图
+
+当前已有 public quickstart packaging：
+
+```text
+docs/QUICKSTART.md
+examples/README.md
+benchmarks/README.md
+tests/test_quickstart.py
+```
+
+quickstart 覆盖：
+
+```text
+validate
+run
+benchmark
+vector-native demo benchmark
+CUDA unavailable report
+```
+
+## 7.22 路线图
 
 后续库建设路线见：
 
