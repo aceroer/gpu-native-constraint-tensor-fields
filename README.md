@@ -358,7 +358,24 @@ tests/test_spec_loading.py
 PYTHONPATH=src python3 -m unittest discover -s tests
 ```
 
-## 7.3 路线图
+## 7.3 CTIR Core
+
+当前已有执行侧 CTIR core：
+
+```text
+src/apc/ctir.py
+src/apc/lowering.py
+src/apc/inspect_ctir.py
+tests/test_ctir_lowering.py
+```
+
+验证：
+
+```bash
+PYTHONPATH=src:examples/binary_milp_repair python3 -m unittest discover -s tests
+```
+
+## 7.4 路线图
 
 后续库建设路线见：
 

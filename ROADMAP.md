@@ -120,6 +120,8 @@ docs/PHASE1_COMPLETION.md
 
 ## Phase 2: CTIR Core
 
+Status: complete.
+
 Separate user-facing problem specs from execution-facing CTIR.
 
 Deliverables:
@@ -151,6 +153,12 @@ Problem spec lowers into CTIR.
 CTIR is serializable for inspection.
 CTIR validation catches shape and index errors.
 The existing binary MILP example uses CTIR, not ad hoc structures.
+```
+
+Completion record:
+
+```text
+docs/PHASE2_COMPLETION.md
 ```
 
 ## Phase 3: CPU Operator Runtime
