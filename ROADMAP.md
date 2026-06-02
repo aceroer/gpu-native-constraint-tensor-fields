@@ -581,6 +581,32 @@ Diversity penalty can be recorded.
 Selected actions can be summarized for the ledger.
 ```
 
+Completion record:
+
+```text
+docs/PHASE16_COMPLETION.md
+```
+
+## Phase 17: Interface Projection
+
+Project native runtime state into public output forms.
+
+Deliverables:
+
+```text
+src/apc/interface_projection.py
+docs/INTERFACE_PROJECTION.md
+tests/test_interface_projection.py
+```
+
+Acceptance checks:
+
+```text
+Runtime state is not treated as the public API shape.
+Each public output includes a projection reason.
+Adapters and summaries use projection helpers.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -593,4 +619,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 16: deterministic reduction gate.
+The next concrete step is Phase 17: interface projection.

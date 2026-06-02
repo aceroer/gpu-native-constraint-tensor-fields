@@ -50,6 +50,13 @@ from .readings.maxsat import (
     maxsat_penalty,
     run_maxsat_bitflip_repair,
 )
+from .reduction_gate import (
+    ReductionConfig,
+    ReductionGateResult,
+    RouteDecision,
+    reduce_branch_tensor,
+    reduction_gate_summary,
+)
 from .runtime_cpu import RuntimeConfig, RuntimeResult, run_repair, run_repair_from_json
 from .spec import BinaryDomainSpec, LinearCSRSpec, ObjectiveSpec, ProblemSpec
 from .state_pool import (
@@ -85,6 +92,9 @@ __all__ = [
     "OperatorSpec",
     "ProjectionSpec",
     "ProblemSpec",
+    "ReductionConfig",
+    "ReductionGateResult",
+    "RouteDecision",
     "RuntimeConfig",
     "RuntimeResult",
     "StateBatch",
@@ -116,6 +126,8 @@ __all__ = [
     "maxsat_penalty",
     "problem_to_json_dict",
     "plan_layout",
+    "reduce_branch_tensor",
+    "reduction_gate_summary",
     "run_repair",
     "run_repair_from_json",
     "run_maxsat_bitflip_repair",

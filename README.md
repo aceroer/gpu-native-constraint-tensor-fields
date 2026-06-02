@@ -631,6 +631,26 @@ StatePool
 
 ## 7.17 路线图
 
+当前已有 deterministic reduction gate：
+
+```text
+src/apc/reduction_gate.py
+docs/REDUCTION_GATE.md
+tests/test_reduction_gate.py
+```
+
+它把 branch routes 归约成可解释的 selected actions：
+
+```text
+BranchTensor
+-> route scoring
+-> top-k selection
+-> diversity penalty record
+-> ledger-ready summary
+```
+
+## 7.18 路线图
+
 后续库建设路线见：
 
 ```text
@@ -646,6 +666,7 @@ problem spec
 -> operator registry
 -> state pool
 -> branch tensor
+-> reduction gate
 -> repair runtime
 -> validation ledger
 -> benchmark harness
