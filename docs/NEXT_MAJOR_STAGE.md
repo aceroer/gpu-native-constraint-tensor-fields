@@ -301,12 +301,12 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 55:
+Continue with Phase 56:
 
 ```text
-docs/RELEASE_CHECKLIST_0_2.md
-docs/RELEASE_NOTES_0_2_DRAFT.md
-tests/test_release_checklist_0_2.py
+docs/RELEASE_ARTIFACTS.md
+docs/RELEASE_ARCHIVE_0_2.md
+tests/test_release_artifacts_0_2.py
 ```
 
-This starts the public 0.2 release closure track.
+This collects and inspects 0.2 release candidate artifacts.

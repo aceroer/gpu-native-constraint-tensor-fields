@@ -47,6 +47,8 @@ native/src/cpu_operator_shim.cpp
 docs/CUDA_OPERATOR_PARITY.md
 docs/BENCHMARK_SWEEPS.md
 docs/PROBLEM_FAMILIES.md
+docs/RELEASE_CHECKLIST_0_2.md
+docs/RELEASE_NOTES_0_2_DRAFT.md
 examples/handoff/problem_family_fixtures.v1.json
 ```
 

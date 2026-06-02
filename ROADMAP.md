@@ -1628,6 +1628,33 @@ Release notes state limits and non-goals clearly.
 Checklist avoids solver compatibility or performance claims without evidence.
 ```
 
+Completion record:
+
+```text
+docs/PHASE55_COMPLETION.md
+```
+
+## Phase 56: 0.2 Artifact Collection
+
+Collect and inspect 0.2 release candidate artifacts.
+
+Deliverables:
+
+```text
+docs/RELEASE_ARTIFACTS.md
+docs/RELEASE_ARCHIVE_0_2.md
+tests/test_release_artifacts_0_2.py
+```
+
+Acceptance checks:
+
+```text
+0.2 artifact collection references verifier, collector, reader, and smoke outputs.
+0.2 archive draft records candidate tag, commit field, and required evidence paths.
+Artifact checks include 0.2 checklist, release notes, benchmark sweep, and problem-family fixture evidence.
+Archive draft avoids tag-final claims before a checked public tag exists.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1661,4 +1688,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 55: 0.2 release checklist.
+The next concrete step is Phase 56: 0.2 artifact collection.

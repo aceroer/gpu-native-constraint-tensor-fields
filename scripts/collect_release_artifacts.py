@@ -25,7 +25,9 @@ REQUIRED_DOCS = (
     "docs/PUBLIC_HANDOFF.md",
     "docs/VERIFY_RELEASE.md",
     "docs/RELEASE_CHECKLIST.md",
+    "docs/RELEASE_CHECKLIST_0_2.md",
     "docs/RELEASE_NOTES_DRAFT.md",
+    "docs/RELEASE_NOTES_0_2_DRAFT.md",
     "docs/RELEASE_ARTIFACTS.md",
     "docs/TAG_PREP.md",
     "docs/TAG_EXECUTION.md",
@@ -56,6 +58,7 @@ REQUIRED_DOCS = (
 REQUIRED_TESTS = (
     "tests/test_release_verifier.py",
     "tests/test_release_checklist.py",
+    "tests/test_release_checklist_0_2.py",
     "tests/test_release_artifacts.py",
     "tests/test_tag_prep.py",
     "tests/test_tag_execution.py",
