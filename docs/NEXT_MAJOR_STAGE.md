@@ -240,6 +240,7 @@ Deliverable shape:
 src/apc/readings/maxsat.py
 src/apc/readings/qubo.py
 examples/specs/
+docs/PROBLEM_FAMILIES.md
 examples/handoff/
 tests/test_problem_families.py
 ```
@@ -300,13 +301,13 @@ No compatibility promise is added before a checked adapter exists.
 
 ## Immediate Next Step
 
-Continue with Phase 52:
+Continue with Phase 53:
 
 ```text
-src/apc/readings/maxsat.py
-examples/specs/maxsat_tiny.json
+src/apc/readings/qubo.py
+examples/specs/qubo_tiny.json
 docs/PROBLEM_FAMILIES.md
-tests/test_maxsat_runtime_route.py
+tests/test_qubo_spec_lowering.py
 ```
 
-This starts problem-family expansion with a small MaxSAT runtime route.
+This adds a small QUBO spec and CTIR lowering route.

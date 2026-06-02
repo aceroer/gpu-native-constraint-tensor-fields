@@ -1543,6 +1543,35 @@ Unsupported MaxSAT features fail with structured status.
 The CPU reference path remains the behavioral baseline.
 ```
 
+Completion record:
+
+```text
+docs/PHASE52_COMPLETION.md
+```
+
+## Phase 53: QUBO Spec and Lowering
+
+Add a small QUBO spec and CTIR lowering route.
+
+Deliverables:
+
+```text
+src/apc/readings/qubo.py
+examples/specs/qubo_tiny.json
+docs/PROBLEM_FAMILIES.md
+tests/test_qubo_spec_lowering.py
+```
+
+Acceptance checks:
+
+```text
+QUBO example validates as a public problem-family spec.
+QUBO COO entries lower into CTIR energy view metadata.
+Linear and quadratic terms are recorded explicitly.
+Unsupported QUBO features fail with structured status.
+The CPU reference path remains separate from unimplemented QUBO execution.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1576,4 +1605,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 52: MaxSAT runtime route.
+The next concrete step is Phase 53: QUBO spec and lowering.

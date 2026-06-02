@@ -36,7 +36,10 @@ REQUIRED_DOCS = (
     "docs/RUNTIME_CONTRACT.md",
     "docs/CUDA_OPERATOR_PARITY.md",
     "docs/BENCHMARK_SWEEPS.md",
+    "docs/PROBLEM_FAMILIES.md",
     "benchmarks/sweeps/binary_milp_smoke.json",
+    "examples/specs/maxsat_tiny.json",
+    "src/apc/readings/maxsat.py",
     "native/include/apc_runtime.hpp",
     "native/src/cpu_operator_shim.cpp",
     "scripts/probe_native_host.py",
@@ -75,6 +78,7 @@ REQUIRED_TESTS = (
     "tests/test_benchmark_sweep.py",
     "tests/test_benchmark_sweep_runner.py",
     "tests/test_benchmark_sweep_report.py",
+    "tests/test_maxsat_runtime_route.py",
 )
 REQUIRED_EXAMPLES = (
     "examples/handoff/README.md",

@@ -133,6 +133,10 @@ scripts/inspect_benchmark_sweep.py
 tests/test_benchmark_sweep.py
 tests/test_benchmark_sweep_runner.py
 tests/test_benchmark_sweep_report.py
+src/apc/readings/maxsat.py
+examples/specs/maxsat_tiny.json
+docs/PROBLEM_FAMILIES.md
+tests/test_maxsat_runtime_route.py
 ```
 
 ## Reader

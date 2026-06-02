@@ -49,13 +49,16 @@ from .operator_registry import (
 )
 from .readings.maxsat import (
     MaxSATClause,
+    MaxSATClauseContribution,
     MaxSATRepairResult,
     MaxSATSpec,
+    evaluate_maxsat_state,
     eval_unsatisfied_clauses,
     load_maxsat_json,
     lower_maxsat_to_ctir,
     maxsat_penalty,
     run_maxsat_bitflip_repair,
+    run_maxsat_runtime_route_from_json,
 )
 from .reduction_gate import (
     ReductionConfig,
@@ -93,6 +96,7 @@ __all__ = [
     "MaterializedLayout",
     "MoveBatch",
     "MaxSATClause",
+    "MaxSATClauseContribution",
     "MaxSATRepairResult",
     "MaxSATSpec",
     "ObjectiveSpec",
@@ -116,6 +120,7 @@ __all__ = [
     "ctir_json",
     "ctir_to_dict",
     "default_operator_registry",
+    "evaluate_maxsat_state",
     "eval_unsatisfied_clauses",
     "initialize_state_pool",
     "inspect_ctir",
@@ -143,6 +148,7 @@ __all__ = [
     "run_repair",
     "run_repair_from_json",
     "run_maxsat_bitflip_repair",
+    "run_maxsat_runtime_route_from_json",
     "run_benchmark",
     "run_cuda_benchmark_report",
     "registry_summary",

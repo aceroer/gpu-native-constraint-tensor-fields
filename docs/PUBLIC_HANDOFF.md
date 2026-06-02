@@ -40,10 +40,12 @@ src/apc/operator_call_ledger.py
 src/apc/runtime_status.py
 src/apc/runtime_cpu.py
 src/apc/benchmark.py
+src/apc/readings/maxsat.py
 native/include/apc_runtime.hpp
 native/src/cpu_operator_shim.cpp
 docs/CUDA_OPERATOR_PARITY.md
 docs/BENCHMARK_SWEEPS.md
+docs/PROBLEM_FAMILIES.md
 ```
 
 Runnable commands:
@@ -78,6 +80,7 @@ Add a CUDA parity target with a CPU reference test.
 Add a benchmark sweep config with a test.
 Add a benchmark sweep runner check with a test.
 Add a benchmark sweep reader check with a test.
+Add a problem-family runtime route with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
 ```

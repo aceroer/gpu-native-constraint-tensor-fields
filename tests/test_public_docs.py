@@ -22,10 +22,12 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("src/apc/runtime_contract.py", text)
         self.assertIn("src/apc/operator_call_ledger.py", text)
         self.assertIn("src/apc/runtime_status.py", text)
+        self.assertIn("src/apc/readings/maxsat.py", text)
         self.assertIn("native/include/apc_runtime.hpp", text)
         self.assertIn("native/src/cpu_operator_shim.cpp", text)
         self.assertIn("docs/CUDA_OPERATOR_PARITY.md", text)
         self.assertIn("docs/BENCHMARK_SWEEPS.md", text)
+        self.assertIn("docs/PROBLEM_FAMILIES.md", text)
         self.assertIn("python3 scripts/run_benchmark_sweep.py", text)
         self.assertIn("python3 scripts/inspect_benchmark_sweep.py", text)
         self.assertIn("Add a new small native problem spec", text)
@@ -39,6 +41,7 @@ class PublicDocsTests(unittest.TestCase):
         self.assertIn("Add a benchmark sweep config", text)
         self.assertIn("Add a benchmark sweep runner check", text)
         self.assertIn("Add a benchmark sweep reader check", text)
+        self.assertIn("Add a problem-family runtime route", text)
 
     def test_release_notes_summarize_public_phases(self):
         text = RELEASE_NOTES.read_text(encoding="utf-8")

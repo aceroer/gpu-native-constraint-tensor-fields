@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from ..runtime_status import FAILED, IMPLEMENTED
 from ..ctir import (
     CTIRProblem,
     ClauseCSR,
@@ -26,6 +27,7 @@ class MaxSATClause:
 
     literals: tuple[int, ...]
     weight: float
+    hard: bool = False
 
     def __post_init__(self) -> None:
         if len(self.literals) == 0:
@@ -63,6 +65,18 @@ class MaxSATRepairResult:
     final_states: StateBatch
 
 
+@dataclass(frozen=True)
+class MaxSATClauseContribution:
+    """One hard or soft clause contribution for a concrete state."""
+
+    clause_index: int
+    hard: bool
+    weight: float
+    satisfied: bool
+    objective_contribution: float
+    penalty_contribution: float
+
+
 def load_maxsat_json(path: str | Path) -> MaxSATSpec:
     """Load a weighted MaxSAT JSON spec."""
 
@@ -78,6 +92,9 @@ def maxsat_from_json_dict(data: dict[str, Any]) -> MaxSATSpec:
         raise ValueError("MaxSAT spec must be a JSON object")
     if data.get("problem_type") != "weighted_maxsat":
         raise ValueError("problem_type must be weighted_maxsat")
+    unsupported = [key for key in data if key not in {"problem_type", "domain", "clauses"}]
+    if unsupported:
+        raise ValueError(f"unsupported MaxSAT fields: {unsupported}")
     domain = data.get("domain")
     if not isinstance(domain, dict) or domain.get("type") != "binary":
         raise ValueError("MaxSAT domain must be binary")
@@ -94,11 +111,17 @@ def maxsat_from_json_dict(data: dict[str, Any]) -> MaxSATSpec:
             raise ValueError("each clause must be an object")
         literals = raw.get("lits")
         weight = raw.get("weight")
+        kind = raw.get("kind", "soft")
+        unsupported_clause = [key for key in raw if key not in {"lits", "weight", "kind"}]
+        if unsupported_clause:
+            raise ValueError(f"unsupported MaxSAT clause fields: {unsupported_clause}")
         if not isinstance(literals, list) or not all(isinstance(lit, int) for lit in literals):
             raise ValueError("clause.lits must be a list of integers")
         if not isinstance(weight, int | float):
             raise ValueError("clause.weight must be a number")
-        clauses.append(MaxSATClause(literals=tuple(literals), weight=float(weight)))
+        if kind not in {"hard", "soft"}:
+            raise ValueError("clause.kind must be hard or soft")
+        clauses.append(MaxSATClause(literals=tuple(literals), weight=float(weight), hard=kind == "hard"))
 
     return MaxSATSpec(n_vars=n_vars, clauses=tuple(clauses))
 
@@ -187,6 +210,99 @@ def maxsat_penalty(
     return tuple(penalties)
 
 
+def evaluate_maxsat_state(
+    spec: MaxSATSpec,
+    state: tuple[int, ...],
+) -> dict[str, Any]:
+    """Return objective and penalty contributions for one MaxSAT state."""
+
+    if len(state) != spec.n_vars:
+        raise ValueError("MaxSAT state length must equal n_vars")
+    if any(value not in (0, 1) for value in state):
+        raise ValueError("MaxSAT state values must be binary")
+
+    contributions = [_clause_contribution(index, clause, state) for index, clause in enumerate(spec.clauses)]
+    objective = sum(row.objective_contribution for row in contributions)
+    penalty = sum(row.penalty_contribution for row in contributions)
+    return {
+        "state": list(state),
+        "objective": objective,
+        "penalty": penalty,
+        "soft_objective_contributions": [
+            _contribution_to_dict(row) for row in contributions if not row.hard
+        ],
+        "hard_penalty_contributions": [
+            _contribution_to_dict(row) for row in contributions if row.hard
+        ],
+        "clause_contributions": [_contribution_to_dict(row) for row in contributions],
+    }
+
+
+def run_maxsat_runtime_route_from_json(
+    path: str | Path,
+    *,
+    batch_size: int = 4,
+    max_iters: int = 8,
+    seed: int = 0,
+    initial_states: StateBatch | None = None,
+) -> dict[str, Any]:
+    """Run the public MaxSAT route and return a JSON-ready report."""
+
+    try:
+        spec = load_maxsat_json(path)
+        problem = lower_maxsat_to_ctir(spec, batch_size=batch_size)
+        result = run_maxsat_bitflip_repair(
+            problem,
+            max_iters=max_iters,
+            seed=seed,
+            initial_states=initial_states,
+        )
+        evaluation = evaluate_maxsat_state(spec, result.best_state)
+    except Exception as exc:
+        return {
+            "schema": "apc.maxsat_runtime_route.v1",
+            "status": FAILED,
+            "reason": str(exc),
+            "source_path": str(path),
+            "problem_family": "maxsat",
+            "backend": "cpu",
+            "notes": [
+                "Unsupported MaxSAT features fail as structured route status.",
+                "The CPU reference path remains the behavioral baseline.",
+            ],
+        }
+
+    return {
+        "schema": "apc.maxsat_runtime_route.v1",
+        "status": IMPLEMENTED,
+        "source_path": str(path),
+        "problem_family": "maxsat",
+        "backend": "cpu",
+        "runtime_contract_schema": "apc.runtime_execution_contract.v1",
+        "ctir": {
+            "n_vars": problem.domain.n_vars,
+            "n_clauses": problem.clause_csr.n_clauses if problem.clause_csr else 0,
+            "clause_nnz": problem.clause_csr.nnz if problem.clause_csr else 0,
+        },
+        "config": {
+            "batch_size": batch_size,
+            "max_iters": max_iters,
+            "seed": seed,
+        },
+        "result": {
+            "best_state": list(result.best_state),
+            "best_penalty": result.best_penalty,
+            "unsatisfied": list(result.unsatisfied),
+            "evaluation": evaluation,
+        },
+        "notes": [
+            "Soft unsatisfied clauses are reported as objective contributions.",
+            "Hard unsatisfied clauses are reported as penalty contributions.",
+            "The CPU reference path remains the behavioral baseline.",
+        ],
+    }
+
+
 def run_maxsat_bitflip_repair(
     problem: CTIRProblem,
     *,
@@ -246,3 +362,39 @@ def _initial_states(problem: CTIRProblem, seed: int) -> StateBatch:
     for _ in range(problem.moves.batch_size - 1):
         states.append(tuple(rng.randint(0, 1) for _ in range(problem.domain.n_vars)))
     return StateBatch(tuple(states))
+
+
+def _clause_contribution(
+    index: int,
+    clause: MaxSATClause,
+    state: tuple[int, ...],
+) -> MaxSATClauseContribution:
+    satisfied = _clause_satisfied(clause, state)
+    unsatisfied_weight = 0.0 if satisfied else clause.weight
+    return MaxSATClauseContribution(
+        clause_index=index,
+        hard=clause.hard,
+        weight=clause.weight,
+        satisfied=satisfied,
+        objective_contribution=0.0 if clause.hard else unsatisfied_weight,
+        penalty_contribution=unsatisfied_weight if clause.hard else 0.0,
+    )
+
+
+def _clause_satisfied(clause: MaxSATClause, state: tuple[int, ...]) -> bool:
+    for lit in clause.literals:
+        value = state[abs(lit) - 1]
+        if (lit > 0 and value == 1) or (lit < 0 and value == 0):
+            return True
+    return False
+
+
+def _contribution_to_dict(row: MaxSATClauseContribution) -> dict[str, Any]:
+    return {
+        "clause_index": row.clause_index,
+        "kind": "hard" if row.hard else "soft",
+        "weight": row.weight,
+        "satisfied": row.satisfied,
+        "objective_contribution": row.objective_contribution,
+        "penalty_contribution": row.penalty_contribution,
+    }

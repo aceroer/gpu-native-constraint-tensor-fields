@@ -145,6 +145,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             "tests/test_benchmark_sweep_report.py",
             [item["path"] for item in file_report["tests"]],
         )
+        self.assertIn(
+            "tests/test_maxsat_runtime_route.py",
+            [item["path"] for item in file_report["tests"]],
+        )
         example_schemas = {item["path"]: item["schema"] for item in file_report["examples"]}
         self.assertIn("examples/handoff/README.md", example_schemas)
         self.assertEqual(
@@ -259,6 +263,10 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/test_benchmark_sweep.py", text)
         self.assertIn("tests/test_benchmark_sweep_runner.py", text)
         self.assertIn("tests/test_benchmark_sweep_report.py", text)
+        self.assertIn("src/apc/readings/maxsat.py", text)
+        self.assertIn("examples/specs/maxsat_tiny.json", text)
+        self.assertIn("docs/PROBLEM_FAMILIES.md", text)
+        self.assertIn("tests/test_maxsat_runtime_route.py", text)
         self.assertIn("release artifact contract", notes)
 
 
