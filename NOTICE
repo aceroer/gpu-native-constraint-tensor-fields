@@ -1,0 +1,15 @@
+GPU-Native Constraint Tensor Fields
+
+Original author: aceroer
+Original repository: https://github.com/aceroer/gpu-native-constraint-tensor-fields
+First public source date: 2026-06-02
+License: MIT
+
+Recommended attribution:
+
+  aceroer. GPU-Native Constraint Tensor Fields. 2026.
+  https://github.com/aceroer/gpu-native-constraint-tensor-fields
+
+If this project is used in research, publications, derivative libraries, public
+benchmarks, or technical reports, please cite the original repository using the
+recommended attribution above or the metadata in CITATION.cff.

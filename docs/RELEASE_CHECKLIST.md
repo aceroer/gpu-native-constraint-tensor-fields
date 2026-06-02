@@ -55,6 +55,9 @@ docs/PUBLIC_HANDOFF.md
 docs/VERIFY_RELEASE.md
 docs/RELEASE_NOTES_DRAFT.md
 LICENSE
+NOTICE
+CITATION.cff
+docs/ORIGIN.md
 ```
 
 Required doc evidence:
@@ -65,6 +68,9 @@ Roadmap names the current completed phase and next phase.
 Release notes summarize the public feature surface.
 Handoff doc names stable entry points and extension areas.
 LICENSE contains the MIT License text.
+NOTICE names the original repository and recommended attribution.
+CITATION.cff names the repository and author.
+Origin doc records the first public source line.
 No private-only terminology appears in public docs.
 ```
 
