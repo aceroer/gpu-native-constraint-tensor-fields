@@ -479,6 +479,12 @@ CSR to CSC conversion preserves all nonzeros.
 Conversion cost ledger matches materialized element counts.
 ```
 
+Completion record:
+
+```text
+docs/PHASE12_COMPLETION.md
+```
+
 ## Phase 13: Compatibility Adapters
 
 Add narrow adapters only after the native path remains stable.
@@ -488,6 +494,7 @@ Deliverables:
 ```text
 src/apc/adapters/
 docs/ADAPTERS.md
+tests/test_adapters.py
 ```
 
 Acceptance checks:
@@ -496,6 +503,24 @@ Acceptance checks:
 Adapters lower into native specs or CTIR.
 Adapters do not bypass layout planning or operator registry.
 Unsupported solver features fail loudly.
+```
+
+Completion record:
+
+```text
+docs/PHASE13_COMPLETION.md
+```
+
+## Post Phase 13: Decision Points
+
+After the native path and narrow adapters exist, the next branch should be chosen
+by expected public usefulness:
+
+```text
+Deepen CUDA materialized runtime coverage.
+Broaden public problem-family adapters.
+Add generated examples and reproducible reports.
+Prepare a small public release tag.
 ```
 
 ## Non-Goals For Early Versions
@@ -510,4 +535,5 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 11: CUDA benchmark timing.
+The next concrete step is to choose a post-Phase-13 direction: CUDA runtime
+depth, public adapter breadth, or release packaging.

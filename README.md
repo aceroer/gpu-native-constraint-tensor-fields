@@ -553,6 +553,45 @@ copy time 与 kernel time，不输出 speedup ratio。
 
 ## 7.13 路线图
 
+当前已有 layout materialization：
+
+```text
+src/apc/layout_materialize.py
+docs/LAYOUT_MATERIALIZATION.md
+tests/test_layout_materialize.py
+```
+
+它把 layout plan 中的部分非物化视图转换成实际 host 表示：
+
+```text
+state.candidate_major -> state.variable_major
+linear.csr -> linear.csc
+violation.dense -> violation.active_compact
+```
+
+## 7.14 路线图
+
+当前已有 narrow compatibility adapter：
+
+```text
+src/apc/adapters/
+docs/ADAPTERS.md
+tests/test_adapters.py
+```
+
+adapter 只接受很窄的公开输入，并强制经过：
+
+```text
+ProblemSpec
+-> CTIRProblem
+-> layout plan
+-> operator registry
+```
+
+不支持的 solver-oriented 功能会直接报错，不会静默绕过 native path。
+
+## 7.15 路线图
+
 后续库建设路线见：
 
 ```text

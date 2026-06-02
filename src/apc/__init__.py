@@ -1,5 +1,6 @@
 """APC public Python package."""
 
+from .adapters import AdapterResult, adapter_result_to_dict, lower_native_binary_milp_dict
 from .benchmark import BenchmarkConfig, run_benchmark, write_benchmark_report
 from .cuda_benchmark import run_cuda_benchmark_report
 from .ctir import (
@@ -16,6 +17,14 @@ from .ctir import (
 from .inspect_ctir import ctir_json, inspect_ctir
 from .io_json import load_problem_json, problem_to_json_dict, save_problem_json
 from .layout import LayoutPlan, LayoutView, OperatorLayout, layout_summary, plan_layout
+from .layout_materialize import (
+    ActiveViolationCompact,
+    LinearCSC,
+    MaterializedLayout,
+    materialize_active_violations,
+    materialize_linear_csc,
+    materialize_variable_major,
+)
 from .ledger import LedgerRow, ledger_to_dicts
 from .lowering import lower_problem_to_ctir
 from .operator_registry import (
@@ -37,6 +46,8 @@ from .runtime_cpu import RuntimeConfig, RuntimeResult, run_repair, run_repair_fr
 from .spec import BinaryDomainSpec, LinearCSRSpec, ObjectiveSpec, ProblemSpec
 
 __all__ = [
+    "ActiveViolationCompact",
+    "AdapterResult",
     "BinaryDomainSpec",
     "BenchmarkConfig",
     "CTIRProblem",
@@ -46,6 +57,8 @@ __all__ = [
     "LedgerRow",
     "LinearCSR",
     "LinearCSRSpec",
+    "LinearCSC",
+    "MaterializedLayout",
     "MoveBatch",
     "MaxSATClause",
     "MaxSATRepairResult",
@@ -60,6 +73,7 @@ __all__ = [
     "StateBatch",
     "VarDomain",
     "ViolationBatch",
+    "adapter_result_to_dict",
     "ctir_json",
     "ctir_to_dict",
     "default_operator_registry",
@@ -69,8 +83,12 @@ __all__ = [
     "ledger_to_dicts",
     "load_problem_json",
     "load_maxsat_json",
+    "lower_native_binary_milp_dict",
     "lower_problem_to_ctir",
     "lower_maxsat_to_ctir",
+    "materialize_active_violations",
+    "materialize_linear_csc",
+    "materialize_variable_major",
     "maxsat_penalty",
     "problem_to_json_dict",
     "plan_layout",
