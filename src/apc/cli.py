@@ -13,6 +13,7 @@ from .io_json import load_problem_json
 from .layout import layout_summary, plan_layout
 from .ledger import ledger_to_dicts
 from .lowering import lower_problem_to_ctir
+from .operator_registry import registry_summary
 from .runtime_cpu import RuntimeConfig, run_repair_from_json
 
 
@@ -100,6 +101,12 @@ def layout_command(args: argparse.Namespace) -> None:
     _print_json(layout_summary(plan_layout(ctir)))
 
 
+def operators_command(args: argparse.Namespace) -> None:
+    """Print the operator registry."""
+
+    _print_json(registry_summary())
+
+
 def ledger_command(args: argparse.Namespace) -> None:
     """Print a compact summary for a runtime ledger file."""
 
@@ -149,6 +156,9 @@ def _build_parser() -> argparse.ArgumentParser:
     layout.add_argument("spec")
     layout.add_argument("--batch-size", type=int, default=4)
     layout.set_defaults(func=layout_command)
+
+    operators = subcommands.add_parser("operators", help="print operator registry")
+    operators.set_defaults(func=operators_command)
 
     run = subcommands.add_parser("run", help="run a native problem")
     run.add_argument("spec")

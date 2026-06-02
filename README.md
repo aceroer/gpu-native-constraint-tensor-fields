@@ -517,6 +517,22 @@ accounting 时不会声称 GPU speedup。
 
 ## 7.11 路线图
 
+当前已有 operator registry：
+
+```text
+src/apc/operator_registry.py
+docs/OPERATOR_REGISTRY.md
+tests/test_operator_registry.py
+```
+
+示例：
+
+```bash
+PYTHONPATH=src python3 -m apc.cli operators
+```
+
+## 7.12 路线图
+
 后续库建设路线见：
 
 ```text

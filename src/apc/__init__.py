@@ -17,6 +17,11 @@ from .io_json import load_problem_json, problem_to_json_dict, save_problem_json
 from .layout import LayoutPlan, LayoutView, OperatorLayout, layout_summary, plan_layout
 from .ledger import LedgerRow, ledger_to_dicts
 from .lowering import lower_problem_to_ctir
+from .operator_registry import (
+    OperatorSpec,
+    default_operator_registry,
+    registry_summary,
+)
 from .readings.maxsat import (
     MaxSATClause,
     MaxSATRepairResult,
@@ -46,6 +51,7 @@ __all__ = [
     "MaxSATSpec",
     "ObjectiveSpec",
     "OperatorLayout",
+    "OperatorSpec",
     "ProjectionSpec",
     "ProblemSpec",
     "RuntimeConfig",
@@ -55,6 +61,7 @@ __all__ = [
     "ViolationBatch",
     "ctir_json",
     "ctir_to_dict",
+    "default_operator_registry",
     "eval_unsatisfied_clauses",
     "inspect_ctir",
     "layout_summary",
@@ -70,6 +77,7 @@ __all__ = [
     "run_repair_from_json",
     "run_maxsat_bitflip_repair",
     "run_benchmark",
+    "registry_summary",
     "save_problem_json",
     "write_benchmark_report",
 ]

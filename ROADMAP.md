@@ -405,6 +405,93 @@ Completion record:
 docs/PHASE9_COMPLETION.md
 ```
 
+## Phase 10: Operator Registry
+
+Make operator boundaries discoverable as data.
+
+Deliverables:
+
+```text
+src/apc/operator_registry.py
+docs/OPERATOR_REGISTRY.md
+tests/test_operator_registry.py
+```
+
+Acceptance checks:
+
+```text
+Operators list required input and output layouts.
+CPU reference functions are named explicitly.
+CUDA ABI symbols are listed when available.
+Registry summaries are printable from the CLI.
+```
+
+Completion record:
+
+```text
+docs/PHASE10_COMPLETION.md
+```
+
+## Phase 11: CUDA Benchmark Timing
+
+Wire CUDA timing into the benchmark schema without hiding transfer overhead.
+
+Deliverables:
+
+```text
+cuda/bench/
+scripts/run_cuda_bench.py
+tests/cuda/test_cuda_bench_report.py
+```
+
+Acceptance checks:
+
+```text
+CUDA reports include kernel time and copy time separately.
+CUDA benchmarks skip cleanly when nvcc or a CUDA device is unavailable.
+CPU and CUDA benchmark reports share the same JSON schema.
+No speedup ratio is emitted unless both reports include copy time.
+```
+
+## Phase 12: Layout Materialization
+
+Turn layout plans into materialized host/device buffers.
+
+Deliverables:
+
+```text
+src/apc/layout_materialize.py
+tests/test_layout_materialize.py
+docs/LAYOUT_MATERIALIZATION.md
+```
+
+Acceptance checks:
+
+```text
+Candidate-major to variable-major conversion is deterministic.
+CSR to CSC conversion preserves all nonzeros.
+Conversion cost ledger matches materialized element counts.
+```
+
+## Phase 13: Compatibility Adapters
+
+Add narrow adapters only after the native path remains stable.
+
+Deliverables:
+
+```text
+src/apc/adapters/
+docs/ADAPTERS.md
+```
+
+Acceptance checks:
+
+```text
+Adapters lower into native specs or CTIR.
+Adapters do not bypass layout planning or operator registry.
+Unsupported solver features fail loudly.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -417,11 +504,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 1:
-
-```text
-Add a native JSON spec and a loader for the existing binary MILP example.
-```
-
-This makes the library usable through a stable input format before expanding the
-CUDA runtime.
+The next concrete step is Phase 11: CUDA benchmark timing.
