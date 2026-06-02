@@ -763,6 +763,32 @@ Checklist names tag, docs, tests, and benchmark artifacts.
 Release notes remain public-only and current.
 ```
 
+Completion record:
+
+```text
+docs/PHASE23_COMPLETION.md
+```
+
+## Phase 24: Release Artifact Normalization
+
+Normalize tag evidence artifacts across verifier, benchmark, and release notes.
+
+Deliverables:
+
+```text
+docs/RELEASE_ARTIFACTS.md
+tests/test_release_artifacts.py
+scripts/collect_release_artifacts.py
+```
+
+Acceptance checks:
+
+```text
+Artifact schema names verifier, benchmarks, docs, tests, and commit hash.
+Collector emits JSON-ready release evidence.
+Release notes reference the artifact contract.
+```
+
 ## Non-Goals For Early Versions
 
 ```text
@@ -775,4 +801,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 23: release tag checklist.
+The next concrete step is Phase 24: release artifact normalization.

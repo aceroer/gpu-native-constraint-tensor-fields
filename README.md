@@ -800,6 +800,27 @@ checks
 
 ## 7.24 路线图
 
+当前已有 release tag checklist：
+
+```text
+docs/RELEASE_CHECKLIST.md
+tests/test_release_checklist.py
+docs/RELEASE_NOTES_DRAFT.md
+```
+
+checklist 覆盖：
+
+```text
+tag name
+release verifier
+docs
+tests
+benchmark artifacts
+public language boundary
+```
+
+## 7.25 路线图
+
 后续库建设路线见：
 
 ```text

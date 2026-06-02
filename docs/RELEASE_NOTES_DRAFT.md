@@ -19,6 +19,7 @@ MaxSAT reading path and CPU repair example.
 StatePool, BranchTensor, ReductionGate, and InterfaceProjection layers.
 Vector-native repair demo and projected demo benchmark report.
 Public quickstart and handoff docs.
+Release verifier and release checklist for tag readiness.
 ```
 
 ## Stable Commands
@@ -28,6 +29,15 @@ PYTHONPATH=src python3 -m apc.cli validate examples/specs/binary_milp_tiny.json
 PYTHONPATH=src python3 -m apc.cli run examples/specs/binary_milp_tiny.json --max-iters 2 --ledger-out /tmp/apc-ledger.json
 PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-bench.json --max-iters 2
 PYTHONPATH=src:examples/vector_state_repair python3 scripts/run_vector_demo_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-vector-demo-bench.json
+python3 scripts/verify_public_release.py --out /tmp/apc-release-verify.json
+```
+
+## Release Readiness
+
+```text
+The release verifier emits schema apc.public_release_verification.v1.
+The release checklist names tag, docs, tests, and benchmark artifacts.
+Full verification is available through scripts/verify_public_release.py --full.
 ```
 
 ## Current Limits
@@ -46,4 +56,5 @@ Public benchmark sweeps.
 Additional problem-family demos.
 More CUDA operator coverage.
 Small release tag after another clean verification pass.
+Benchmark artifact normalization for repeatable tag evidence.
 ```
