@@ -30,6 +30,7 @@ add_library(
     src/linear_csr_eval.cu
     src/violation_reduce.cu
     src/projection.cu
+    src/clause_eval.cu
 )
 target_link_libraries(apc_cuda_runtime PUBLIC apc_cuda_headers)
 target_compile_features(apc_cuda_runtime PUBLIC cxx_std_17)

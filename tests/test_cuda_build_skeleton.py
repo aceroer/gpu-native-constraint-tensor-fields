@@ -18,6 +18,7 @@ class CUDABuildSkeletonTests(unittest.TestCase):
             CUDA_DIR / "src" / "linear_csr_eval.cu",
             CUDA_DIR / "src" / "violation_reduce.cu",
             CUDA_DIR / "src" / "projection.cu",
+            CUDA_DIR / "src" / "clause_eval.cu",
         ]
 
         for path in expected:
@@ -35,14 +36,16 @@ class CUDABuildSkeletonTests(unittest.TestCase):
             "apc_rectify_linear_violation",
             "apc_reduce_weighted_penalty",
             "apc_project_binary",
+            "apc_eval_clause_csr",
         ):
-            self.assertIn(f"APC_Status {name}(APC_RuntimeCtx* ctx);", text)
+            self.assertIn(name, text)
 
     def test_launch_wrappers_return_status_codes(self):
         for path in (
             CUDA_DIR / "src" / "linear_csr_eval.cu",
             CUDA_DIR / "src" / "violation_reduce.cu",
             CUDA_DIR / "src" / "projection.cu",
+            CUDA_DIR / "src" / "clause_eval.cu",
         ):
             text = path.read_text(encoding="utf-8")
             self.assertIn("extern \"C\" APC_Status", text)

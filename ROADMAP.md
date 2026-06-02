@@ -358,6 +358,12 @@ Run bit-flip repair on CPU.
 Add CUDA clause evaluation when CUDA is available.
 ```
 
+Completion record:
+
+```text
+docs/PHASE8_COMPLETION.md
+```
+
 ## Phase 9: Benchmarks
 
 Create a benchmark harness that distinguishes algorithm behavior from transfer

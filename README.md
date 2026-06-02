@@ -475,6 +475,27 @@ PYTHONPATH=src python3 -m apc.cli layout examples/specs/binary_milp_tiny.json
 
 ## 7.9 路线图
 
+当前已有 weighted MaxSAT reading：
+
+```text
+src/apc/readings/maxsat.py
+examples/specs/maxsat_tiny.json
+tests/test_maxsat_cpu.py
+cuda/src/clause_eval.cu
+```
+
+它把 tiny weighted MaxSAT 读入 `ClauseCSR`，并提供 CPU 未满足子句评估、
+weighted penalty 和 bit-flip repair。CUDA clause eval 在有 `nvcc` 时由差分
+测试覆盖。
+
+验证：
+
+```bash
+PYTHONPATH=src:examples/binary_milp_repair python3 -m unittest discover -s tests -v
+```
+
+## 7.10 路线图
+
 后续库建设路线见：
 
 ```text

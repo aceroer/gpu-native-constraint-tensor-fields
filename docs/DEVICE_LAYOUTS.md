@@ -56,7 +56,8 @@ clause.csr
 qubo.coo
 ```
 
-They are emitted only when the CTIR problem contains those views.
+They are emitted only when the CTIR problem contains those views. Weighted
+MaxSAT readings lower to `clause.csr`.
 
 ## Violation Views
 

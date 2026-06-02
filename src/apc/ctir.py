@@ -89,6 +89,33 @@ class ClauseCSR:
     lit_sign: tuple[int, ...] = ()
     weight: tuple[float, ...] = ()
 
+    def __post_init__(self) -> None:
+        if self.n_clauses < 0:
+            raise ValueError("ClauseCSR.n_clauses must be nonnegative")
+        if len(self.clause_ptr) != self.n_clauses + 1:
+            raise ValueError("ClauseCSR.clause_ptr length must be n_clauses + 1")
+        if self.clause_ptr[0] != 0:
+            raise ValueError("ClauseCSR.clause_ptr must start at 0")
+        if any(value < 0 for value in self.clause_ptr):
+            raise ValueError("ClauseCSR.clause_ptr values must be nonnegative")
+        if any(a > b for a, b in zip(self.clause_ptr, self.clause_ptr[1:])):
+            raise ValueError("ClauseCSR.clause_ptr must be nondecreasing")
+        if self.clause_ptr[-1] != len(self.lit_var):
+            raise ValueError("ClauseCSR.clause_ptr[-1] must equal len(lit_var)")
+        if len(self.lit_var) != len(self.lit_sign):
+            raise ValueError("ClauseCSR.lit_var and lit_sign lengths must match")
+        if len(self.weight) != self.n_clauses:
+            raise ValueError("ClauseCSR.weight length must equal n_clauses")
+        invalid_signs = [value for value in self.lit_sign if value not in (-1, 1)]
+        if invalid_signs:
+            raise ValueError(f"ClauseCSR.lit_sign values must be -1 or 1: {invalid_signs}")
+        if any(value < 0.0 for value in self.weight):
+            raise ValueError("ClauseCSR.weight values must be nonnegative")
+
+    @property
+    def nnz(self) -> int:
+        return len(self.lit_var)
+
 
 @dataclass(frozen=True)
 class QUBOCOO:
@@ -214,7 +241,7 @@ def ctir_to_dict(problem: CTIRProblem) -> dict[str, Any]:
             "linear": list(problem.objective.coeff),
         },
         "linear_csr": _linear_to_dict(problem.linear_csr),
-        "clause_csr": None,
+        "clause_csr": _clause_to_dict(problem.clause_csr),
         "qubo_coo": None,
         "projection": {
             "rules": list(problem.projection.rules),
@@ -246,3 +273,15 @@ def _linear_to_dict(linear: LinearCSR | None) -> dict[str, Any] | None:
         "weight": list(linear.weight),
     }
 
+
+def _clause_to_dict(clause: ClauseCSR | None) -> dict[str, Any] | None:
+    if clause is None:
+        return None
+    return {
+        "n_clauses": clause.n_clauses,
+        "nnz": clause.nnz,
+        "clause_ptr": list(clause.clause_ptr),
+        "lit_var": list(clause.lit_var),
+        "lit_sign": list(clause.lit_sign),
+        "weight": list(clause.weight),
+    }

@@ -50,6 +50,23 @@ typedef struct {
 } APC_ViolationBatch;
 
 typedef struct {
+  int32_t n_clauses;
+  int32_t n_vars;
+  int32_t nnz;
+  const int32_t* clause_ptr;
+  const int32_t* lit_var;
+  const int8_t* lit_sign;
+  const double* weight;
+} APC_ClauseCSR;
+
+typedef struct {
+  int32_t batch_size;
+  int32_t n_clauses;
+  int32_t* unsatisfied;  // Shape [batch_size, n_clauses].
+  double* penalty;       // Shape [batch_size], optional.
+} APC_ClauseBatch;
+
+typedef struct {
   const APC_LinearCSR* linear;
   APC_StateBatch* states;
   APC_ViolationBatch* violations;
@@ -62,6 +79,11 @@ APC_Status apc_eval_linear_csr(APC_RuntimeCtx* ctx);
 APC_Status apc_rectify_linear_violation(APC_RuntimeCtx* ctx);
 APC_Status apc_reduce_weighted_penalty(APC_RuntimeCtx* ctx);
 APC_Status apc_project_binary(APC_RuntimeCtx* ctx);
+APC_Status apc_eval_clause_csr(
+    const APC_ClauseCSR* clauses,
+    const APC_StateBatch* states,
+    APC_ClauseBatch* output,
+    void* stream);
 
 #ifdef __cplusplus
 }
