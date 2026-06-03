@@ -84,6 +84,7 @@ REQUIRED_TESTS = (
     "tests/test_native_host_abi.py",
     "tests/test_native_cpu_operator_shim.py",
     "tests/test_native_binding_probe.py",
+    "tests/cuda/test_cuda_arch_config.py",
     "tests/cuda/test_linear_csr_eval.py",
     "tests/cuda/test_projection.py",
     "tests/cuda/test_penalty_reduce.py",

@@ -72,5 +72,11 @@ On an Ada GPU, for example RTX 40-series, pass the architecture explicitly:
 PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-cuda-bench.json --element-count 16 --cuda-arch sm_89
 ```
 
+Or set it once for CUDA benchmark and parity-test commands:
+
+```bash
+APC_CUDA_ARCH=sm_89 PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-cuda-bench.json --element-count 16
+```
+
 When `nvcc` or a CUDA device is unavailable, this command writes an unavailable
 JSON report instead of claiming acceleration.

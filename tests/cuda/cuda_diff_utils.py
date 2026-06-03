@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import tempfile
@@ -19,6 +20,13 @@ def require_nvcc(testcase) -> str:
     return nvcc
 
 
+def nvcc_arch_args() -> list[str]:
+    """Return optional nvcc architecture args from APC_CUDA_ARCH."""
+
+    arch = os.environ.get("APC_CUDA_ARCH", "").strip()
+    return [f"-arch={arch}"] if arch else []
+
+
 def compile_and_run_harness(
     testcase,
     source: str,
@@ -32,6 +40,7 @@ def compile_and_run_harness(
         harness.write_text(source, encoding="utf-8")
         command = [
             nvcc,
+            *nvcc_arch_args(),
             "-std=c++17",
             "-I",
             str(CUDA_DIR / "include"),

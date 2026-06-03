@@ -124,6 +124,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             [item["path"] for item in file_report["tests"]],
         )
         self.assertIn(
+            "tests/cuda/test_cuda_arch_config.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
             "tests/cuda/test_linear_csr_eval.py",
             [item["path"] for item in file_report["tests"]],
         )

@@ -27,7 +27,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--penalty-weight", type=float, default=10.0)
     parser.add_argument("--element-count", type=int, default=1024)
-    parser.add_argument("--cuda-arch", default=None, help="Optional nvcc arch, for example sm_89.")
+    parser.add_argument(
+        "--cuda-arch",
+        default=None,
+        help="Optional nvcc arch, for example sm_89. Defaults to APC_CUDA_ARCH when set.",
+    )
     args = parser.parse_args(argv)
 
     config = BenchmarkConfig(

@@ -14,6 +14,12 @@ For Ada GPUs, use:
 PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/latest_cuda.json --cuda-arch sm_89
 ```
 
+The same architecture can be provided through the environment:
+
+```bash
+APC_CUDA_ARCH=sm_89 PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/specs/binary_milp_tiny.json --out benchmarks/latest_cuda.json
+```
+
 Recorded Windows `sm_89` timing evidence is kept in:
 
 ```text

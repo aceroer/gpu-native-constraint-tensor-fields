@@ -149,6 +149,12 @@ a CUDA device is unavailable
 CUDA build tools cannot compile the harness
 ```
 
+When a specific device architecture is needed, set:
+
+```bash
+APC_CUDA_ARCH=sm_89 PYTHONPATH=src python3 -m unittest tests.cuda.test_linear_csr_eval tests.cuda.test_projection tests.cuda.test_penalty_reduce -v
+```
+
 ## Evidence Boundary
 
 Parity evidence should state:
