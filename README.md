@@ -1,8 +1,8 @@
 # GPU-Native Constraint Tensor Fields
 
 GPU-Native Constraint Tensor Fields is a public research scaffold for
-constraint-repair runtimes that are designed around batch state evaluation,
-explicit operator boundaries, CPU reference behavior, and optional CUDA parity.
+constraint-repair runtimes designed around batch state evaluation, explicit
+operator boundaries, CPU reference behavior, and optional CUDA parity.
 
 The project is not a drop-in replacement for existing MIP, SAT, MaxSAT, QUBO,
 or CP-SAT solvers. It is a compact native route for experimenting with:
@@ -14,40 +14,38 @@ problem spec
 -> operator registry
 -> repair runtime
 -> validation ledger
--> benchmark evidence
+-> benchmark and debug evidence
 ```
 
 ## Current Version
 
 ```text
-tag: v0.2.0-alpha.0
-track: 0.2 Native Runtime Buildout
-tag_commit: 795e051f92c87b19f7827410f223dea6a7450fcc
+tag: v0.4.0-alpha.0
+track: 0.4 Beta Real-Environment Split
+tag_commit: b06ee935ce5deae64a40af651574bf8b5877cd26
 ```
 
-The 0.2 track includes:
+The 0.4 track includes:
 
 ```text
-native problem specs
-CTIR lowering
-CPU reference runtime
-CLI validation and run path
-runtime execution contract
-operator call ledger
-runtime status codes
-optional C++ host ABI skeleton
-optional native CPU shim probe
-CUDA operator parity smoke tests
+binary_milp, maxsat, and qubo runtime routes
+QUBO CPU reference execution
+QUBO CUDA move-scoring parity target
+CUDA parity report inspector
+family-routed runtime CLI
+stable run artifact directories
+runtime debug reports
+0.4 beta debug checkpoint
+native host bridge request/result records
 benchmark sweep runner and reader
-MaxSAT runtime route
-QUBO spec and lowering route
-problem-family fixture index
+contributor operator extension guide
 release evidence collector, reader, smoke command, and tag procedure
 ```
 
-QUBO execution is still planned. CUDA parity is only added after a matching CPU
-reference exists. Benchmark reports remain factual and do not make broad
-accelerator comparison claims without complete timing evidence.
+CUDA tests are paired with CPU references on small cases and skip cleanly when
+CUDA tooling or a CUDA device is unavailable. Benchmark and debug reports are
+factual evidence surfaces; they do not make broad accelerator performance
+claims.
 
 ## Quickstart
 
@@ -56,26 +54,20 @@ From the repository root:
 ```bash
 PYTHONPATH=src python3 -m apc.cli validate examples/specs/binary_milp_tiny.json
 PYTHONPATH=src python3 -m apc.cli inspect-ctir examples/specs/binary_milp_tiny.json
-PYTHONPATH=src python3 -m apc.cli run examples/specs/binary_milp_tiny.json --backend cpu
+PYTHONPATH=src python3 -m apc.cli run examples/specs/binary_milp_tiny.json --backend cpu --max-iters 2
 ```
 
-Run the standard benchmark:
+Run implemented public families through the routed CLI:
 
 ```bash
-PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-bench.json --max-iters 2
+PYTHONPATH=src python3 -m apc.cli run examples/specs/qubo_tiny.json --family auto --max-iters 2 --ledger-out /tmp/apc-qubo-report.json
+PYTHONPATH=src python3 -m apc.cli run examples/specs/maxsat_tiny.json --family auto --max-iters 2 --ledger-out /tmp/apc-maxsat-report.json
 ```
 
-Run the vector-native demo benchmark:
+Write a stable artifact directory for a run:
 
 ```bash
-PYTHONPATH=src:examples/vector_state_repair python3 scripts/run_vector_demo_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-vector-demo-bench.json
-```
-
-Run the benchmark sweep smoke path:
-
-```bash
-PYTHONPATH=src python3 scripts/run_benchmark_sweep.py benchmarks/sweeps/binary_milp_smoke.json --out /tmp/apc-benchmark-sweep.json
-PYTHONPATH=src python3 scripts/inspect_benchmark_sweep.py /tmp/apc-benchmark-sweep.json --out /tmp/apc-benchmark-sweep-summary.json
+PYTHONPATH=src python3 -m apc.cli run examples/specs/qubo_tiny.json --family auto --max-iters 2 --artifact-dir /tmp/apc-runs --run-id qubo_tiny
 ```
 
 More first-run commands are in [docs/QUICKSTART.md](docs/QUICKSTART.md).
@@ -111,11 +103,13 @@ InterfaceProjection
 RuntimeContract
 OperatorCallLedger
 RuntimeStatus
+RunArtifacts
+RuntimeDebugReport
 ```
 
 The CPU reference path is the behavioral baseline. CUDA paths are checked
-against CPU references on small cases and skip cleanly when CUDA tooling is not
-available.
+against CPU references on small cases, and environment gaps are recorded as
+structured status instead of hidden success.
 
 ## Optional Native And CUDA Work
 
@@ -133,49 +127,80 @@ CUDA parity scaffolding:
 cuda/src/linear_csr_eval.cu
 cuda/src/projection.cu
 cuda/src/violation_reduce.cu
+cuda/src/qubo_energy.cu
+cuda/src/qubo_move_score.cu
+scripts/inspect_cuda_parity.py
 tests/cuda/
 ```
 
+Inspect CUDA parity status:
+
+```bash
+PYTHONPATH=src python3 scripts/inspect_cuda_parity.py --out /tmp/apc-cuda-parity-report.json
+```
+
 CUDA tests are evidence checks, not performance claims.
+
+## Debug Evidence
+
+Generate a runtime debug report:
+
+```bash
+PYTHONPATH=src python3 scripts/inspect_runtime_debug.py examples/specs/qubo_tiny.json --out /tmp/apc-runtime-debug.json
+```
+
+The 0.4 beta checkpoint records:
+
+```text
+compute mode
+host role
+host compiler readiness
+CUDA differential-test status
+release artifact status
+PCI/HAL boundary status
+```
+
+The current beta route treats Windows as an orchestration layer unless a checked
+adapter proves otherwise. TCC or headless CUDA remains a preferred compute lane
+where supported hardware is available; WDDM and missing TCC are recorded as
+environment facts, not operator failures.
+
+See [docs/DEBUGGING.md](docs/DEBUGGING.md) and
+[docs/POST_0_4_BETA_PLAN.md](docs/POST_0_4_BETA_PLAN.md).
 
 ## Release Evidence
 
 Run the public verifier:
 
 ```bash
-python3 scripts/verify_public_release.py --full --out /tmp/apc-release-verify-full.json
+python3 scripts/verify_public_release.py --full --out /tmp/apc-release-verify-full-0-4.json
 ```
 
 Collect and inspect release artifacts:
 
 ```bash
-python3 scripts/collect_release_artifacts.py --tag v0.2.0-alpha.0 --out /tmp/apc-release-artifacts-0-2.json
-python3 scripts/inspect_release_artifacts.py /tmp/apc-release-artifacts-0-2.json --out /tmp/apc-release-artifacts-summary-0-2.json
+python3 scripts/collect_release_artifacts.py --tag v0.4.0-alpha.0 --verify /tmp/apc-release-verify-full-0-4.json --out /tmp/apc-release-artifacts-0-4.json
+python3 scripts/inspect_release_artifacts.py /tmp/apc-release-artifacts-0-4.json --out /tmp/apc-release-artifacts-summary-0-4.json
 ```
 
-Run the compact evidence route:
-
-```bash
-python3 scripts/smoke_release_evidence.py --tag v0.2.0-alpha.0 --out /tmp/apc-release-evidence-smoke-0-2.json
-```
-
-The 0.2 archive is recorded in
-[docs/RELEASE_ARCHIVE_0_2.md](docs/RELEASE_ARCHIVE_0_2.md).
+The 0.4 archive is recorded in
+[docs/RELEASE_ARCHIVE_0_4.md](docs/RELEASE_ARCHIVE_0_4.md).
 
 ## Next Stage
 
-The next planned track is reference-first runtime expansion:
+The next planned track is real-environment consolidation:
 
 ```text
-QUBO CPU reference execution
--> additional CPU reference routes
--> broader CUDA parity
--> benchmark sweep expansion
--> problem-family fixture expansion
--> public 0.3 release evidence
+TCC or headless CUDA evidence where supported hardware is available
+-> WSL2 Linux-userspace smoke checks
+-> Windows orchestration artifact handoff
+-> broader CUDA parity targets
+-> stronger runtime debug tools
+-> public 0.5 release evidence
 ```
 
-See [docs/POST_0_2_RUNTIME_PLAN.md](docs/POST_0_2_RUNTIME_PLAN.md).
+The public line stays at reproducible CUDA/HAL evidence. Lower-level hardware
+control is not required for the open-source runtime to remain useful.
 
 ## License, Citation, And Origin
 
