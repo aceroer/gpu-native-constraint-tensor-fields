@@ -162,7 +162,7 @@ def describe_qubo_lowering_from_json(
             "execution_status": PLANNED,
             "notes": [
                 "Unsupported QUBO features fail as structured lowering status.",
-                "QUBO execution is not implemented in the CPU reference runtime yet.",
+                "Use the QUBO CPU reference execution route to run this problem family.",
             ],
         }
 
@@ -194,7 +194,7 @@ def describe_qubo_lowering_from_json(
         "notes": [
             "QUBO COO entries are CTIR energy metadata.",
             "Linear and quadratic terms are recorded explicitly.",
-            "QUBO execution is not implemented in the CPU reference runtime yet.",
+            "This lowering report does not execute the CPU reference route.",
         ],
     }
 

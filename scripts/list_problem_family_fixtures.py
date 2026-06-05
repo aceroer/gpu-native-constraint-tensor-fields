@@ -17,7 +17,10 @@ if str(SRC) not in sys.path:
 
 from apc.benchmark import BenchmarkConfig, run_benchmark
 from apc.readings.maxsat import run_maxsat_runtime_route_from_json
-from apc.readings.qubo import describe_qubo_lowering_from_json
+from apc.runtime_qubo_cpu import (
+    QUBORuntimeConfig,
+    describe_qubo_cpu_reference_execution_from_json,
+)
 
 
 FIXTURES = (
@@ -29,6 +32,10 @@ FIXTURES = (
         "route_status": "implemented",
         "execution_status": "implemented",
         "command": "PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-binary-milp-bench.json",
+        "evidence_paths": (
+            "tests/test_runtime_cpu.py",
+            "benchmarks/sweeps/binary_milp_smoke.json",
+        ),
     },
     {
         "name": "maxsat_tiny",
@@ -38,6 +45,11 @@ FIXTURES = (
         "route_status": "implemented",
         "execution_status": "implemented",
         "command": "PYTHONPATH=src python3 -c \"from apc import run_maxsat_runtime_route_from_json; print(run_maxsat_runtime_route_from_json('examples/specs/maxsat_tiny.json'))\"",
+        "evidence_paths": (
+            "tests/test_maxsat_runtime_route.py",
+            "tests/cuda/test_clause_eval.py",
+            "benchmarks/sweeps/maxsat_smoke.json",
+        ),
     },
     {
         "name": "qubo_tiny",
@@ -45,8 +57,13 @@ FIXTURES = (
         "spec": "examples/specs/qubo_tiny.json",
         "spec_schema": "apc.qubo_spec.v1",
         "route_status": "implemented",
-        "execution_status": "planned",
-        "command": "PYTHONPATH=src python3 -c \"from apc import describe_qubo_lowering_from_json; print(describe_qubo_lowering_from_json('examples/specs/qubo_tiny.json'))\"",
+        "execution_status": "implemented",
+        "command": "PYTHONPATH=src python3 -c \"from apc import describe_qubo_cpu_reference_execution_from_json; print(describe_qubo_cpu_reference_execution_from_json('examples/specs/qubo_tiny.json'))\"",
+        "evidence_paths": (
+            "tests/test_qubo_cpu_reference.py",
+            "tests/cuda/test_qubo_energy.py",
+            "benchmarks/sweeps/qubo_smoke.json",
+        ),
     },
 )
 
@@ -78,7 +95,7 @@ def list_problem_family_fixtures() -> dict[str, Any]:
         "notes": [
             "Problem-family fixtures are public repository inspection evidence.",
             "Fixture records do not claim external solver compatibility.",
-            "Planned execution routes remain marked as planned.",
+            "Runtime evidence paths point to small public checks.",
             "No accelerator comparison claim is made by this index.",
         ],
     }
@@ -95,6 +112,7 @@ def _fixture_to_dict(item: dict[str, str]) -> dict[str, Any]:
         "route_status": item["route_status"],
         "execution_status": item["execution_status"],
         "command": item["command"],
+        "evidence_paths": list(item.get("evidence_paths", ())),
         "checked_report": _checked_report(item),
     }
 
@@ -122,12 +140,16 @@ def _checked_report(item: dict[str, str]) -> dict[str, Any]:
             "problem_family": report["problem_family"],
         }
     if item["family"] == "qubo":
-        report = describe_qubo_lowering_from_json(spec_path, batch_size=4)
+        report = describe_qubo_cpu_reference_execution_from_json(
+            spec_path,
+            config=QUBORuntimeConfig(max_iters=4, batch_size=4, seed=2),
+        )
         return {
             "schema": report["schema"],
             "status": report["status"],
             "execution_status": report["execution_status"],
             "problem_family": report["problem_family"],
+            "backend": report["backend"],
         }
     return {
         "schema": None,

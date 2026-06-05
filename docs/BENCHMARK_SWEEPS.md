@@ -2,10 +2,12 @@
 
 Benchmark sweep configs define repeatable benchmark evidence inputs.
 
-The first config is:
+Current configs are:
 
 ```text
 benchmarks/sweeps/binary_milp_smoke.json
+benchmarks/sweeps/qubo_smoke.json
+benchmarks/sweeps/maxsat_smoke.json
 ```
 
 Schema:
@@ -40,6 +42,7 @@ Current sweep config purpose:
 
 ```text
 define CPU and CUDA benchmark evidence inputs
+cover binary_milp, qubo, and maxsat smoke families
 keep output paths stable
 keep benchmark controls explicit
 feed the benchmark sweep runner

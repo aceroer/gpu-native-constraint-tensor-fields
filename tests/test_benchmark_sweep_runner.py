@@ -58,6 +58,24 @@ class BenchmarkSweepRunnerTests(unittest.TestCase):
         self.assertIn("kernel_time_s", encoded)
         self.assertNotIn("speedup", encoded.lower())
 
+    def test_runner_handles_qubo_and_maxsat_sweeps(self):
+        summaries = [
+            run_benchmark_sweep(ROOT / "benchmarks" / "sweeps" / "qubo_smoke.json"),
+            run_benchmark_sweep(ROOT / "benchmarks" / "sweeps" / "maxsat_smoke.json"),
+        ]
+
+        for summary in summaries:
+            with self.subTest(name=summary["name"]):
+                self.assertEqual(summary["schema"], "apc.benchmark_sweep.v1")
+                self.assertEqual(summary["status"], "ok")
+                self.assertEqual(summary["case_count"], 2)
+                families = {case["problem_family"] for case in summary["cases"]}
+                self.assertEqual(len(families), 1)
+                self.assertIn(next(iter(families)), {"qubo", "maxsat"})
+                self.assertEqual(summary["cases"][0]["status"], "ok")
+                self.assertIn(summary["cases"][1]["status"], {"ok", "unavailable"})
+                self.assertIn("kernel_time_s", summary["cases"][0]["timing"])
+
     def test_runner_keeps_cuda_unavailable_factual(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp = Path(tmpdir)

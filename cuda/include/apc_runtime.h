@@ -67,6 +67,15 @@ typedef struct {
 } APC_ClauseBatch;
 
 typedef struct {
+  int32_t n_vars;
+  int32_t nnz;
+  const int32_t* i;
+  const int32_t* j;
+  const double* q;
+  const double* linear;
+} APC_QUBOCOO;
+
+typedef struct {
   const APC_LinearCSR* linear;
   APC_StateBatch* states;
   APC_ViolationBatch* violations;
@@ -83,6 +92,11 @@ APC_Status apc_eval_clause_csr(
     const APC_ClauseCSR* clauses,
     const APC_StateBatch* states,
     APC_ClauseBatch* output,
+    void* stream);
+APC_Status apc_eval_qubo_energy(
+    const APC_QUBOCOO* qubo,
+    const APC_StateBatch* states,
+    double* energy,
     void* stream);
 
 #ifdef __cplusplus

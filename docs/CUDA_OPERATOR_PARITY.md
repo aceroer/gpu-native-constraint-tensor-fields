@@ -177,11 +177,133 @@ solver compatibility claim
 full runtime coverage claim
 ```
 
+## 0.3 CUDA Parity Target Selection
+
+Phase 63 selects the first 0.3 CUDA parity targets from routes that already have
+CPU reference behavior.
+
+Selected targets:
+
+```text
+target_id: qubo_energy_eval
+problem_family: qubo
+operator: eval_qubo_energy
+cpu_reference: apc.runtime_qubo_cpu.eval_qubo_energy
+cuda_symbol: apc_eval_qubo_energy
+cuda_source: cuda/src/qubo_energy.cu
+test: tests/cuda/test_qubo_energy.py
+status: implemented
+planned_phase: Phase 64
+```
+
+```text
+target_id: qubo_bitflip_score
+problem_family: qubo
+operator: score_qubo_bitflip_moves
+cpu_reference: apc.runtime_qubo_cpu.score_qubo_bitflip_moves
+cuda_symbol: apc_score_qubo_bitflip_moves
+cuda_source: cuda/src/qubo_move_score.cu
+test: tests/cuda/test_qubo_move_score.py
+status: planned
+planned_phase: Phase 64
+```
+
+```text
+target_id: maxsat_clause_eval
+problem_family: maxsat
+operator: eval_unsatisfied_clauses
+cpu_reference: apc.readings.maxsat.eval_unsatisfied_clauses
+cuda_symbol: apc_eval_clause_csr
+cuda_source: cuda/src/clause_eval.cu
+test: tests/cuda/test_clause_eval.py
+status: implemented
+planned_phase: Phase 65
+```
+
+Selection gates:
+
+```text
+CPU reference route exists before CUDA parity.
+CUDA target is a narrow operator, not a full solver route.
+Small fixtures compare exact or tolerance-bound values.
+CUDA tests skip cleanly without nvcc or a CUDA device.
+Timing fields may be recorded, but no acceleration claim is made.
+```
+
+QUBO CUDA parity starts with energy evaluation because it is the smallest shared
+scalar evidence surface. QUBO move scoring can follow once the energy kernel is
+checked. MaxSAT clause evaluation already has a CUDA smoke path and can be
+promoted into the 0.3 parity list.
+
+## QUBO Energy Evaluation
+
+The QUBO energy parity target is:
+
+```text
+operator: eval_qubo_energy
+cuda_symbol: apc_eval_qubo_energy
+cuda_source: cuda/src/qubo_energy.cu
+cpu_reference: apc.runtime_qubo_cpu.eval_qubo_energy
+test: tests/cuda/test_qubo_energy.py
+```
+
+The QUBO energy parity test builds a small CUDA harness when `nvcc` is
+available. The harness:
+
+```text
+loads tiny QUBO COO-style arrays
+generates candidate-major binary states
+computes CPU expected linear plus quadratic energy in host code
+launches apc_eval_qubo_energy
+copies CUDA energies back to host
+compares every energy with explicit tolerance
+```
+
+Tolerance:
+
+```text
+absolute_tolerance: 1e-9
+```
+
+## MaxSAT Clause Evaluation
+
+The MaxSAT clause parity target is:
+
+```text
+operator: eval_unsatisfied_clauses
+cuda_symbol: apc_eval_clause_csr
+cuda_source: cuda/src/clause_eval.cu
+cpu_reference: apc.readings.maxsat.eval_unsatisfied_clauses
+test: tests/cuda/test_clause_eval.py
+status: implemented
+```
+
+The clause parity test builds a small CUDA harness when `nvcc` is available.
+The harness:
+
+```text
+loads tiny clause CSR arrays
+generates candidate-major binary states
+computes CPU expected unsatisfied-clause indicators in host code
+launches apc_eval_clause_csr
+copies CUDA indicators back to host
+checks every indicator exactly
+```
+
+Invariant:
+
+```text
+unsatisfied_indicator: 0_or_1
+comparison: exact
+```
+
 ## Next CUDA Parity Target
 
 The next target is:
 
 ```text
-operator: benchmark_sweep
-test: tests for benchmark sweep config and reports
+operator: score_qubo_bitflip_moves
+cuda_symbol: apc_score_qubo_bitflip_moves
+cpu_reference: apc.runtime_qubo_cpu.score_qubo_bitflip_moves
+planned_phase: Phase 64
 ```

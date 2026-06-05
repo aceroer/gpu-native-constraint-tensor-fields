@@ -23,7 +23,7 @@ class QUBOCPUReferenceContractTests(unittest.TestCase):
         self.assertEqual(report["name"], "qubo_cpu_reference_runtime")
         self.assertEqual(report["backend"], "cpu")
         self.assertEqual(report["problem_families"], ["qubo"])
-        self.assertEqual(report["execution_status"], "planned")
+        self.assertEqual(report["execution_status"], "implemented")
         self.assertEqual(report["ledger_fields"], list(QUBO_LEDGER_FIELDS))
 
     def test_contract_names_required_steps(self):
@@ -66,7 +66,7 @@ class QUBOCPUReferenceContractTests(unittest.TestCase):
         report = describe_qubo_cpu_reference_contract_from_json(TINY_QUBO, batch_size=5)
 
         self.assertEqual(report["status"], "implemented")
-        self.assertEqual(report["execution_status"], "planned")
+        self.assertEqual(report["execution_status"], "implemented")
         self.assertEqual(report["source_path"], str(TINY_QUBO))
         self.assertEqual(report["config"]["batch_size"], 5)
         self.assertEqual(report["config"]["moves_per_state"], 3)
@@ -99,7 +99,7 @@ class QUBOCPUReferenceContractTests(unittest.TestCase):
 
         self.assertEqual(report["schema"], "apc.qubo_cpu_reference_contract.v1")
         self.assertEqual(report["status"], "failed")
-        self.assertEqual(report["execution_status"], "planned")
+        self.assertEqual(report["execution_status"], "implemented")
         self.assertIn("out of range", report["reason"])
 
     def test_dataclass_contract_is_json_ready(self):

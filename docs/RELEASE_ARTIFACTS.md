@@ -35,6 +35,7 @@ The collector reads:
 /tmp/apc-release-bench.json
 /tmp/apc-release-vector-demo-bench.json
 /tmp/apc-handoff-fixtures.json
+/tmp/apc-qubo-runtime.json
 ```
 
 The verifier creates the benchmark artifacts during quick and full runs.
@@ -64,6 +65,7 @@ release verifier schema and status
 CPU benchmark schema
 vector-native demo benchmark schema
 handoff fixture listing schema and status
+QUBO CPU reference execution schema and status
 release docs
 release tests
 maintenance release procedure
@@ -87,6 +89,7 @@ apc.public_release_verification.v1
 apc.benchmark.v1
 apc.vector_demo_benchmark.v1
 apc.handoff_fixture_index.v1
+apc.qubo_cpu_reference_execution.v1
 vagent.apc_handoff_report.v1
 apc.cross_project_handoff_check.v1
 apc.checked_handoff_runtime_demo.v1
@@ -105,6 +108,7 @@ For a tag candidate, keep:
 /tmp/apc-release-bench.json
 /tmp/apc-release-vector-demo-bench.json
 /tmp/apc-handoff-fixtures.json
+/tmp/apc-qubo-runtime.json
 /tmp/apc-release-artifacts.json
 ```
 
@@ -156,14 +160,20 @@ Maintenance tags should also keep:
 ```text
 docs/MAINTENANCE_RELEASES.md
 docs/RELEASE_CHECKLIST_0_2.md
+docs/RELEASE_CHECKLIST_0_3.md
 docs/RELEASE_NOTES_0_2_DRAFT.md
+docs/RELEASE_NOTES_0_3_DRAFT.md
 docs/RELEASE_ARCHIVE_0_2.md
+docs/RELEASE_ARCHIVE_0_3.md
 docs/TAG_EXECUTION_0_2.md
+docs/TAG_EXECUTION_0_3.md
 docs/POST_0_2_RUNTIME_PLAN.md
 docs/RUNTIME_CONTRACT.md
 src/apc/runtime_qubo_cpu.py
 tests/test_qubo_cpu_reference_contract.py
+tests/test_qubo_cpu_reference.py
 tests/test_release_checklist_0_2.py
+tests/test_release_checklist_0_3.py
 tests/test_release_artifacts_0_2.py
 tests/test_tag_execution_0_2.py
 tests/test_post_0_2_runtime_plan.py
@@ -179,8 +189,13 @@ tests/cuda/test_cuda_arch_config.py
 tests/cuda/test_linear_csr_eval.py
 tests/cuda/test_projection.py
 tests/cuda/test_penalty_reduce.py
+tests/cuda/test_clause_eval.py
+tests/cuda/test_parity_target_selection.py
+tests/cuda/test_qubo_energy.py
 docs/BENCHMARK_SWEEPS.md
 benchmarks/sweeps/binary_milp_smoke.json
+benchmarks/sweeps/qubo_smoke.json
+benchmarks/sweeps/maxsat_smoke.json
 scripts/run_benchmark_sweep.py
 scripts/inspect_benchmark_sweep.py
 tests/test_benchmark_sweep.py

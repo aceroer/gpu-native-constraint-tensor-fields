@@ -1763,6 +1763,234 @@ Route is deterministic under a fixed seed.
 Route keeps CUDA parity as a later gated step.
 ```
 
+Completion record:
+
+```text
+docs/PHASE60_COMPLETION.md
+```
+
+## Phase 61: QUBO Runtime Ledger Evidence
+
+Package QUBO CPU runtime ledger evidence for later release and CUDA parity
+comparison.
+
+Deliverables:
+
+```text
+docs/PROBLEM_FAMILIES.md
+docs/RELEASE_ARTIFACTS.md
+tests/test_qubo_cpu_reference.py
+```
+
+Acceptance checks:
+
+```text
+QUBO runtime ledger rows are JSON-ready evidence.
+QUBO execution report is included in release artifact planning.
+Ledger evidence states CPU reference status without acceleration claims.
+CUDA parity remains a later gated step.
+```
+
+Completion record:
+
+```text
+docs/PHASE61_COMPLETION.md
+```
+
+## Phase 62: MaxSAT CPU Reference Expansion
+
+Expand the existing MaxSAT CPU route into the 0.3 reference-first runtime
+sequence.
+
+Deliverables:
+
+```text
+src/apc/readings/maxsat.py
+tests/test_maxsat_runtime_route.py
+docs/PROBLEM_FAMILIES.md
+```
+
+Acceptance checks:
+
+```text
+MaxSAT route emits deterministic ledger-ready evidence.
+Unsupported MaxSAT inputs fail with structured status.
+Route keeps native fixtures small and inspectable.
+CUDA parity remains a later gated step.
+```
+
+Completion record:
+
+```text
+docs/PHASE62_COMPLETION.md
+```
+
+## Phase 63: CUDA Parity Target Selection
+
+Choose the first CUDA parity targets from implemented CPU reference routes.
+
+Deliverables:
+
+```text
+docs/CUDA_OPERATOR_PARITY.md
+docs/POST_0_2_RUNTIME_PLAN.md
+tests/cuda/
+```
+
+Acceptance checks:
+
+```text
+Each selected CUDA target names its CPU reference route.
+QUBO and MaxSAT CUDA targets remain small smoke candidates.
+CUDA tests skip cleanly without nvcc or a CUDA device.
+No performance claim is made before complete timing evidence.
+```
+
+Completion record:
+
+```text
+docs/PHASE63_COMPLETION.md
+```
+
+## Phase 64: QUBO CUDA Parity Smoke
+
+Add the first QUBO CUDA parity smoke target against the CPU reference route.
+
+Deliverables:
+
+```text
+cuda/src/qubo_energy.cu
+tests/cuda/test_qubo_energy.py
+docs/CUDA_OPERATOR_PARITY.md
+```
+
+Acceptance checks:
+
+```text
+QUBO CUDA energy evaluation matches CPU reference values on a tiny fixture.
+CUDA test skips cleanly without nvcc or a CUDA device.
+Timing fields are factual if measured.
+No acceleration claim is made.
+```
+
+Completion record:
+
+```text
+docs/PHASE64_COMPLETION.md
+```
+
+## Phase 65: MaxSAT CUDA Parity Smoke
+
+Promote MaxSAT clause evaluation into the 0.3 CUDA parity smoke path.
+
+Deliverables:
+
+```text
+cuda/src/clause_eval.cu
+tests/cuda/test_clause_eval.py
+docs/CUDA_OPERATOR_PARITY.md
+```
+
+Acceptance checks:
+
+```text
+MaxSAT CUDA clause evaluation matches CPU unsatisfied-clause indicators.
+CUDA test skips cleanly without nvcc or a CUDA device.
+The target remains operator-level, not full runtime coverage.
+No acceleration claim is made.
+```
+
+Completion record:
+
+```text
+docs/PHASE65_COMPLETION.md
+```
+
+## Phase 66: Benchmark Sweep Expansion
+
+Expand benchmark sweep evidence for implemented CPU and CUDA smoke routes.
+
+Deliverables:
+
+```text
+benchmarks/sweeps/qubo_smoke.json
+benchmarks/sweeps/maxsat_smoke.json
+scripts/run_benchmark_sweep.py
+scripts/inspect_benchmark_sweep.py
+docs/BENCHMARK_SWEEPS.md
+```
+
+Acceptance checks:
+
+```text
+Benchmark sweep reports include backend, family, status, and timing fields.
+CUDA unavailable or skipped status remains explicit.
+Sweep docs avoid acceleration claims.
+Small fixtures remain quick to run.
+```
+
+Completion record:
+
+```text
+docs/PHASE66_COMPLETION.md
+```
+
+## Phase 67: Fixture Expansion
+
+Expand public fixture metadata for 0.3 runtime and parity evidence.
+
+Deliverables:
+
+```text
+examples/handoff/problem_family_fixtures.v1.json
+scripts/list_problem_family_fixtures.py
+docs/PROBLEM_FAMILIES.md
+tests/test_problem_family_fixture_set.py
+```
+
+Acceptance checks:
+
+```text
+Each fixture names schema, route, status, and evidence path.
+QUBO and MaxSAT fixtures point to runtime evidence.
+CUDA parity fixtures remain public-only and claim no acceleration.
+Fixture set stays small enough for quick local checks.
+```
+
+Completion record:
+
+```text
+docs/PHASE67_COMPLETION.md
+```
+
+## Phase 68: 0.3 Release Checklist
+
+Prepare the 0.3 release evidence checklist and tag-readiness documents.
+
+Deliverables:
+
+```text
+docs/RELEASE_CHECKLIST_0_3.md
+docs/RELEASE_NOTES_0_3_DRAFT.md
+docs/RELEASE_ARCHIVE_0_3.md
+docs/TAG_EXECUTION_0_3.md
+```
+
+Acceptance checks:
+
+```text
+Checklist names full verifier, CUDA smoke, sweep reports, and boundary scan.
+Release notes keep non-goals and unsupported routes visible.
+Archive draft remains factual until a tag exists.
+Tag execution doc records commands without claiming a tag early.
+```
+
+Completion record:
+
+```text
+docs/PHASE68_COMPLETION.md
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1796,4 +2024,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 60: QUBO CPU execution route.
+The next concrete step is the unified 0.3 verification pass.

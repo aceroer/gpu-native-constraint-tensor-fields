@@ -43,6 +43,7 @@ runtime_contract_schema
 ctir
 config
 result
+ledger
 notes
 ```
 
@@ -58,6 +59,15 @@ Hard clauses report penalty contributions:
 ```text
 hard_penalty_contributions
 penalty_contribution
+```
+
+The CPU route also emits deterministic ledger rows:
+
+```text
+iteration
+best_penalty
+unsatisfied_count
+best_state
 ```
 
 Unsupported MaxSAT fields return a structured route report with:
@@ -115,16 +125,46 @@ j
 weight
 ```
 
-QUBO execution is not implemented in the CPU reference runtime yet. The QUBO
-route therefore reports:
+QUBO lowering remains available as an inspect-only report. The executable CPU
+reference route is described below.
+
+## QUBO CPU Reference Execution
+
+The 0.3 CPU reference route is:
+
+```python
+from apc import QUBORuntimeConfig, describe_qubo_cpu_reference_execution_from_json
+
+report = describe_qubo_cpu_reference_execution_from_json(
+    "examples/specs/qubo_tiny.json",
+    config=QUBORuntimeConfig(max_iters=4, batch_size=4, seed=2),
+)
+```
+
+It emits:
 
 ```text
-execution_status: planned
+apc.qubo_cpu_reference_execution.v1
 ```
+
+The route records:
+
+```text
+objective
+penalty
+energy
+move_count
+final_state
+ledger
+```
+
+The QUBO route is deterministic under a fixed seed. It is CPU reference
+evidence for later CUDA parity, not a solver-compatibility or performance
+claim.
 
 ## QUBO CPU Reference Contract
 
-The first 0.3 QUBO runtime step is the CPU reference contract:
+The contract report remains available:
 
 ```python
 from apc import describe_qubo_cpu_reference_contract_from_json
@@ -148,8 +188,8 @@ ledger fields
 call ledger shape
 ```
 
-The contract is not the executable QUBO route. Execution remains planned until
-the CPU reference behavior is implemented and checked.
+The contract now marks the QUBO CPU reference route as implemented. CUDA QUBO
+parity remains gated on this CPU behavior and later evidence.
 
 Unsupported QUBO fields return a structured lowering report with:
 
@@ -190,6 +230,7 @@ spec_schema
 route_status
 execution_status
 command
+evidence_paths
 checked_report
 ```
 
@@ -199,12 +240,11 @@ Reproduce the index with:
 PYTHONPATH=src python3 scripts/list_problem_family_fixtures.py --out /tmp/apc-problem-family-fixtures.json
 ```
 
-Implemented routes include compact checked reports. Planned execution routes
-remain marked as `planned`.
+Implemented routes include compact checked reports and public evidence paths.
 
 ## Boundary
 
 The CPU reference path remains the behavioral baseline for implemented runtime
-routes. MaxSAT is a small public runtime route. QUBO is currently a spec and
-lowering route only. The fixture set does not claim full solver coverage,
+routes. MaxSAT is a small public runtime route. QUBO now has a deterministic CPU
+reference execution route. The fixture set does not claim full solver coverage,
 optimality proof, external solver compatibility, or accelerator comparison.

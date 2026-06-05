@@ -33,6 +33,7 @@ class ProblemFamilyFixtureSetTests(unittest.TestCase):
                 self.assertIn(fixture["execution_status"], {"implemented", "planned"})
                 self.assertTrue(fixture["command"].startswith("PYTHONPATH=src"))
                 self.assertTrue(fixture["exists"])
+                self.assertTrue(fixture["evidence_paths"])
 
     def test_implemented_routes_include_checked_reports(self):
         payload = _load(INDEX)
@@ -42,17 +43,20 @@ class ProblemFamilyFixtureSetTests(unittest.TestCase):
         self.assertEqual(reports["binary_milp"]["status"], "implemented")
         self.assertEqual(reports["maxsat"]["schema"], "apc.maxsat_runtime_route.v1")
         self.assertEqual(reports["maxsat"]["status"], "implemented")
-        self.assertEqual(reports["qubo"]["schema"], "apc.qubo_lowering.v1")
+        self.assertEqual(reports["qubo"]["schema"], "apc.qubo_cpu_reference_execution.v1")
         self.assertEqual(reports["qubo"]["status"], "implemented")
 
-    def test_planned_execution_routes_remain_marked_planned(self):
+    def test_runtime_execution_routes_are_marked_implemented(self):
         payload = _load(INDEX)
         fixtures = {fixture["family"]: fixture for fixture in payload["fixtures"]}
 
-        self.assertEqual(fixtures["qubo"]["execution_status"], "planned")
-        self.assertEqual(fixtures["qubo"]["checked_report"]["execution_status"], "planned")
+        self.assertEqual(fixtures["qubo"]["execution_status"], "implemented")
+        self.assertEqual(fixtures["qubo"]["checked_report"]["execution_status"], "implemented")
         self.assertEqual(fixtures["binary_milp"]["execution_status"], "implemented")
         self.assertEqual(fixtures["maxsat"]["execution_status"], "implemented")
+        self.assertIn("tests/test_qubo_cpu_reference.py", fixtures["qubo"]["evidence_paths"])
+        self.assertIn("tests/cuda/test_qubo_energy.py", fixtures["qubo"]["evidence_paths"])
+        self.assertIn("tests/cuda/test_clause_eval.py", fixtures["maxsat"]["evidence_paths"])
 
     def test_script_reproduces_fixture_index_shape(self):
         generated = list_problem_family_fixtures()

@@ -62,7 +62,18 @@ class MaxSATRepairResult:
     best_state: tuple[int, ...]
     best_penalty: float
     unsatisfied: tuple[int, ...]
+    ledger: tuple["MaxSATLedgerRow", ...]
     final_states: StateBatch
+
+
+@dataclass(frozen=True)
+class MaxSATLedgerRow:
+    """One JSON-ready MaxSAT CPU reference ledger row."""
+
+    iteration: int
+    best_penalty: float
+    unsatisfied_count: int
+    best_state: tuple[int, ...]
 
 
 @dataclass(frozen=True)
@@ -295,6 +306,7 @@ def run_maxsat_runtime_route_from_json(
             "unsatisfied": list(result.unsatisfied),
             "evaluation": evaluation,
         },
+        "ledger": maxsat_ledger_to_dicts(result.ledger),
         "notes": [
             "Soft unsatisfied clauses are reported as objective contributions.",
             "Hard unsatisfied clauses are reported as penalty contributions.",
@@ -318,8 +330,9 @@ def run_maxsat_bitflip_repair(
         raise ValueError("max_iters must be nonnegative")
     states = initial_states if initial_states is not None else _initial_states(problem, seed)
     best_state, best_penalty, best_unsatisfied = _best_clause_state(problem.clause_csr, states)
+    ledger = [_maxsat_ledger_row(0, best_state, best_penalty, best_unsatisfied)]
 
-    for _ in range(max_iters):
+    for iteration in range(1, max_iters + 1):
         next_states = []
         for state in states.x:
             next_states.append(_best_single_flip(problem.clause_csr, state))
@@ -329,13 +342,29 @@ def run_maxsat_bitflip_repair(
             best_state = candidate_state
             best_penalty = candidate_penalty
             best_unsatisfied = candidate_unsatisfied
+        ledger.append(_maxsat_ledger_row(iteration, best_state, best_penalty, best_unsatisfied))
 
     return MaxSATRepairResult(
         best_state=best_state,
         best_penalty=best_penalty,
         unsatisfied=best_unsatisfied,
+        ledger=tuple(ledger),
         final_states=states,
     )
+
+
+def maxsat_ledger_to_dicts(rows: tuple[MaxSATLedgerRow, ...]) -> list[dict[str, Any]]:
+    """Convert MaxSAT ledger rows into JSON-ready dictionaries."""
+
+    return [
+        {
+            "iteration": row.iteration,
+            "best_penalty": row.best_penalty,
+            "unsatisfied_count": row.unsatisfied_count,
+            "best_state": list(row.best_state),
+        }
+        for row in rows
+    ]
 
 
 def _best_clause_state(clause: ClauseCSR, states: StateBatch) -> tuple[tuple[int, ...], float, tuple[int, ...]]:
@@ -362,6 +391,20 @@ def _initial_states(problem: CTIRProblem, seed: int) -> StateBatch:
     for _ in range(problem.moves.batch_size - 1):
         states.append(tuple(rng.randint(0, 1) for _ in range(problem.domain.n_vars)))
     return StateBatch(tuple(states))
+
+
+def _maxsat_ledger_row(
+    iteration: int,
+    best_state: tuple[int, ...],
+    best_penalty: float,
+    unsatisfied: tuple[int, ...],
+) -> MaxSATLedgerRow:
+    return MaxSATLedgerRow(
+        iteration=iteration,
+        best_penalty=best_penalty,
+        unsatisfied_count=sum(1 for value in unsatisfied if value),
+        best_state=best_state,
+    )
 
 
 def _clause_contribution(

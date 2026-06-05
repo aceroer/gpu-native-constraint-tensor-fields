@@ -103,7 +103,7 @@ class QUBOSpecLoweringTests(unittest.TestCase):
         text = json.dumps(report).lower()
 
         self.assertEqual(report["execution_status"], "planned")
-        self.assertIn("not implemented in the cpu reference runtime", text)
+        self.assertIn("does not execute the cpu reference route", text)
         self.assertNotIn("compatible with", text)
 
 

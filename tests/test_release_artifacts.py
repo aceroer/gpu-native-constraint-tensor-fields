@@ -19,8 +19,15 @@ class ReleaseArtifactTests(unittest.TestCase):
             bench = tmp / "bench.json"
             vector = tmp / "vector.json"
             handoff = tmp / "handoff-fixtures.json"
+            qubo = tmp / "qubo-runtime.json"
             out = tmp / "artifacts.json"
-            _write_fixture_artifacts(verify=verify, bench=bench, vector=vector, handoff=handoff)
+            _write_fixture_artifacts(
+                verify=verify,
+                bench=bench,
+                vector=vector,
+                handoff=handoff,
+                qubo=qubo,
+            )
 
             completed = subprocess.run(
                 [
@@ -36,6 +43,8 @@ class ReleaseArtifactTests(unittest.TestCase):
                     str(vector),
                     "--handoff-fixtures",
                     str(handoff),
+                    "--qubo-runtime",
+                    str(qubo),
                     "--out",
                     str(out),
                 ],
@@ -57,9 +66,14 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("cpu_benchmark", file_report["artifacts"])
         self.assertIn("vector_demo_benchmark", file_report["artifacts"])
         self.assertIn("handoff_fixture_listing", file_report["artifacts"])
+        self.assertIn("qubo_runtime", file_report["artifacts"])
         self.assertEqual(
             file_report["artifacts"]["handoff_fixture_listing"]["schema"],
             "apc.handoff_fixture_index.v1",
+        )
+        self.assertEqual(
+            file_report["artifacts"]["qubo_runtime"]["schema"],
+            "apc.qubo_cpu_reference_execution.v1",
         )
         self.assertIn("examples", file_report)
         self.assertIn("docs/TAG_PREP.md", [item["path"] for item in file_report["docs"]])
@@ -140,6 +154,18 @@ class ReleaseArtifactTests(unittest.TestCase):
             [item["path"] for item in file_report["tests"]],
         )
         self.assertIn(
+            "tests/cuda/test_clause_eval.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
+            "tests/cuda/test_parity_target_selection.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
+            "tests/cuda/test_qubo_energy.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
             "tests/test_benchmark_sweep.py",
             [item["path"] for item in file_report["tests"]],
         )
@@ -161,6 +187,10 @@ class ReleaseArtifactTests(unittest.TestCase):
         )
         self.assertIn(
             "tests/test_qubo_cpu_reference_contract.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
+            "tests/test_qubo_cpu_reference.py",
             [item["path"] for item in file_report["tests"]],
         )
         self.assertIn(
@@ -209,11 +239,13 @@ class ReleaseArtifactTests(unittest.TestCase):
             bench = tmp / "bench.json"
             vector = tmp / "missing-vector.json"
             handoff = tmp / "handoff-fixtures.json"
+            qubo = tmp / "qubo-runtime.json"
             _write_fixture_artifacts(
                 verify=verify,
                 bench=bench,
                 vector=tmp / "unused.json",
                 handoff=handoff,
+                qubo=qubo,
             )
             vector.unlink(missing_ok=True)
 
@@ -223,6 +255,7 @@ class ReleaseArtifactTests(unittest.TestCase):
                 bench_path=bench,
                 vector_bench_path=vector,
                 handoff_fixtures_path=handoff,
+                qubo_runtime_path=qubo,
             )
 
         self.assertEqual(report["status"], "failed")
@@ -235,11 +268,13 @@ class ReleaseArtifactTests(unittest.TestCase):
             bench = tmp / "bench.json"
             vector = tmp / "vector.json"
             handoff = tmp / "missing-handoff-fixtures.json"
+            qubo = tmp / "qubo-runtime.json"
             _write_fixture_artifacts(
                 verify=verify,
                 bench=bench,
                 vector=vector,
                 handoff=tmp / "unused-handoff.json",
+                qubo=qubo,
             )
             handoff.unlink(missing_ok=True)
 
@@ -249,6 +284,7 @@ class ReleaseArtifactTests(unittest.TestCase):
                 bench_path=bench,
                 vector_bench_path=vector,
                 handoff_fixtures_path=handoff,
+                qubo_runtime_path=qubo,
             )
 
         self.assertEqual(report["status"], "failed")
@@ -267,11 +303,16 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("scripts/smoke_release_evidence.py", text)
         self.assertIn("docs/MAINTENANCE_RELEASES.md", text)
         self.assertIn("docs/RELEASE_CHECKLIST_0_2.md", text)
+        self.assertIn("docs/RELEASE_CHECKLIST_0_3.md", text)
         self.assertIn("docs/RELEASE_NOTES_0_2_DRAFT.md", text)
+        self.assertIn("docs/RELEASE_NOTES_0_3_DRAFT.md", text)
         self.assertIn("docs/RELEASE_ARCHIVE_0_2.md", text)
+        self.assertIn("docs/RELEASE_ARCHIVE_0_3.md", text)
         self.assertIn("docs/TAG_EXECUTION_0_2.md", text)
+        self.assertIn("docs/TAG_EXECUTION_0_3.md", text)
         self.assertIn("docs/RUNTIME_CONTRACT.md", text)
         self.assertIn("tests/test_release_checklist_0_2.py", text)
+        self.assertIn("tests/test_release_checklist_0_3.py", text)
         self.assertIn("tests/test_release_artifacts_0_2.py", text)
         self.assertIn("tests/test_tag_execution_0_2.py", text)
         self.assertIn("tests/test_maintenance_releases.py", text)
@@ -285,8 +326,13 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/cuda/test_linear_csr_eval.py", text)
         self.assertIn("tests/cuda/test_projection.py", text)
         self.assertIn("tests/cuda/test_penalty_reduce.py", text)
+        self.assertIn("tests/cuda/test_clause_eval.py", text)
+        self.assertIn("tests/cuda/test_parity_target_selection.py", text)
+        self.assertIn("tests/cuda/test_qubo_energy.py", text)
         self.assertIn("docs/BENCHMARK_SWEEPS.md", text)
         self.assertIn("benchmarks/sweeps/binary_milp_smoke.json", text)
+        self.assertIn("benchmarks/sweeps/qubo_smoke.json", text)
+        self.assertIn("benchmarks/sweeps/maxsat_smoke.json", text)
         self.assertIn("scripts/run_benchmark_sweep.py", text)
         self.assertIn("scripts/inspect_benchmark_sweep.py", text)
         self.assertIn("tests/test_benchmark_sweep.py", text)
@@ -299,13 +345,22 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("src/apc/readings/qubo.py", text)
         self.assertIn("examples/specs/qubo_tiny.json", text)
         self.assertIn("tests/test_qubo_spec_lowering.py", text)
+        self.assertIn("tests/test_qubo_cpu_reference.py", text)
+        self.assertIn("apc.qubo_cpu_reference_execution.v1", text)
         self.assertIn("scripts/list_problem_family_fixtures.py", text)
         self.assertIn("examples/handoff/problem_family_fixtures.v1.json", text)
         self.assertIn("tests/test_problem_family_fixture_set.py", text)
         self.assertIn("release artifact contract", notes)
 
 
-def _write_fixture_artifacts(*, verify: Path, bench: Path, vector: Path, handoff: Path) -> None:
+def _write_fixture_artifacts(
+    *,
+    verify: Path,
+    bench: Path,
+    vector: Path,
+    handoff: Path,
+    qubo: Path,
+) -> None:
     verify.write_text(
         json.dumps(
             {
@@ -346,6 +401,18 @@ def _write_fixture_artifacts(*, verify: Path, bench: Path, vector: Path, handoff
                 "status": "ok",
                 "fixture_count": 2,
                 "fixtures": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    qubo.write_text(
+        json.dumps(
+            {
+                "schema": "apc.qubo_cpu_reference_execution.v1",
+                "status": "implemented",
+                "backend": "cpu",
+                "problem_family": "qubo",
+                "ledger": [],
             }
         ),
         encoding="utf-8",

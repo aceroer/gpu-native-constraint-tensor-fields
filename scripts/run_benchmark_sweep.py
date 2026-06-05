@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,8 @@ if str(SRC) not in sys.path:
 
 from apc.benchmark import BenchmarkConfig, run_benchmark, write_benchmark_report
 from apc.benchmark_sweep import BenchmarkSweepCase, load_benchmark_sweep_config
+from apc.readings.maxsat import run_maxsat_runtime_route_from_json
+from apc.runtime_qubo_cpu import QUBORuntimeConfig, describe_qubo_cpu_reference_execution_from_json
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -61,23 +64,16 @@ def run_benchmark_sweep(config_path: str | Path) -> dict[str, Any]:
 def _run_case(case: BenchmarkSweepCase) -> dict[str, Any]:
     spec_path = _resolve_path(case.spec)
     out_path = _resolve_path(case.out)
+    problem_family = _problem_family(spec_path)
     try:
-        report = run_benchmark(
-            spec_path,
-            BenchmarkConfig(
-                backend=case.backend,
-                max_iters=case.max_iters,
-                batch_size=case.batch_size,
-                seed=case.seed,
-                penalty_weight=case.penalty_weight,
-            ),
-        )
+        report = _run_family_benchmark(case, spec_path, problem_family)
         write_benchmark_report(report, out_path)
     except Exception as exc:
         return {
             "name": case.name,
             "status": "failed",
             "backend": case.backend,
+            "problem_family": problem_family,
             "spec": case.spec,
             "out": case.out,
             "error": str(exc),
@@ -91,6 +87,7 @@ def _run_case(case: BenchmarkSweepCase) -> dict[str, Any]:
         "name": case.name,
         "status": status,
         "backend": case.backend,
+        "problem_family": problem_family,
         "backend_available": available,
         "backend_reason": backend.get("reason"),
         "spec": case.spec,
@@ -103,6 +100,174 @@ def _run_case(case: BenchmarkSweepCase) -> dict[str, Any]:
             "end_to_end_time_s": metrics.get("end_to_end_time_s"),
         },
     }
+
+
+def _run_family_benchmark(
+    case: BenchmarkSweepCase,
+    spec_path: Path,
+    problem_family: str,
+) -> dict[str, Any]:
+    if problem_family == "binary_milp":
+        return run_benchmark(
+            spec_path,
+            BenchmarkConfig(
+                backend=case.backend,
+                max_iters=case.max_iters,
+                batch_size=case.batch_size,
+                seed=case.seed,
+                penalty_weight=case.penalty_weight,
+            ),
+        )
+    if case.backend == "cuda":
+        return _unavailable_family_report(case, spec_path, problem_family)
+    if problem_family == "qubo":
+        return _qubo_cpu_benchmark(case, spec_path)
+    if problem_family == "maxsat":
+        return _maxsat_cpu_benchmark(case, spec_path)
+    raise ValueError(f"unsupported benchmark problem family: {problem_family}")
+
+
+def _qubo_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path) -> dict[str, Any]:
+    start = time.perf_counter()
+    report = describe_qubo_cpu_reference_execution_from_json(
+        spec_path,
+        config=QUBORuntimeConfig(
+            max_iters=case.max_iters,
+            batch_size=case.batch_size,
+            seed=case.seed,
+        ),
+    )
+    elapsed = time.perf_counter() - start
+    best = report.get("best", {})
+    return _family_report(
+        case=case,
+        spec_path=spec_path,
+        problem_family="qubo",
+        available=report.get("status") == "implemented",
+        metrics={
+            "best_objective": best.get("objective"),
+            "best_penalty": best.get("penalty"),
+            "best_energy": best.get("energy"),
+            "move_count": report.get("move_count"),
+            "kernel_time_s": elapsed,
+            "copy_time_s": 0.0,
+            "layout_conversion_time_s": 0.0,
+            "end_to_end_time_s": elapsed,
+        },
+        ledger=report.get("ledger", []),
+        notes=[
+            "QUBO CPU benchmark uses the deterministic reference route.",
+            "No acceleration comparison is inferred from this report.",
+        ],
+    )
+
+
+def _maxsat_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path) -> dict[str, Any]:
+    start = time.perf_counter()
+    report = run_maxsat_runtime_route_from_json(
+        spec_path,
+        batch_size=case.batch_size,
+        max_iters=case.max_iters,
+        seed=case.seed,
+    )
+    elapsed = time.perf_counter() - start
+    result = report.get("result", {})
+    return _family_report(
+        case=case,
+        spec_path=spec_path,
+        problem_family="maxsat",
+        available=report.get("status") == "implemented",
+        metrics={
+            "best_objective": result.get("evaluation", {}).get("objective"),
+            "best_penalty": result.get("best_penalty"),
+            "unsatisfied_count": sum(1 for value in result.get("unsatisfied", []) if value),
+            "kernel_time_s": elapsed,
+            "copy_time_s": 0.0,
+            "layout_conversion_time_s": 0.0,
+            "end_to_end_time_s": elapsed,
+        },
+        ledger=report.get("ledger", []),
+        notes=[
+            "MaxSAT CPU benchmark uses the deterministic reference route.",
+            "No acceleration comparison is inferred from this report.",
+        ],
+    )
+
+
+def _family_report(
+    *,
+    case: BenchmarkSweepCase,
+    spec_path: Path,
+    problem_family: str,
+    available: bool,
+    metrics: dict[str, Any],
+    ledger: Any,
+    notes: list[str],
+) -> dict[str, Any]:
+    return {
+        "schema": "apc.benchmark.v1",
+        "problem": {
+            "path": str(spec_path),
+            "family": problem_family,
+        },
+        "backend": {
+            "name": case.backend,
+            "available": available,
+        },
+        "config": {
+            "max_iters": case.max_iters,
+            "batch_size": case.batch_size,
+            "seed": case.seed,
+            "penalty_weight": case.penalty_weight,
+        },
+        "metrics": metrics,
+        "layout": {
+            "costs": [],
+        },
+        "ledger": ledger,
+        "notes": notes,
+    }
+
+
+def _unavailable_family_report(
+    case: BenchmarkSweepCase,
+    spec_path: Path,
+    problem_family: str,
+) -> dict[str, Any]:
+    return _family_report(
+        case=case,
+        spec_path=spec_path,
+        problem_family=problem_family,
+        available=False,
+        metrics={
+            "best_objective": None,
+            "best_penalty": None,
+            "kernel_time_s": 0.0,
+            "copy_time_s": 0.0,
+            "layout_conversion_time_s": 0.0,
+            "end_to_end_time_s": 0.0,
+        },
+        ledger=[],
+        notes=[
+            f"CUDA benchmark for {problem_family} is unavailable in this sweep runner.",
+            "No acceleration comparison is inferred from this report.",
+        ],
+    )
+
+
+def _problem_family(spec_path: Path) -> str:
+    payload = json.loads(spec_path.read_text(encoding="utf-8"))
+    problem_type = payload.get("problem_type")
+    if problem_type == "binary_milp":
+        return "binary_milp"
+    if problem_type == "qubo":
+        return "qubo"
+    if problem_type == "weighted_maxsat":
+        return "maxsat"
+    constraints = payload.get("constraints")
+    if isinstance(constraints, dict) and "linear_csr" in constraints:
+        return "binary_milp"
+    raise ValueError(f"unsupported benchmark problem_type: {problem_type}")
 
 
 def _resolve_path(path: str | Path) -> Path:

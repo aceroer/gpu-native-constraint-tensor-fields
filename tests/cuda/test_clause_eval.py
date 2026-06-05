@@ -3,12 +3,27 @@ import unittest
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[2]
+PARITY_DOC = ROOT / "docs" / "CUDA_OPERATOR_PARITY.md"
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from cuda_diff_utils import base_harness_prelude, compile_and_run_harness
 
 
 class CUDAClauseEvalDifferentialTests(unittest.TestCase):
+    def test_parity_doc_names_maxsat_clause_contract(self):
+        text = PARITY_DOC.read_text(encoding="utf-8")
+
+        self.assertIn("MaxSAT Clause Evaluation", text)
+        self.assertIn("target_id: maxsat_clause_eval", text)
+        self.assertIn("cuda/src/clause_eval.cu", text)
+        self.assertIn("apc_eval_clause_csr", text)
+        self.assertIn("apc.readings.maxsat.eval_unsatisfied_clauses", text)
+        self.assertIn("unsatisfied_indicator: 0_or_1", text)
+        self.assertIn("comparison: exact", text)
+        self.assertNotIn("speedup", text.lower())
+
     def test_clause_eval_matches_cpu_unsatisfied_indicators(self):
         source = base_harness_prelude() + r'''
 int main() {

@@ -195,8 +195,112 @@ src/apc/runtime_qubo_cpu.py
 tests/test_qubo_cpu_reference_contract.py
 ```
 
-This establishes the QUBO CPU reference contract. The executable route remains
-Phase 60.
+This establishes the QUBO CPU reference contract.
+
+Phase 60 output:
+
+```text
+src/apc/runtime_qubo_cpu.py
+tests/test_qubo_cpu_reference.py
+docs/PROBLEM_FAMILIES.md
+```
+
+This implements deterministic QUBO CPU reference execution. Runtime ledger
+evidence packaging remains Phase 61.
+
+Phase 61 output:
+
+```text
+scripts/collect_release_artifacts.py
+docs/RELEASE_ARTIFACTS.md
+tests/test_release_artifacts.py
+docs/PHASE61_COMPLETION.md
+```
+
+This adds QUBO CPU runtime ledger evidence to the release artifact contract.
+
+Phase 62 output:
+
+```text
+src/apc/readings/maxsat.py
+tests/test_maxsat_runtime_route.py
+docs/PROBLEM_FAMILIES.md
+docs/PHASE62_COMPLETION.md
+```
+
+This adds deterministic MaxSAT ledger-ready evidence to the CPU route.
+
+Phase 63 output:
+
+```text
+docs/CUDA_OPERATOR_PARITY.md
+tests/cuda/test_parity_target_selection.py
+docs/PHASE63_COMPLETION.md
+```
+
+This selects QUBO energy evaluation, QUBO bit-flip move scoring, and MaxSAT
+clause evaluation as the first 0.3 CUDA parity targets.
+
+Phase 64 output:
+
+```text
+cuda/src/qubo_energy.cu
+tests/cuda/test_qubo_energy.py
+docs/CUDA_OPERATOR_PARITY.md
+docs/PHASE64_COMPLETION.md
+```
+
+This implements QUBO CUDA energy parity smoke against the CPU reference route.
+
+Phase 65 output:
+
+```text
+cuda/src/clause_eval.cu
+tests/cuda/test_clause_eval.py
+docs/CUDA_OPERATOR_PARITY.md
+docs/PHASE65_COMPLETION.md
+```
+
+This promotes MaxSAT clause evaluation into the 0.3 CUDA parity smoke path.
+
+Phase 66 output:
+
+```text
+benchmarks/sweeps/qubo_smoke.json
+benchmarks/sweeps/maxsat_smoke.json
+scripts/run_benchmark_sweep.py
+scripts/inspect_benchmark_sweep.py
+docs/BENCHMARK_SWEEPS.md
+docs/PHASE66_COMPLETION.md
+```
+
+This expands benchmark sweep configs and summaries across binary MILP, QUBO,
+and MaxSAT smoke routes.
+
+Phase 67 output:
+
+```text
+examples/handoff/problem_family_fixtures.v1.json
+scripts/list_problem_family_fixtures.py
+docs/PROBLEM_FAMILIES.md
+tests/test_problem_family_fixture_set.py
+docs/PHASE67_COMPLETION.md
+```
+
+This expands fixture metadata with runtime and parity evidence paths.
+
+Phase 68 output:
+
+```text
+docs/RELEASE_CHECKLIST_0_3.md
+docs/RELEASE_NOTES_0_3_DRAFT.md
+docs/RELEASE_ARCHIVE_0_3.md
+docs/TAG_EXECUTION_0_3.md
+tests/test_release_checklist_0_3.py
+docs/PHASE68_COMPLETION.md
+```
+
+This prepares 0.3 release evidence and tag-readiness documents.
 
 ## Stop Conditions
 

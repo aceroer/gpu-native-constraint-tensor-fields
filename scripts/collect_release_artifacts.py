@@ -18,6 +18,7 @@ DEFAULT_VERIFY = Path("/tmp/apc-release-verify.json")
 DEFAULT_BENCH = Path("/tmp/apc-release-bench.json")
 DEFAULT_VECTOR_BENCH = Path("/tmp/apc-release-vector-demo-bench.json")
 DEFAULT_HANDOFF_FIXTURES = Path("/tmp/apc-handoff-fixtures.json")
+DEFAULT_QUBO_RUNTIME = Path("/tmp/apc-qubo-runtime.json")
 REQUIRED_DOCS = (
     "README.md",
     "ROADMAP.md",
@@ -26,15 +27,19 @@ REQUIRED_DOCS = (
     "docs/VERIFY_RELEASE.md",
     "docs/RELEASE_CHECKLIST.md",
     "docs/RELEASE_CHECKLIST_0_2.md",
+    "docs/RELEASE_CHECKLIST_0_3.md",
     "docs/RELEASE_NOTES_DRAFT.md",
     "docs/RELEASE_NOTES_0_2_DRAFT.md",
+    "docs/RELEASE_NOTES_0_3_DRAFT.md",
     "docs/RELEASE_ARTIFACTS.md",
     "docs/TAG_PREP.md",
     "docs/TAG_EXECUTION.md",
     "docs/TAG_EXECUTION_0_2.md",
+    "docs/TAG_EXECUTION_0_3.md",
     "docs/POST_0_2_RUNTIME_PLAN.md",
     "docs/RELEASE_ARCHIVE.md",
     "docs/RELEASE_ARCHIVE_0_2.md",
+    "docs/RELEASE_ARCHIVE_0_3.md",
     "docs/CROSS_PROJECT_HANDOFF.md",
     "docs/CHECKED_HANDOFF_DEMO.md",
     "docs/MAINTENANCE_RELEASES.md",
@@ -43,6 +48,8 @@ REQUIRED_DOCS = (
     "docs/BENCHMARK_SWEEPS.md",
     "docs/PROBLEM_FAMILIES.md",
     "benchmarks/sweeps/binary_milp_smoke.json",
+    "benchmarks/sweeps/qubo_smoke.json",
+    "benchmarks/sweeps/maxsat_smoke.json",
     "examples/specs/maxsat_tiny.json",
     "examples/specs/qubo_tiny.json",
     "src/apc/readings/maxsat.py",
@@ -63,6 +70,7 @@ REQUIRED_TESTS = (
     "tests/test_release_verifier.py",
     "tests/test_release_checklist.py",
     "tests/test_release_checklist_0_2.py",
+    "tests/test_release_checklist_0_3.py",
     "tests/test_release_artifacts.py",
     "tests/test_release_artifacts_0_2.py",
     "tests/test_tag_prep.py",
@@ -89,12 +97,16 @@ REQUIRED_TESTS = (
     "tests/cuda/test_linear_csr_eval.py",
     "tests/cuda/test_projection.py",
     "tests/cuda/test_penalty_reduce.py",
+    "tests/cuda/test_clause_eval.py",
+    "tests/cuda/test_parity_target_selection.py",
+    "tests/cuda/test_qubo_energy.py",
     "tests/test_benchmark_sweep.py",
     "tests/test_benchmark_sweep_runner.py",
     "tests/test_benchmark_sweep_report.py",
     "tests/test_maxsat_runtime_route.py",
     "tests/test_qubo_spec_lowering.py",
     "tests/test_qubo_cpu_reference_contract.py",
+    "tests/test_qubo_cpu_reference.py",
     "tests/test_problem_family_fixture_set.py",
 )
 REQUIRED_EXAMPLES = (
@@ -124,6 +136,11 @@ def main(argv: list[str] | None = None) -> int:
         default=str(DEFAULT_HANDOFF_FIXTURES),
         help="handoff fixture listing JSON path",
     )
+    parser.add_argument(
+        "--qubo-runtime",
+        default=str(DEFAULT_QUBO_RUNTIME),
+        help="QUBO CPU reference execution JSON path",
+    )
     parser.add_argument("--out", help="optional JSON output path")
     args = parser.parse_args(argv)
 
@@ -133,6 +150,7 @@ def main(argv: list[str] | None = None) -> int:
         bench_path=Path(args.bench),
         vector_bench_path=Path(args.vector_bench),
         handoff_fixtures_path=Path(args.handoff_fixtures),
+        qubo_runtime_path=Path(args.qubo_runtime),
     )
     if args.out:
         output = Path(args.out)
@@ -149,6 +167,7 @@ def collect_release_artifacts(
     bench_path: Path,
     vector_bench_path: Path,
     handoff_fixtures_path: Path = DEFAULT_HANDOFF_FIXTURES,
+    qubo_runtime_path: Path = DEFAULT_QUBO_RUNTIME,
 ) -> dict[str, Any]:
     """Return a JSON-ready release evidence report."""
 
@@ -157,6 +176,7 @@ def collect_release_artifacts(
         "cpu_benchmark": _load_json_artifact(bench_path),
         "vector_demo_benchmark": _load_json_artifact(vector_bench_path),
         "handoff_fixture_listing": _load_json_artifact(handoff_fixtures_path),
+        "qubo_runtime": _load_json_artifact(qubo_runtime_path),
     }
     docs = [_file_status(ROOT / relpath, relpath) for relpath in REQUIRED_DOCS]
     tests = [_file_status(ROOT / relpath, relpath) for relpath in REQUIRED_TESTS]
@@ -187,7 +207,9 @@ def _checks(
     cpu_benchmark = artifacts["cpu_benchmark"]
     vector_benchmark = artifacts["vector_demo_benchmark"]
     handoff_fixtures = artifacts["handoff_fixture_listing"]
+    qubo_runtime = artifacts["qubo_runtime"]
     handoff_payload = _payload(handoff_fixtures)
+    qubo_payload = _payload(qubo_runtime)
     return [
         _check(
             "verifier_schema",
@@ -207,6 +229,11 @@ def _checks(
             "handoff_fixture_listing_status",
             handoff_payload.get("status") == "ok",
         ),
+        _check(
+            "qubo_runtime_schema",
+            qubo_payload.get("schema") == "apc.qubo_cpu_reference_execution.v1",
+        ),
+        _check("qubo_runtime_status", qubo_payload.get("status") == "implemented"),
         _check("docs_present", all(item["exists"] for item in docs)),
         _check("tests_present", all(item["exists"] for item in tests)),
         _check("examples_present", all(item["exists"] for item in examples)),

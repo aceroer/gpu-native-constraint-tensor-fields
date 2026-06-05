@@ -12,10 +12,14 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
 DEFAULT_OUTPUT_DIR = Path("/tmp")
 DEFAULT_BENCH = Path("/tmp/apc-release-bench.json")
 DEFAULT_VECTOR_BENCH = Path("/tmp/apc-release-vector-demo-bench.json")
 DEFAULT_HANDOFF_FIXTURES = Path("/tmp/apc-handoff-fixtures.json")
+DEFAULT_QUBO_RUNTIME = Path("/tmp/apc-qubo-runtime.json")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -55,6 +59,7 @@ def run_release_evidence_smoke(
     verify_path = output_dir / ("apc-release-verify-full.json" if full else "apc-release-verify.json")
     artifacts_path = output_dir / "apc-release-artifacts.json"
     summary_path = output_dir / "apc-release-artifacts-summary.json"
+    qubo_runtime_path = output_dir / "apc-qubo-runtime.json"
 
     steps: list[dict[str, Any]] = []
     verifier_cmd = [
@@ -68,6 +73,7 @@ def run_release_evidence_smoke(
     steps.append(_run_step("verifier", verifier_cmd, verify_path))
 
     if _steps_ok(steps):
+        _write_qubo_runtime_artifact(qubo_runtime_path)
         collector_cmd = [
             sys.executable,
             "scripts/collect_release_artifacts.py",
@@ -81,6 +87,8 @@ def run_release_evidence_smoke(
             str(DEFAULT_VECTOR_BENCH),
             "--handoff-fixtures",
             str(DEFAULT_HANDOFF_FIXTURES),
+            "--qubo-runtime",
+            str(qubo_runtime_path),
             "--out",
             str(artifacts_path),
         ]
@@ -109,6 +117,7 @@ def run_release_evidence_smoke(
             "verifier": str(verify_path),
             "collector": str(artifacts_path),
             "reader": str(summary_path),
+            "qubo_runtime": str(qubo_runtime_path),
         },
         "steps": steps,
         "notes": [
@@ -152,6 +161,19 @@ def _skipped_step(name: str, output_path: Path) -> dict[str, Any]:
 
 def _steps_ok(steps: list[dict[str, Any]]) -> bool:
     return all(step.get("returncode") == 0 for step in steps)
+
+
+def _write_qubo_runtime_artifact(path: Path) -> None:
+    from apc.runtime_qubo_cpu import (
+        QUBORuntimeConfig,
+        describe_qubo_cpu_reference_execution_from_json,
+    )
+
+    report = describe_qubo_cpu_reference_execution_from_json(
+        ROOT / "examples" / "specs" / "qubo_tiny.json",
+        config=QUBORuntimeConfig(max_iters=4, batch_size=4, seed=2),
+    )
+    path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

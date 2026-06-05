@@ -16,6 +16,8 @@ from apc.benchmark_sweep import (
 
 ROOT = Path(__file__).resolve().parents[1]
 SWEEP = ROOT / "benchmarks" / "sweeps" / "binary_milp_smoke.json"
+QUBO_SWEEP = ROOT / "benchmarks" / "sweeps" / "qubo_smoke.json"
+MAXSAT_SWEEP = ROOT / "benchmarks" / "sweeps" / "maxsat_smoke.json"
 
 
 class BenchmarkSweepConfigTests(unittest.TestCase):
@@ -51,6 +53,20 @@ class BenchmarkSweepConfigTests(unittest.TestCase):
                 self.assertIn(case.backend, {"cpu", "cuda"})
                 self.assertGreaterEqual(case.max_iters, 0)
                 self.assertTrue(case.out.startswith("benchmarks/sweeps/out/"))
+
+    def test_0_3_family_sweep_configs_load(self):
+        configs = {
+            "qubo_smoke": load_benchmark_sweep_config(QUBO_SWEEP),
+            "maxsat_smoke": load_benchmark_sweep_config(MAXSAT_SWEEP),
+        }
+
+        for name, config in configs.items():
+            with self.subTest(name=name):
+                self.assertEqual(config.name, name)
+                self.assertEqual(len(config.cases), 2)
+                self.assertEqual({case.backend for case in config.cases}, {"cpu", "cuda"})
+                for case in config.cases:
+                    self.assertTrue(case.out.startswith("benchmarks/sweeps/out/"))
 
     def test_sweep_config_round_trips(self):
         config = load_benchmark_sweep_config(SWEEP)
@@ -115,6 +131,8 @@ class BenchmarkSweepConfigTests(unittest.TestCase):
             self.assertIn(field, text)
         self.assertIn("apc.benchmark_sweep_config.v1", text)
         self.assertIn("benchmarks/sweeps/binary_milp_smoke.json", text)
+        self.assertIn("benchmarks/sweeps/qubo_smoke.json", text)
+        self.assertIn("benchmarks/sweeps/maxsat_smoke.json", text)
         self.assertNotIn("speedup", text.lower())
 
 

@@ -10,6 +10,10 @@
         "status": "implemented"
       },
       "command": "PYTHONPATH=src python3 scripts/run_bench.py examples/specs/binary_milp_tiny.json --out /tmp/apc-binary-milp-bench.json",
+      "evidence_paths": [
+        "tests/test_runtime_cpu.py",
+        "benchmarks/sweeps/binary_milp_smoke.json"
+      ],
       "execution_status": "implemented",
       "exists": true,
       "family": "binary_milp",
@@ -26,6 +30,11 @@
         "status": "implemented"
       },
       "command": "PYTHONPATH=src python3 -c \"from apc import run_maxsat_runtime_route_from_json; print(run_maxsat_runtime_route_from_json('examples/specs/maxsat_tiny.json'))\"",
+      "evidence_paths": [
+        "tests/test_maxsat_runtime_route.py",
+        "tests/cuda/test_clause_eval.py",
+        "benchmarks/sweeps/maxsat_smoke.json"
+      ],
       "execution_status": "implemented",
       "exists": true,
       "family": "maxsat",
@@ -36,13 +45,19 @@
     },
     {
       "checked_report": {
-        "execution_status": "planned",
+        "backend": "cpu",
+        "execution_status": "implemented",
         "problem_family": "qubo",
-        "schema": "apc.qubo_lowering.v1",
+        "schema": "apc.qubo_cpu_reference_execution.v1",
         "status": "implemented"
       },
-      "command": "PYTHONPATH=src python3 -c \"from apc import describe_qubo_lowering_from_json; print(describe_qubo_lowering_from_json('examples/specs/qubo_tiny.json'))\"",
-      "execution_status": "planned",
+      "command": "PYTHONPATH=src python3 -c \"from apc import describe_qubo_cpu_reference_execution_from_json; print(describe_qubo_cpu_reference_execution_from_json('examples/specs/qubo_tiny.json'))\"",
+      "evidence_paths": [
+        "tests/test_qubo_cpu_reference.py",
+        "tests/cuda/test_qubo_energy.py",
+        "benchmarks/sweeps/qubo_smoke.json"
+      ],
+      "execution_status": "implemented",
       "exists": true,
       "family": "qubo",
       "name": "qubo_tiny",
@@ -54,7 +69,7 @@
   "notes": [
     "Problem-family fixtures are public repository inspection evidence.",
     "Fixture records do not claim external solver compatibility.",
-    "Planned execution routes remain marked as planned.",
+    "Runtime evidence paths point to small public checks.",
     "No accelerator comparison claim is made by this index."
   ],
   "schema": "apc.problem_family_fixture_index.v1",

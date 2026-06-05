@@ -8,6 +8,7 @@ from apc import (
     evaluate_maxsat_state,
     load_maxsat_json,
     lower_maxsat_to_ctir,
+    maxsat_ledger_to_dicts,
     run_maxsat_bitflip_repair,
     run_maxsat_runtime_route_from_json,
 )
@@ -29,6 +30,9 @@ class MaxSATRuntimeRouteTests(unittest.TestCase):
         self.assertEqual(report["ctir"]["n_vars"], 3)
         self.assertEqual(report["ctir"]["n_clauses"], 3)
         self.assertEqual(report["ctir"]["clause_nnz"], 6)
+        self.assertEqual(len(report["ledger"]), 5)
+        self.assertEqual(report["ledger"][-1]["best_state"], report["result"]["best_state"])
+        self.assertIn("unsatisfied_count", report["ledger"][-1])
 
     def test_soft_clause_objective_contributions_are_explicit(self):
         spec = load_maxsat_json(TINY_MAXSAT)
@@ -70,6 +74,16 @@ class MaxSATRuntimeRouteTests(unittest.TestCase):
         self.assertEqual(report["result"]["best_state"], list(baseline.best_state))
         self.assertEqual(report["result"]["best_penalty"], baseline.best_penalty)
         self.assertEqual(report["result"]["unsatisfied"], list(baseline.unsatisfied))
+        self.assertEqual(report["ledger"], maxsat_ledger_to_dicts(baseline.ledger))
+
+    def test_cpu_reference_ledger_is_deterministic_under_fixed_seed(self):
+        spec = load_maxsat_json(TINY_MAXSAT)
+        problem = lower_maxsat_to_ctir(spec, batch_size=4)
+
+        first = run_maxsat_bitflip_repair(problem, max_iters=4, seed=5)
+        second = run_maxsat_bitflip_repair(problem, max_iters=4, seed=5)
+
+        self.assertEqual(maxsat_ledger_to_dicts(first.ledger), maxsat_ledger_to_dicts(second.ledger))
 
     def test_unsupported_features_fail_with_structured_status(self):
         with tempfile.TemporaryDirectory() as tmpdir:
