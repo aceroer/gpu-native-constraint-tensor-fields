@@ -188,6 +188,16 @@ Phase 68: 0.3 release checklist
 The sequence can be paused after any phase because each phase should produce one
 small public artifact and one matching test.
 
+Phase 59 output:
+
+```text
+src/apc/runtime_qubo_cpu.py
+tests/test_qubo_cpu_reference_contract.py
+```
+
+This establishes the QUBO CPU reference contract. The executable route remains
+Phase 60.
+
 ## Stop Conditions
 
 Stop and repair before advancing if:

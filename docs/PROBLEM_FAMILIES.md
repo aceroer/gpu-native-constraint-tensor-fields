@@ -122,6 +122,35 @@ route therefore reports:
 execution_status: planned
 ```
 
+## QUBO CPU Reference Contract
+
+The first 0.3 QUBO runtime step is the CPU reference contract:
+
+```python
+from apc import describe_qubo_cpu_reference_contract_from_json
+
+report = describe_qubo_cpu_reference_contract_from_json("examples/specs/qubo_tiny.json")
+```
+
+It emits:
+
+```text
+apc.qubo_cpu_reference_contract.v1
+```
+
+The contract records:
+
+```text
+runtime steps
+operator names
+status fields
+ledger fields
+call ledger shape
+```
+
+The contract is not the executable QUBO route. Execution remains planned until
+the CPU reference behavior is implemented and checked.
+
 Unsupported QUBO fields return a structured lowering report with:
 
 ```text

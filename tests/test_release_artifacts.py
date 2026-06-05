@@ -160,6 +160,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             [item["path"] for item in file_report["tests"]],
         )
         self.assertIn(
+            "tests/test_qubo_cpu_reference_contract.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
             "tests/test_problem_family_fixture_set.py",
             [item["path"] for item in file_report["tests"]],
         )

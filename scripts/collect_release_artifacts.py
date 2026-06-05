@@ -47,6 +47,7 @@ REQUIRED_DOCS = (
     "examples/specs/qubo_tiny.json",
     "src/apc/readings/maxsat.py",
     "src/apc/readings/qubo.py",
+    "src/apc/runtime_qubo_cpu.py",
     "native/include/apc_runtime.hpp",
     "native/src/cpu_operator_shim.cpp",
     "scripts/probe_native_host.py",
@@ -93,6 +94,7 @@ REQUIRED_TESTS = (
     "tests/test_benchmark_sweep_report.py",
     "tests/test_maxsat_runtime_route.py",
     "tests/test_qubo_spec_lowering.py",
+    "tests/test_qubo_cpu_reference_contract.py",
     "tests/test_problem_family_fixture_set.py",
 )
 REQUIRED_EXAMPLES = (

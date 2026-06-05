@@ -76,6 +76,12 @@ from .reduction_gate import (
     reduction_gate_summary,
 )
 from .runtime_cpu import RuntimeConfig, RuntimeResult, run_repair, run_repair_from_json
+from .runtime_qubo_cpu import (
+    QUBO_LEDGER_FIELDS,
+    default_qubo_cpu_reference_contract,
+    describe_qubo_cpu_reference_contract,
+    describe_qubo_cpu_reference_contract_from_json,
+)
 from .spec import BinaryDomainSpec, LinearCSRSpec, ObjectiveSpec, ProblemSpec
 from .state_pool import (
     StatePool,
@@ -114,6 +120,7 @@ __all__ = [
     "ProblemSpec",
     "QUBOSpec",
     "QUBOTerm",
+    "QUBO_LEDGER_FIELDS",
     "ReductionConfig",
     "ReductionGateResult",
     "RouteDecision",
@@ -130,7 +137,10 @@ __all__ = [
     "ctir_json",
     "ctir_to_dict",
     "default_operator_registry",
+    "default_qubo_cpu_reference_contract",
     "describe_qubo_lowering_from_json",
+    "describe_qubo_cpu_reference_contract",
+    "describe_qubo_cpu_reference_contract_from_json",
     "evaluate_maxsat_state",
     "eval_unsatisfied_clauses",
     "initialize_state_pool",

@@ -161,6 +161,8 @@ docs/RELEASE_ARCHIVE_0_2.md
 docs/TAG_EXECUTION_0_2.md
 docs/POST_0_2_RUNTIME_PLAN.md
 docs/RUNTIME_CONTRACT.md
+src/apc/runtime_qubo_cpu.py
+tests/test_qubo_cpu_reference_contract.py
 tests/test_release_checklist_0_2.py
 tests/test_release_artifacts_0_2.py
 tests/test_tag_execution_0_2.py

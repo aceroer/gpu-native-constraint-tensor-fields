@@ -49,9 +49,9 @@ class Post02RuntimePlanTests(unittest.TestCase):
         self.assertIn("docs/POST_0_2_RUNTIME_PLAN.md", roadmap)
         self.assertIn("docs/POST_0_2_RUNTIME_PLAN.md", handoff)
         self.assertIn("docs/POST_0_2_RUNTIME_PLAN.md", artifacts)
-        self.assertIn("docs/PHASE58_COMPLETION.md", roadmap)
-        self.assertIn("Phase 59", roadmap)
-        self.assertIn("The next concrete step is Phase 59", roadmap)
+        self.assertIn("docs/PHASE59_COMPLETION.md", roadmap)
+        self.assertIn("Phase 60", roadmap)
+        self.assertIn("The next concrete step is Phase 60", roadmap)
 
 
 if __name__ == "__main__":

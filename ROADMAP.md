@@ -1736,6 +1736,33 @@ Contract keeps unsupported QUBO features explicit.
 Contract avoids solver compatibility or performance claims.
 ```
 
+Completion record:
+
+```text
+docs/PHASE59_COMPLETION.md
+```
+
+## Phase 60: QUBO CPU Execution Route
+
+Implement the deterministic CPU reference route for tiny QUBO instances.
+
+Deliverables:
+
+```text
+src/apc/runtime_qubo_cpu.py
+tests/test_qubo_cpu_reference.py
+docs/PROBLEM_FAMILIES.md
+```
+
+Acceptance checks:
+
+```text
+QUBO CPU reference execution runs from examples/specs/qubo_tiny.json.
+Route records objective, energy, move count, final state, and ledger rows.
+Route is deterministic under a fixed seed.
+Route keeps CUDA parity as a later gated step.
+```
+
 ## Next Major Stage: 0.2 Native Runtime Buildout
 
 After the release evidence closure track, the next major stage is planned in:
@@ -1769,4 +1796,4 @@ Large CUDA kernel bundles before CPU/GPU differential tests exist
 
 ## Near-Term Next Step
 
-The next concrete step is Phase 59: QUBO CPU reference contract.
+The next concrete step is Phase 60: QUBO CPU execution route.
