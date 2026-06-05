@@ -27,6 +27,7 @@ class NativeHostABITests(unittest.TestCase):
         self.assertIn("apc.runtime_execution_contract.v1", text)
         self.assertIn("apc.operator_call_ledger.v1", text)
         self.assertIn("apc.runtime_status_codes.v1", text)
+        self.assertIn("apc.native_host_bridge.v1", text)
 
     def test_header_names_operator_call_record_fields(self):
         text = HEADER.read_text(encoding="utf-8")
@@ -44,6 +45,19 @@ class NativeHostABITests(unittest.TestCase):
             "end_to_end_time_s",
         ):
             self.assertIn(timing, text)
+
+    def test_header_names_native_bridge_request_and_result_fields(self):
+        text = HEADER.read_text(encoding="utf-8")
+
+        self.assertIn("struct NativeOperatorRequest", text)
+        self.assertIn("struct NativeOperatorResult", text)
+        self.assertIn("struct NativeHostBridgeRecord", text)
+        self.assertIn("operator_name", text)
+        self.assertIn("problem_family", text)
+        self.assertIn("RuntimeStatus status", text)
+        self.assertIn("RuntimeTiming timing", text)
+        self.assertIn("NativeOperatorRequest request", text)
+        self.assertIn("NativeOperatorResult result", text)
 
     def test_native_cmake_can_be_disabled(self):
         if shutil.which("cmake") is None:

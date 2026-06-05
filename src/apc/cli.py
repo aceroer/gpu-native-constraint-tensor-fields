@@ -14,6 +14,9 @@ from .layout import layout_summary, plan_layout
 from .ledger import ledger_to_dicts
 from .lowering import lower_problem_to_ctir
 from .operator_registry import registry_summary
+from .readings.maxsat import run_maxsat_runtime_route_from_json
+from .run_artifacts import write_run_artifacts
+from .runtime_qubo_cpu import QUBORuntimeConfig, describe_qubo_cpu_reference_execution_from_json
 from .runtime_cpu import RuntimeConfig, run_repair_from_json
 
 
@@ -24,11 +27,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
-        args.func(args)
+        result = args.func(args)
     except Exception as exc:  # pragma: no cover - exercised by subprocess tests.
         print(f"error: {exc}", file=sys.stderr)
         return 1
-    return 0
+    return result if isinstance(result, int) else 0
 
 
 def validate_command(args: argparse.Namespace) -> None:
@@ -58,6 +61,52 @@ def run_command(args: argparse.Namespace) -> None:
 
     if args.backend != "cpu":
         raise ValueError(f"unsupported backend: {args.backend}")
+    family = _resolve_family(args.spec, args.family)
+    if family == "binary_milp":
+        report = _run_binary_milp(args)
+        _print_json(_attach_artifacts_if_requested(report, args))
+        return None
+    if family == "qubo":
+        report = describe_qubo_cpu_reference_execution_from_json(
+            args.spec,
+            config=QUBORuntimeConfig(
+                max_iters=args.max_iters,
+                batch_size=args.batch_size,
+                seed=args.seed,
+            ),
+        )
+        _write_family_report(report, args.ledger_out)
+        report = {**report, "evidence": {"runtime_report": args.ledger_out}}
+        _print_json(_attach_artifacts_if_requested(report, args))
+        return None
+    if family == "maxsat":
+        report = run_maxsat_runtime_route_from_json(
+            args.spec,
+            batch_size=args.batch_size,
+            max_iters=args.max_iters,
+            seed=args.seed,
+        )
+        _write_family_report(report, args.ledger_out)
+        report = {**report, "evidence": {"runtime_report": args.ledger_out}}
+        _print_json(_attach_artifacts_if_requested(report, args))
+        return None
+
+    _print_json(
+        {
+            "schema": "apc.runtime_family_route.v1",
+            "status": "failed",
+            "problem_family": family,
+            "backend": args.backend,
+            "reason": f"unsupported family: {family}",
+            "evidence": {},
+        }
+    )
+    return 1
+
+
+def _run_binary_milp(args: argparse.Namespace) -> dict[str, Any]:
+    """Run the original binary MILP CPU repair route."""
+
     config = RuntimeConfig(
         max_iters=args.max_iters,
         batch_size=args.batch_size,
@@ -82,15 +131,18 @@ def run_command(args: argparse.Namespace) -> None:
         handle.write("\n")
 
     report = {
+        "schema": "apc.runtime_family_route.v1",
         "status": "ok",
+        "problem_family": "binary_milp",
         "backend": "cpu",
         "ledger": str(ledger_path),
+        "evidence": {"runtime_report": str(ledger_path)},
         "best_state": list(result.best_state),
         "best_objective": result.best_objective,
         "best_penalty": result.best_penalty,
         "feasible": result.best_penalty == 0.0,
     }
-    _print_json(report)
+    return report
 
 
 def layout_command(args: argparse.Namespace) -> None:
@@ -163,7 +215,10 @@ def _build_parser() -> argparse.ArgumentParser:
     run = subcommands.add_parser("run", help="run a native problem")
     run.add_argument("spec")
     run.add_argument("--backend", default="cpu", choices=("cpu",))
+    run.add_argument("--family", default="auto", help="auto, binary_milp, qubo, or maxsat")
     run.add_argument("--ledger-out", default="runs/latest/ledger.json")
+    run.add_argument("--artifact-dir", help="optional stable run artifact output directory")
+    run.add_argument("--run-id", default="latest", help="run id under --artifact-dir")
     run.add_argument("--max-iters", type=int, default=8)
     run.add_argument("--batch-size", type=int, default=4)
     run.add_argument("--seed", type=int, default=0)
@@ -179,6 +234,39 @@ def _build_parser() -> argparse.ArgumentParser:
 
 def _print_json(data: dict[str, Any]) -> None:
     print(json.dumps(data, indent=2, sort_keys=True))
+
+
+def _resolve_family(spec: str, requested: str) -> str:
+    if requested != "auto":
+        return requested
+    with Path(spec).open("r", encoding="utf-8") as handle:
+        data = json.load(handle)
+    if not isinstance(data, dict):
+        raise ValueError("problem spec must be a JSON object")
+    problem_type = data.get("problem_type")
+    if problem_type == "qubo":
+        return "qubo"
+    if problem_type == "weighted_maxsat":
+        return "maxsat"
+    return "binary_milp"
+
+
+def _write_family_report(report: dict[str, Any], path: str) -> None:
+    output = Path(path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _attach_artifacts_if_requested(report: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
+    if not args.artifact_dir:
+        return report
+    manifest = write_run_artifacts(
+        report=report,
+        source_spec=args.spec,
+        artifact_dir=args.artifact_dir,
+        run_id=args.run_id,
+    )
+    return {**report, "run_artifacts": manifest}
 
 
 if __name__ == "__main__":

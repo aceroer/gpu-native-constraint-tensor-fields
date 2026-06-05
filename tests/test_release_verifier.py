@@ -40,6 +40,13 @@ class ReleaseVerifierTests(unittest.TestCase):
         self.assertIn("vagent_handoff_consumer", [check["name"] for check in file_report["checks"]])
         self.assertIn("boundary_scan", [check["name"] for check in file_report["checks"]])
 
+    def test_compileall_skips_appledouble_metadata_files(self):
+        checks = verifier._checks(full=False)
+        compileall = next(check for check in checks if check.name == "compileall")
+
+        self.assertIn("-x", compileall.cmd)
+        self.assertIn(r"(^|[/\\])\._", compileall.cmd)
+
     def test_verifier_marks_failed_command(self):
         with mock.patch.object(verifier, "_checks") as checks:
             checks.return_value = [

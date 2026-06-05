@@ -57,7 +57,20 @@ def _checks(*, full: bool) -> list[Check]:
     env = _env("src:examples/binary_milp_repair:examples/vector_state_repair")
     quick_env = _env("src:examples/vector_state_repair")
     checks = [
-        Check("compileall", [py, "-m", "compileall", "src", "tests", "scripts", "examples/vector_state_repair"]),
+        Check(
+            "compileall",
+            [
+                py,
+                "-m",
+                "compileall",
+                "-x",
+                r"(^|[/\\])\._",
+                "src",
+                "tests",
+                "scripts",
+                "examples/vector_state_repair",
+            ],
+        ),
         Check(
             "quickstart",
             [py, "-m", "unittest", "tests.test_quickstart", "-v"],
@@ -157,6 +170,9 @@ def _checks(*, full: bool) -> list[Check]:
 
 
 def _run_check(check: Check) -> dict[str, Any]:
+    if check.name == "boundary_scan":
+        return _run_boundary_scan(check)
+
     env = os.environ.copy()
     if check.env:
         env.update(check.env)
@@ -185,7 +201,30 @@ def _normalize_returncode(check: Check, returncode: int) -> int:
 
 
 def _env(pythonpath: str) -> dict[str, str]:
-    return {"PYTHONPATH": pythonpath}
+    return {"PYTHONPATH": pythonpath.replace(":", os.pathsep)}
+
+
+def _run_boundary_scan(check: Check) -> dict[str, Any]:
+    pattern = _boundary_pattern().split("|")
+    matches: list[str] = []
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or ".git" in path.parts:
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        for line_no, line in enumerate(text.splitlines(), start=1):
+            if any(term in line for term in pattern):
+                matches.append(f"{path.relative_to(ROOT)}:{line_no}:{line}")
+    stdout = "\n".join(matches)
+    return {
+        "name": check.name,
+        "cmd": check.cmd,
+        "returncode": 1 if matches else 0,
+        "stdout_tail": stdout[-1000:],
+        "stderr_tail": "",
+    }
 
 
 def _boundary_pattern() -> str:

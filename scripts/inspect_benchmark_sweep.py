@@ -109,6 +109,7 @@ def _case_summaries(cases: Any) -> list[dict[str, Any]]:
                 "status": _string_or_value(case.get("status"), default="unknown"),
                 "backend": _string_or_value(case.get("backend"), default="unknown"),
                 "problem_family": _string_or_value(case.get("problem_family"), default="unknown"),
+                "operator": _string_or_value(case.get("operator"), default="unknown"),
                 "backend_available": bool(case.get("backend_available")),
                 "backend_reason": _string_or_none(case.get("backend_reason")),
                 "spec": _string_or_value(case.get("spec"), default="unknown"),

@@ -65,8 +65,9 @@ def _run_case(case: BenchmarkSweepCase) -> dict[str, Any]:
     spec_path = _resolve_path(case.spec)
     out_path = _resolve_path(case.out)
     problem_family = _problem_family(spec_path)
+    operator = _operator_name(problem_family, case.backend)
     try:
-        report = _run_family_benchmark(case, spec_path, problem_family)
+        report = _run_family_benchmark(case, spec_path, problem_family, operator)
         write_benchmark_report(report, out_path)
     except Exception as exc:
         return {
@@ -74,6 +75,7 @@ def _run_case(case: BenchmarkSweepCase) -> dict[str, Any]:
             "status": "failed",
             "backend": case.backend,
             "problem_family": problem_family,
+            "operator": operator,
             "spec": case.spec,
             "out": case.out,
             "error": str(exc),
@@ -88,6 +90,7 @@ def _run_case(case: BenchmarkSweepCase) -> dict[str, Any]:
         "status": status,
         "backend": case.backend,
         "problem_family": problem_family,
+        "operator": operator,
         "backend_available": available,
         "backend_reason": backend.get("reason"),
         "spec": case.spec,
@@ -106,9 +109,10 @@ def _run_family_benchmark(
     case: BenchmarkSweepCase,
     spec_path: Path,
     problem_family: str,
+    operator: str,
 ) -> dict[str, Any]:
     if problem_family == "binary_milp":
-        return run_benchmark(
+        report = run_benchmark(
             spec_path,
             BenchmarkConfig(
                 backend=case.backend,
@@ -118,16 +122,20 @@ def _run_family_benchmark(
                 penalty_weight=case.penalty_weight,
             ),
         )
+        problem = report.setdefault("problem", {})
+        if isinstance(problem, dict):
+            problem["operator"] = operator
+        return report
     if case.backend == "cuda":
-        return _unavailable_family_report(case, spec_path, problem_family)
+        return _unavailable_family_report(case, spec_path, problem_family, operator)
     if problem_family == "qubo":
-        return _qubo_cpu_benchmark(case, spec_path)
+        return _qubo_cpu_benchmark(case, spec_path, operator)
     if problem_family == "maxsat":
-        return _maxsat_cpu_benchmark(case, spec_path)
+        return _maxsat_cpu_benchmark(case, spec_path, operator)
     raise ValueError(f"unsupported benchmark problem family: {problem_family}")
 
 
-def _qubo_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path) -> dict[str, Any]:
+def _qubo_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path, operator: str) -> dict[str, Any]:
     start = time.perf_counter()
     report = describe_qubo_cpu_reference_execution_from_json(
         spec_path,
@@ -143,6 +151,7 @@ def _qubo_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path) -> dict[str, 
         case=case,
         spec_path=spec_path,
         problem_family="qubo",
+        operator=operator,
         available=report.get("status") == "implemented",
         metrics={
             "best_objective": best.get("objective"),
@@ -162,7 +171,7 @@ def _qubo_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path) -> dict[str, 
     )
 
 
-def _maxsat_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path) -> dict[str, Any]:
+def _maxsat_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path, operator: str) -> dict[str, Any]:
     start = time.perf_counter()
     report = run_maxsat_runtime_route_from_json(
         spec_path,
@@ -176,6 +185,7 @@ def _maxsat_cpu_benchmark(case: BenchmarkSweepCase, spec_path: Path) -> dict[str
         case=case,
         spec_path=spec_path,
         problem_family="maxsat",
+        operator=operator,
         available=report.get("status") == "implemented",
         metrics={
             "best_objective": result.get("evaluation", {}).get("objective"),
@@ -199,20 +209,24 @@ def _family_report(
     case: BenchmarkSweepCase,
     spec_path: Path,
     problem_family: str,
+    operator: str,
     available: bool,
     metrics: dict[str, Any],
     ledger: Any,
     notes: list[str],
+    backend_reason: str | None = None,
 ) -> dict[str, Any]:
     return {
         "schema": "apc.benchmark.v1",
         "problem": {
             "path": str(spec_path),
             "family": problem_family,
+            "operator": operator,
         },
         "backend": {
             "name": case.backend,
             "available": available,
+            "reason": backend_reason,
         },
         "config": {
             "max_iters": case.max_iters,
@@ -233,11 +247,13 @@ def _unavailable_family_report(
     case: BenchmarkSweepCase,
     spec_path: Path,
     problem_family: str,
+    operator: str,
 ) -> dict[str, Any]:
     return _family_report(
         case=case,
         spec_path=spec_path,
         problem_family=problem_family,
+        operator=operator,
         available=False,
         metrics={
             "best_objective": None,
@@ -252,6 +268,7 @@ def _unavailable_family_report(
             f"CUDA benchmark for {problem_family} is unavailable in this sweep runner.",
             "No acceleration comparison is inferred from this report.",
         ],
+        backend_reason=f"CUDA benchmark for {problem_family} is unavailable in this sweep runner",
     )
 
 
@@ -268,6 +285,16 @@ def _problem_family(spec_path: Path) -> str:
     if isinstance(constraints, dict) and "linear_csr" in constraints:
         return "binary_milp"
     raise ValueError(f"unsupported benchmark problem_type: {problem_type}")
+
+
+def _operator_name(problem_family: str, backend: str) -> str:
+    if problem_family == "binary_milp":
+        return "repair_runtime"
+    if problem_family == "qubo":
+        return "qubo_cpu_reference" if backend == "cpu" else "qubo_cuda_parity"
+    if problem_family == "maxsat":
+        return "maxsat_cpu_reference" if backend == "cpu" else "maxsat_cuda_parity"
+    return "unknown"
 
 
 def _resolve_path(path: str | Path) -> Path:

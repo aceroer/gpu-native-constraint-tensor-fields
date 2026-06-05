@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -48,7 +49,7 @@ class VectorStateRepairDemoTests(unittest.TestCase):
                 ],
                 check=True,
                 env={
-                    "PYTHONPATH": "src:examples/vector_state_repair",
+                    "PYTHONPATH": os.pathsep.join(["src", "examples/vector_state_repair"]),
                 },
                 stdout=subprocess.PIPE,
                 text=True,

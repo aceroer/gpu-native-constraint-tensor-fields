@@ -28,6 +28,7 @@ class BenchmarkSweepReportTests(unittest.TestCase):
         self.assertEqual(summary["failed_cases"], [])
         self.assertEqual(summary["case_statuses"][0]["backend"], "cpu")
         self.assertEqual(summary["case_statuses"][0]["problem_family"], "binary_milp")
+        self.assertEqual(summary["case_statuses"][0]["operator"], "repair_runtime")
         self.assertEqual(summary["case_statuses"][0]["out"], "/tmp/cpu.json")
         self.assertEqual(summary["case_statuses"][1]["backend_reason"], "nvcc not found")
         self.assertIn("kernel_time_s", summary["timing_fields"])
@@ -111,6 +112,7 @@ def _sweep_report():
                 "status": "ok",
                 "backend": "cpu",
                 "problem_family": "binary_milp",
+                "operator": "repair_runtime",
                 "backend_available": True,
                 "backend_reason": None,
                 "spec": "examples/specs/binary_milp_tiny.json",
@@ -128,6 +130,7 @@ def _sweep_report():
                 "status": "unavailable",
                 "backend": "cuda",
                 "problem_family": "binary_milp",
+                "operator": "repair_runtime",
                 "backend_available": False,
                 "backend_reason": "nvcc not found",
                 "spec": "examples/specs/binary_milp_tiny.json",

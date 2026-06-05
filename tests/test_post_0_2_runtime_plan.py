@@ -68,7 +68,13 @@ class Post02RuntimePlanTests(unittest.TestCase):
         self.assertIn("docs/PHASE67_COMPLETION.md", roadmap)
         self.assertIn("Phase 68", roadmap)
         self.assertIn("docs/PHASE68_COMPLETION.md", roadmap)
-        self.assertIn("The next concrete step is the unified 0.3 verification pass", roadmap)
+        self.assertIn("Phase 69", roadmap)
+        self.assertIn("docs/POST_0_3_RUNTIME_PLAN.md", roadmap)
+        self.assertIn("Phase 79", roadmap)
+        self.assertIn("docs/PHASE79_COMPLETION.md", roadmap)
+        self.assertIn("docs/POST_0_4_BETA_PLAN.md", roadmap)
+        self.assertIn("apc.runtime_debug_beta_checkpoint.v1", roadmap)
+        self.assertIn("0.4 beta evidence package", roadmap)
 
 
 if __name__ == "__main__":

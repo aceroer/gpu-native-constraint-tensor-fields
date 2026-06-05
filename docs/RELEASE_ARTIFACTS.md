@@ -72,12 +72,16 @@ maintenance release procedure
 runtime execution contract
 operator call ledger tests
 runtime status code tests
+run artifact writer tests
 native host ABI header tests
 native CPU operator shim tests
 native host probe tests
 CUDA operator parity docs
+CUDA parity report inspector
 benchmark sweep config docs
+contributor operator extension guide
 post-0.2 runtime expansion plan
+post-0.3 runtime consolidation plan
 checked handoff fixture examples
 current commit hash
 ```
@@ -161,26 +165,37 @@ Maintenance tags should also keep:
 docs/MAINTENANCE_RELEASES.md
 docs/RELEASE_CHECKLIST_0_2.md
 docs/RELEASE_CHECKLIST_0_3.md
+docs/RELEASE_CHECKLIST_0_4.md
 docs/RELEASE_NOTES_0_2_DRAFT.md
 docs/RELEASE_NOTES_0_3_DRAFT.md
+docs/RELEASE_NOTES_0_4_DRAFT.md
 docs/RELEASE_ARCHIVE_0_2.md
 docs/RELEASE_ARCHIVE_0_3.md
+docs/RELEASE_ARCHIVE_0_4.md
 docs/TAG_EXECUTION_0_2.md
 docs/TAG_EXECUTION_0_3.md
+docs/TAG_EXECUTION_0_4.md
 docs/POST_0_2_RUNTIME_PLAN.md
+docs/POST_0_3_RUNTIME_PLAN.md
 docs/RUNTIME_CONTRACT.md
 src/apc/runtime_qubo_cpu.py
+src/apc/run_artifacts.py
+src/apc/debug.py
 tests/test_qubo_cpu_reference_contract.py
 tests/test_qubo_cpu_reference.py
 tests/test_release_checklist_0_2.py
 tests/test_release_checklist_0_3.py
+tests/test_release_checklist_0_4.py
 tests/test_release_artifacts_0_2.py
+tests/test_release_artifacts_0_4.py
 tests/test_tag_execution_0_2.py
 tests/test_post_0_2_runtime_plan.py
+tests/test_post_0_3_runtime_plan.py
 tests/test_maintenance_releases.py
 tests/test_runtime_contract.py
 tests/test_operator_call_ledger.py
 tests/test_runtime_status.py
+tests/test_run_artifacts.py
 tests/test_native_host_abi.py
 tests/test_native_cpu_operator_shim.py
 tests/test_native_binding_probe.py
@@ -192,15 +207,23 @@ tests/cuda/test_penalty_reduce.py
 tests/cuda/test_clause_eval.py
 tests/cuda/test_parity_target_selection.py
 tests/cuda/test_qubo_energy.py
+tests/cuda/test_qubo_move_score.py
+tests/cuda/test_parity_report.py
 docs/BENCHMARK_SWEEPS.md
+docs/CONTRIBUTING_OPERATORS.md
+docs/DEBUGGING.md
 benchmarks/sweeps/binary_milp_smoke.json
 benchmarks/sweeps/qubo_smoke.json
 benchmarks/sweeps/maxsat_smoke.json
 scripts/run_benchmark_sweep.py
 scripts/inspect_benchmark_sweep.py
+scripts/inspect_cuda_parity.py
+scripts/inspect_runtime_debug.py
 tests/test_benchmark_sweep.py
 tests/test_benchmark_sweep_runner.py
 tests/test_benchmark_sweep_report.py
+tests/test_contributing_operators.py
+tests/test_runtime_debug.py
 src/apc/readings/maxsat.py
 examples/specs/maxsat_tiny.json
 docs/PROBLEM_FAMILIES.md

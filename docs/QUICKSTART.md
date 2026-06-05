@@ -16,6 +16,24 @@ PYTHONPATH=src python3 -m apc.cli run examples/specs/binary_milp_tiny.json --max
 
 The command prints a JSON summary and writes a ledger file.
 
+The same runtime command can route implemented public families:
+
+```bash
+PYTHONPATH=src python3 -m apc.cli run examples/specs/qubo_tiny.json --family auto --max-iters 2 --ledger-out /tmp/apc-qubo-report.json
+PYTHONPATH=src python3 -m apc.cli run examples/specs/maxsat_tiny.json --family auto --max-iters 2 --ledger-out /tmp/apc-maxsat-report.json
+```
+
+Each route emits schema, family, backend, status, and evidence fields.
+
+To write a stable artifact directory for a run:
+
+```bash
+PYTHONPATH=src python3 -m apc.cli run examples/specs/qubo_tiny.json --family auto --max-iters 2 --artifact-dir /tmp/apc-runs --run-id qubo_tiny
+```
+
+The run directory contains input, result, ledger, timings, and metadata JSON
+files.
+
 ## 3. Run the Standard Benchmark
 
 ```bash
@@ -80,3 +98,12 @@ APC_CUDA_ARCH=sm_89 PYTHONPATH=src python3 scripts/run_cuda_bench.py examples/sp
 
 When `nvcc` or a CUDA device is unavailable, this command writes an unavailable
 JSON report instead of claiming acceleration.
+
+## 7. Inspect CUDA Parity Status
+
+```bash
+PYTHONPATH=src python3 scripts/inspect_cuda_parity.py --out /tmp/apc-cuda-parity-report.json
+```
+
+The report records CUDA target status, `nvcc` availability, device availability,
+selected architecture, skip reason, and timing fields.

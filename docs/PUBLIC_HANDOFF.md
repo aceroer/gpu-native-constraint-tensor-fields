@@ -47,11 +47,14 @@ native/src/cpu_operator_shim.cpp
 docs/CUDA_OPERATOR_PARITY.md
 docs/BENCHMARK_SWEEPS.md
 docs/PROBLEM_FAMILIES.md
+docs/CONTRIBUTING_OPERATORS.md
+docs/DEBUGGING.md
 docs/RELEASE_CHECKLIST_0_2.md
 docs/RELEASE_NOTES_0_2_DRAFT.md
 docs/RELEASE_ARCHIVE_0_2.md
 docs/TAG_EXECUTION_0_2.md
 docs/POST_0_2_RUNTIME_PLAN.md
+docs/POST_0_3_RUNTIME_PLAN.md
 examples/handoff/problem_family_fixtures.v1.json
 ```
 
@@ -67,6 +70,7 @@ python3 scripts/run_vector_demo_bench.py
 python3 scripts/probe_native_host.py
 python3 scripts/run_benchmark_sweep.py benchmarks/sweeps/binary_milp_smoke.json --out /tmp/apc-benchmark-sweep.json
 python3 scripts/inspect_benchmark_sweep.py /tmp/apc-benchmark-sweep.json --out /tmp/apc-benchmark-sweep-summary.json
+python3 scripts/inspect_runtime_debug.py examples/specs/qubo_tiny.json --out /tmp/apc-runtime-debug.json
 PYTHONPATH=src python3 scripts/list_problem_family_fixtures.py --out /tmp/apc-problem-family-fixtures.json
 ```
 
@@ -94,6 +98,8 @@ Add a problem-family fixture record with a test.
 Add a QUBO CPU reference execution route with a test.
 Add more vector-native demo metrics.
 Add a benchmark report example for a new problem family.
+Add a runtime debug report for a real failure mode.
+Follow docs/POST_0_3_RUNTIME_PLAN.md for 0.4 native runtime consolidation.
 ```
 
 Larger extensions:
@@ -103,7 +109,9 @@ Add QUBO/HUBO runtime support.
 Add richer MaxSAT repair routes.
 Add CUDA implementations behind existing CPU references.
 Connect vector-native demo benchmark reports to longer benchmark sweeps.
+Add debug tooling before broadening real-environment runtime coverage.
 Follow docs/POST_0_2_RUNTIME_PLAN.md for reference-first runtime expansion.
+Follow docs/POST_0_3_RUNTIME_PLAN.md for native runtime consolidation.
 ```
 
 ## Testing Expectations

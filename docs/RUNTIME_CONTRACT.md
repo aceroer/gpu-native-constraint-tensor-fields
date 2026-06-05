@@ -130,6 +130,52 @@ ledger = describe_contract_call_ledger(contract)
 The ledger can carry measured timing values when evidence exists. Empty timing
 values remain explicit fields and should not be read as performance claims.
 
+## Run Artifacts
+
+Runtime reports can be written into a stable artifact directory:
+
+```text
+input.json
+result.json
+ledger.json
+timings.json
+metadata.json
+```
+
+The artifact manifest uses:
+
+```text
+schema: apc.run_artifacts.v1
+```
+
+Artifact files are JSON-ready and deterministic for tiny fixtures. Public
+artifacts keep source spec names and artifact-relative file names rather than
+local machine paths.
+
+## Native Host Bridge
+
+The optional C++ host bridge mirrors public runtime evidence records:
+
+```text
+schema: apc.native_host_bridge.v1
+NativeOperatorRequest
+NativeOperatorResult
+NativeHostBridgeRecord
+```
+
+Bridge records name:
+
+```text
+status
+operator request
+operator result
+timing
+operator call record
+```
+
+The bridge remains optional. Python CPU references stay the source of expected
+values, and no stable external ABI is promised before a checked adapter exists.
+
 ## Runtime Status Codes
 
 Runtime status codes are stable public strings:

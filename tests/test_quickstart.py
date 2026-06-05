@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -27,13 +28,16 @@ class QuickstartTests(unittest.TestCase):
                 rewritten = command
                 for source, target in replacements.items():
                     rewritten = rewritten.replace(source, target)
+                rewritten, command_env = _portable_command(rewritten)
+                run_env = env.copy()
+                run_env.update(command_env)
                 completed = subprocess.run(
                     rewritten,
                     cwd=ROOT,
-                    shell=True,
+                    shell=isinstance(rewritten, str),
                     text=True,
                     capture_output=True,
-                    env=env,
+                    env=run_env,
                     check=False,
                 )
                 self.assertEqual(completed.returncode, 0, completed.stderr)
@@ -77,8 +81,23 @@ def _quickstart_commands() -> list[str]:
     text = QUICKSTART.read_text(encoding="utf-8")
     commands: list[str] = []
     for block in re.findall(r"```bash\n(.*?)\n```", text, flags=re.DOTALL):
-        commands.extend(line.strip() for line in block.splitlines() if line.strip())
+            commands.extend(line.strip() for line in block.splitlines() if line.strip())
     return commands
+
+
+def _portable_command(command: str) -> tuple[list[str] | str, dict[str, str]]:
+    env: dict[str, str] = {}
+    tokens = shlex.split(command, posix=os.name != "nt")
+    while tokens and "=" in tokens[0] and not tokens[0].startswith("-"):
+        key, value = tokens.pop(0).split("=", 1)
+        if key in {"PYTHONPATH", "APC_CUDA_ARCH"}:
+            env[key] = value.replace(":", os.pathsep)
+        else:
+            tokens.insert(0, f"{key}={value}")
+            break
+    if tokens and tokens[0] == "python3":
+        tokens[0] = sys.executable
+    return (tokens if tokens else command), env
 
 
 if __name__ == "__main__":

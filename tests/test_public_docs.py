@@ -90,7 +90,7 @@ class PublicDocsTests(unittest.TestCase):
         public_docs = [
             path
             for path in DOCS.glob("*.md")
-            if not path.name.startswith("PHASE")
+            if not path.name.startswith("PHASE") and not path.name.startswith("._")
         ]
 
         for path in public_docs:

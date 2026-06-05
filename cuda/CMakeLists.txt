@@ -33,6 +33,7 @@ add_library(
     src/projection.cu
     src/clause_eval.cu
     src/qubo_energy.cu
+    src/qubo_move_score.cu
 )
 target_link_libraries(apc_cuda_runtime PUBLIC apc_cuda_headers)
 target_compile_features(apc_cuda_runtime PUBLIC cxx_std_17)

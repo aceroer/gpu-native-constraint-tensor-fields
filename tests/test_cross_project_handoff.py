@@ -100,7 +100,13 @@ class CrossProjectHandoffTests(unittest.TestCase):
         self.assertIn("docs/PHASE67_COMPLETION.md", text)
         self.assertIn("Phase 68", text)
         self.assertIn("docs/PHASE68_COMPLETION.md", text)
-        self.assertIn("The next concrete step is the unified 0.3 verification pass", text)
+        self.assertIn("Phase 69", text)
+        self.assertIn("docs/PHASE69_COMPLETION.md", text)
+        self.assertIn("Phase 79", text)
+        self.assertIn("docs/PHASE79_COMPLETION.md", text)
+        self.assertIn("docs/POST_0_4_BETA_PLAN.md", text)
+        self.assertIn("apc.runtime_debug_beta_checkpoint.v1", text)
+        self.assertIn("0.4 beta evidence package", text)
 
 
 if __name__ == "__main__":

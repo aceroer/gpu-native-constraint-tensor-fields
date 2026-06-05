@@ -25,6 +25,9 @@ class NativeCPUOperatorShimTests(unittest.TestCase):
         text = HEADER.read_text(encoding="utf-8")
 
         self.assertIn("OperatorCallRecord make_probe_operator_call_record()", text)
+        self.assertIn("NativeOperatorRequest make_probe_operator_request()", text)
+        self.assertIn("NativeOperatorResult make_probe_operator_result()", text)
+        self.assertIn("NativeHostBridgeRecord make_probe_host_bridge_record()", text)
         self.assertIn("RuntimeStatus native_probe_status()", text)
 
     def test_shim_returns_public_operator_call_record(self):
@@ -32,6 +35,10 @@ class NativeCPUOperatorShimTests(unittest.TestCase):
 
         self.assertIn("make_probe_operator_call_record", text)
         self.assertIn("native_cpu_probe", text)
+        self.assertIn("make_probe_operator_request", text)
+        self.assertIn("make_probe_operator_result", text)
+        self.assertIn("make_probe_host_bridge_record", text)
+        self.assertIn("native_host_bridge_schema()", text)
         self.assertIn("RuntimeStatus::implemented", text)
         self.assertIn("empty_runtime_timing()", text)
         self.assertIn("state.candidate_major", text)

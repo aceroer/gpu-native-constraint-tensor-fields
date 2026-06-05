@@ -126,6 +126,10 @@ class ReleaseArtifactTests(unittest.TestCase):
             [item["path"] for item in file_report["tests"]],
         )
         self.assertIn(
+            "tests/test_run_artifacts.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
             "tests/test_native_host_abi.py",
             [item["path"] for item in file_report["tests"]],
         )
@@ -163,6 +167,14 @@ class ReleaseArtifactTests(unittest.TestCase):
         )
         self.assertIn(
             "tests/cuda/test_qubo_energy.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
+            "tests/cuda/test_qubo_move_score.py",
+            [item["path"] for item in file_report["tests"]],
+        )
+        self.assertIn(
+            "tests/cuda/test_parity_report.py",
             [item["path"] for item in file_report["tests"]],
         )
         self.assertIn(
@@ -319,6 +331,7 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/test_runtime_contract.py", text)
         self.assertIn("tests/test_operator_call_ledger.py", text)
         self.assertIn("tests/test_runtime_status.py", text)
+        self.assertIn("tests/test_run_artifacts.py", text)
         self.assertIn("tests/test_native_host_abi.py", text)
         self.assertIn("tests/test_native_cpu_operator_shim.py", text)
         self.assertIn("tests/test_native_binding_probe.py", text)
@@ -329,7 +342,12 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/cuda/test_clause_eval.py", text)
         self.assertIn("tests/cuda/test_parity_target_selection.py", text)
         self.assertIn("tests/cuda/test_qubo_energy.py", text)
+        self.assertIn("tests/cuda/test_qubo_move_score.py", text)
+        self.assertIn("tests/cuda/test_parity_report.py", text)
+        self.assertIn("scripts/inspect_cuda_parity.py", text)
         self.assertIn("docs/BENCHMARK_SWEEPS.md", text)
+        self.assertIn("docs/CONTRIBUTING_OPERATORS.md", text)
+        self.assertIn("docs/DEBUGGING.md", text)
         self.assertIn("benchmarks/sweeps/binary_milp_smoke.json", text)
         self.assertIn("benchmarks/sweeps/qubo_smoke.json", text)
         self.assertIn("benchmarks/sweeps/maxsat_smoke.json", text)
@@ -338,6 +356,8 @@ class ReleaseArtifactTests(unittest.TestCase):
         self.assertIn("tests/test_benchmark_sweep.py", text)
         self.assertIn("tests/test_benchmark_sweep_runner.py", text)
         self.assertIn("tests/test_benchmark_sweep_report.py", text)
+        self.assertIn("tests/test_contributing_operators.py", text)
+        self.assertIn("tests/test_runtime_debug.py", text)
         self.assertIn("src/apc/readings/maxsat.py", text)
         self.assertIn("examples/specs/maxsat_tiny.json", text)
         self.assertIn("docs/PROBLEM_FAMILIES.md", text)

@@ -17,6 +17,8 @@ class CUDAParityTargetSelectionTests(unittest.TestCase):
         self.assertIn("planned_phase: Phase 64", text)
         self.assertIn("target_id: qubo_bitflip_score", text)
         self.assertIn("cpu_reference: apc.runtime_qubo_cpu.score_qubo_bitflip_moves", text)
+        self.assertIn("cuda_symbol: apc_score_qubo_bitflip_moves", text)
+        self.assertIn("implemented_phase: Phase 70", text)
         self.assertIn("target_id: maxsat_clause_eval", text)
         self.assertIn("cpu_reference: apc.readings.maxsat.eval_unsatisfied_clauses", text)
         self.assertIn("cuda_symbol: apc_eval_clause_csr", text)

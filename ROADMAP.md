@@ -1991,26 +1991,344 @@ Completion record:
 docs/PHASE68_COMPLETION.md
 ```
 
-## Next Major Stage: 0.2 Native Runtime Buildout
+## Phase 69: 0.4 Route Plan
 
-After the release evidence closure track, the next major stage is planned in:
+Plan the next public runtime stage after the 0.3 reference-first runtime
+expansion.
+
+Deliverables:
 
 ```text
-docs/NEXT_MAJOR_STAGE.md
+docs/POST_0_3_RUNTIME_PLAN.md
+docs/PHASE69_COMPLETION.md
+tests/test_post_0_3_runtime_plan.py
+```
+
+Acceptance checks:
+
+```text
+The 0.4 route is named Native Runtime Consolidation.
+The route starts with QUBO CUDA move scoring parity.
+CUDA work remains gated by CPU references and clean skip behavior.
+Public docs keep no acceleration, solver-compatibility, or drop-in replacement claim.
+The next phase is visible as Phase 70.
+```
+
+Completion record:
+
+```text
+docs/PHASE69_COMPLETION.md
+```
+
+## Phase 70: QUBO CUDA Move Scoring Parity
+
+Implement the first 0.4 CUDA parity target against the QUBO CPU reference
+route.
+
+Deliverables:
+
+```text
+cuda/src/qubo_move_score.cu
+cuda/include/apc_runtime.h
+tests/cuda/test_qubo_move_score.py
+docs/CUDA_OPERATOR_PARITY.md
+```
+
+Acceptance checks:
+
+```text
+QUBO CUDA move scoring parity matches CPU reference values on tiny fixtures.
+Each tested move records bit index, old score, candidate score, and improves.
+CUDA test skips cleanly without nvcc or a CUDA device.
+No acceleration claim is made.
+```
+
+Completion record:
+
+```text
+docs/PHASE70_COMPLETION.md
+```
+
+## Phase 71: CUDA Parity Report Integration
+
+Add a public inspector for CUDA parity targets and CUDA environment status.
+
+Deliverables:
+
+```text
+scripts/inspect_cuda_parity.py
+tests/cuda/test_parity_report.py
+docs/CUDA_OPERATOR_PARITY.md
+```
+
+Acceptance checks:
+
+```text
+Parity reports name operator, family, backend, reference route, and status.
+Unavailable CUDA is recorded as unavailable, not hidden as success.
+Timing fields separate kernel, copy, layout, and end-to-end durations when run.
+The report remains useful on machines without CUDA.
+```
+
+Completion record:
+
+```text
+docs/PHASE71_COMPLETION.md
+```
+
+## Phase 72: Runtime CLI Family Routing
+
+Expose implemented problem-family routes through one stable public CLI command.
+
+Deliverables:
+
+```text
+src/apc/cli.py
+docs/QUICKSTART.md
+tests/test_cli.py
+```
+
+Acceptance checks:
+
+```text
+CLI routing can run binary_milp, qubo, and maxsat examples.
+Each route emits schema, family, backend, status, and evidence fields.
+Unsupported family names fail with structured status.
+The command remains small enough for quick local smoke runs.
+```
+
+Completion record:
+
+```text
+docs/PHASE72_COMPLETION.md
+```
+
+## Phase 73: Run Artifact Writer
+
+Add stable runtime artifact directories for public evidence and debugging.
+
+Deliverables:
+
+```text
+src/apc/run_artifacts.py
+docs/RUNTIME_CONTRACT.md
+tests/test_run_artifacts.py
+```
+
+Acceptance checks:
+
+```text
+Run outputs have a stable directory layout.
+Each run writes inputs, result, ledger, timings, and metadata.
+Artifact files are JSON-ready and deterministic for tiny fixtures.
+Temporary or local machine paths do not leak into public examples.
+```
+
+Completion record:
+
+```text
+docs/PHASE73_COMPLETION.md
+```
+
+## Phase 74: Native Host Bridge Consolidation
+
+Consolidate the optional native host bridge around request, result, status, and
+timing records.
+
+Deliverables:
+
+```text
+native/include/apc_runtime.hpp
+native/src/cpu_operator_shim.cpp
+docs/RUNTIME_CONTRACT.md
+tests/test_native_host_abi.py
+tests/test_native_cpu_operator_shim.py
+```
+
+Acceptance checks:
+
+```text
+Native host bridge names status, operator request, operator result, and timings.
+Optional native builds skip cleanly when the toolchain is unavailable.
+Python CPU references remain the source of expected values.
+The bridge does not promise a stable external ABI before a checked adapter exists.
+```
+
+Completion record:
+
+```text
+docs/PHASE74_COMPLETION.md
+```
+
+## Phase 75: Benchmark Timing Expansion
+
+Expand benchmark timing evidence across implemented public family routes.
+
+Deliverables:
+
+```text
+benchmarks/sweeps/
+scripts/run_benchmark_sweep.py
+scripts/inspect_benchmark_sweep.py
+docs/BENCHMARK_SWEEPS.md
+tests/test_benchmark_sweep_report.py
+```
+
+Acceptance checks:
+
+```text
+Benchmark reports cover binary_milp, qubo, and maxsat smoke fixtures.
+Reports include backend, family, operator, status, and timing fields.
+CUDA unavailable status remains explicit on non-CUDA machines.
+Docs avoid performance claims without complete timing evidence.
+```
+
+Completion record:
+
+```text
+docs/PHASE75_COMPLETION.md
+```
+
+## Phase 76: Contributor Extension Guide
+
+Add a public guide for contributing new operators and problem families.
+
+Deliverables:
+
+```text
+docs/CONTRIBUTING_OPERATORS.md
+docs/PROBLEM_FAMILIES.md
+examples/specs/
+tests/test_contributing_operators.py
+```
+
+Acceptance checks:
+
+```text
+The guide shows the public order: spec, lowering, CPU reference, tests, optional CUDA.
+It names required docs, fixture metadata, and release evidence touch points.
+It avoids solver compatibility and performance promises.
+It keeps examples small and inspectable.
+```
+
+Completion record:
+
+```text
+docs/PHASE76_COMPLETION.md
+```
+
+## Phase 77: Runtime Debug Tools
+
+Add public debug reports for real-environment runtime failures.
+
+Deliverables:
+
+```text
+src/apc/debug.py
+scripts/inspect_runtime_debug.py
+docs/DEBUGGING.md
+tests/test_runtime_debug.py
+```
+
+Acceptance checks:
+
+```text
+Debug reports can inspect specs, lowered CTIR, layout summaries, ledgers, run artifacts, and status codes.
+CUDA debug output records device availability, nvcc availability, selected arch, and skip reason.
+Debug reports avoid local secrets and machine-specific paths in public examples.
+Failure records include enough context to reproduce tiny fixture failures.
+Every later version keeps an explicit debug-tooling checkpoint before release evidence.
+```
+
+Completion record:
+
+```text
+docs/PHASE77_COMPLETION.md
+```
+
+## Phase 78: 0.4 Release Checklist
+
+Prepare 0.4 release readiness documents.
+
+Deliverables:
+
+```text
+docs/RELEASE_CHECKLIST_0_4.md
+docs/RELEASE_NOTES_0_4_DRAFT.md
+docs/TAG_EXECUTION_0_4.md
+tests/test_release_checklist_0_4.py
+```
+
+Acceptance checks:
+
+```text
+Checklist names full verifier, CUDA parity report, debug report, sweeps, and artifact collection.
+Release notes keep non-goals and unsupported routes visible.
+Tag execution doc records commands without claiming a tag early.
+No performance or solver compatibility claim is made.
+```
+
+Completion record:
+
+```text
+docs/PHASE78_COMPLETION.md
+```
+
+## Phase 79: 0.4 Release Evidence Archive
+
+Prepare the 0.4 candidate release archive and artifact references.
+
+Deliverables:
+
+```text
+docs/RELEASE_ARCHIVE_0_4.md
+docs/RELEASE_ARTIFACTS.md
+tests/test_release_artifacts_0_4.py
+```
+
+Acceptance checks:
+
+```text
+Archive names verifier, CUDA parity, runtime debug, sweep, and artifact outputs.
+Archive remains candidate-only until a tag exists and matches the artifact commit.
+Release artifact collection tracks 0.4 docs and tests.
+Public limits remain visible.
+```
+
+Completion record:
+
+```text
+docs/PHASE79_COMPLETION.md
+```
+
+## Next Major Stage: 0.4 Native Runtime Consolidation
+
+After the 0.3 reference-first runtime expansion, the next major stage is
+planned in:
+
+```text
+docs/POST_0_3_RUNTIME_PLAN.md
 ```
 
 The stage assumes the project may need to be advanced by one maintainer for a
 while. The route keeps each step small and testable:
 
 ```text
-release evidence reader
--> runtime execution contract
--> C++ host runtime skeleton
--> CUDA operator parity
--> benchmark sweeps
--> problem-family expansion
--> public 0.2 tag
+QUBO CUDA move scoring parity
+-> CUDA parity report integration
+-> runtime CLI family routing
+-> run artifact writer
+-> native host bridge consolidation
+-> benchmark timing expansion
+-> contributor extension guide
+-> runtime debug tools
+-> public 0.4 release evidence
 ```
+
+Starting with 0.4, every later version should keep an explicit debug-tooling checkpoint
+before release evidence. The project is moving toward real runtime conditions,
+so failures must be inspectable through public reports rather than only through
+ad hoc local reproduction.
 
 ## Non-Goals For Early Versions
 
@@ -2022,6 +2340,38 @@ Complete compatibility with existing solver file formats
 Large CUDA kernel bundles before CPU/GPU differential tests exist
 ```
 
-## Near-Term Next Step
+## 0.4 Closure Step
 
-The next concrete step is the unified 0.3 verification pass.
+The unified 0.4 verification pass is complete on the local Mac route and on a
+remote Windows CUDA host. The remote pass exposed a useful split: CUDA operator
+parity can pass while Windows orchestration still needs platform-specific
+debugging.
+
+The 0.4 beta real-environment split is captured in:
+
+```text
+docs/POST_0_4_BETA_PLAN.md
+```
+
+0.4 beta should keep the compute core on a TCC or headless CUDA lane where
+available, and use Windows as an orchestration layer for task launch, environment
+initialization, log collection, and artifact handoff.
+
+The beta debug checkpoint is now part of `apc.runtime_debug_report.v1` as
+`apc.runtime_debug_beta_checkpoint.v1`. The next concrete step is to generate
+and inspect the 0.4 beta evidence package with compute mode, host role, host
+compiler readiness, CUDA differential-test status, release artifact status, and
+PCI/HAL boundary status included.
+
+The longer target is lower than TCC: PCI/PCIe is the hardware contract, a GPU HAL
+normalizes WDDM, TCC, and Linux kernel-device differences, and CUDAOS owns the
+GPU device-control lane above that HAL. In that model the CPU-side OS mainly
+enumerates PCI devices and orchestrates processes, while register-level and PCI
+BAR-space facts become debug/evidence surfaces rather than ad hoc host behavior.
+The public line should keep this at the reproducible CUDA/HAL evidence boundary.
+If deeper GPU takeover becomes necessary, reserve it for a vendor-agreed
+restricted hardware-control layer after the customer, GPU vendor, interface
+permissions, and support responsibilities are settled. That path is about
+controlled entry into sensitive vendor-facing surfaces, not simply commercial
+packaging. Public artifact schemas and debug vocabulary should remain usable
+without that layer.

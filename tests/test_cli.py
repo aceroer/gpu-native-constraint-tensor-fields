@@ -8,6 +8,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TINY_SPEC = ROOT / "examples" / "specs" / "binary_milp_tiny.json"
+TINY_QUBO = ROOT / "examples" / "specs" / "qubo_tiny.json"
+TINY_MAXSAT = ROOT / "examples" / "specs" / "maxsat_tiny.json"
 
 
 class CLITests(unittest.TestCase):
@@ -58,8 +60,13 @@ class CLITests(unittest.TestCase):
 
             self.assertEqual(completed.returncode, 0, completed.stderr)
             report = json.loads(completed.stdout)
+            self.assertEqual(report["schema"], "apc.runtime_family_route.v1")
+            self.assertEqual(report["problem_family"], "binary_milp")
+            self.assertEqual(report["backend"], "cpu")
+            self.assertEqual(report["status"], "ok")
             self.assertTrue(report["feasible"])
             self.assertEqual(report["best_penalty"], 0.0)
+            self.assertIn("evidence", report)
             self.assertTrue(ledger_path.exists())
 
             ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
@@ -89,6 +96,74 @@ class CLITests(unittest.TestCase):
         self.assertTrue(summary["feasible"])
         self.assertGreaterEqual(summary["rows"], 1)
         self.assertIn("active_violation_count", summary["last"])
+
+    def test_run_auto_routes_qubo_family(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            report_path = Path(tmpdir) / "qubo-report.json"
+            artifact_dir = Path(tmpdir) / "artifacts"
+            completed = _run_cli(
+                "run",
+                str(TINY_QUBO),
+                "--family",
+                "auto",
+                "--ledger-out",
+                str(report_path),
+                "--artifact-dir",
+                str(artifact_dir),
+                "--run-id",
+                "qubo_cli",
+                "--max-iters",
+                "2",
+            )
+
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            report = json.loads(completed.stdout)
+            self.assertEqual(report["schema"], "apc.qubo_cpu_reference_execution.v1")
+            self.assertEqual(report["problem_family"], "qubo")
+            self.assertEqual(report["backend"], "cpu")
+            self.assertEqual(report["status"], "implemented")
+            self.assertIn("evidence", report)
+            self.assertIn("run_artifacts", report)
+            self.assertTrue(report_path.exists())
+            self.assertTrue((artifact_dir / "qubo_cli" / "metadata.json").exists())
+
+    def test_run_auto_routes_maxsat_family(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            report_path = Path(tmpdir) / "maxsat-report.json"
+            completed = _run_cli(
+                "run",
+                str(TINY_MAXSAT),
+                "--family",
+                "auto",
+                "--ledger-out",
+                str(report_path),
+                "--max-iters",
+                "2",
+            )
+
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            report = json.loads(completed.stdout)
+            self.assertEqual(report["schema"], "apc.maxsat_runtime_route.v1")
+            self.assertEqual(report["problem_family"], "maxsat")
+            self.assertEqual(report["backend"], "cpu")
+            self.assertEqual(report["status"], "implemented")
+            self.assertIn("evidence", report)
+            self.assertTrue(report_path.exists())
+
+    def test_run_unsupported_family_fails_with_structured_status(self):
+        completed = _run_cli(
+            "run",
+            str(TINY_SPEC),
+            "--family",
+            "unknown_family",
+        )
+
+        self.assertEqual(completed.returncode, 1)
+        report = json.loads(completed.stdout)
+        self.assertEqual(report["schema"], "apc.runtime_family_route.v1")
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual(report["problem_family"], "unknown_family")
+        self.assertIn("unsupported family", report["reason"])
 
 
 def _run_cli(*args: str) -> subprocess.CompletedProcess[str]:

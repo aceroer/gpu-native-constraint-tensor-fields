@@ -74,6 +74,10 @@ class BenchmarkSweepRunnerTests(unittest.TestCase):
                 self.assertIn(next(iter(families)), {"qubo", "maxsat"})
                 self.assertEqual(summary["cases"][0]["status"], "ok")
                 self.assertIn(summary["cases"][1]["status"], {"ok", "unavailable"})
+                self.assertIn("operator", summary["cases"][0])
+                self.assertIn("operator", summary["cases"][1])
+                if summary["cases"][1]["status"] == "unavailable":
+                    self.assertIsNotNone(summary["cases"][1]["backend_reason"])
                 self.assertIn("kernel_time_s", summary["cases"][0]["timing"])
 
     def test_runner_keeps_cuda_unavailable_factual(self):
@@ -83,6 +87,7 @@ class BenchmarkSweepRunnerTests(unittest.TestCase):
 
         cuda_case = next(case for case in summary["cases"] if case["backend"] == "cuda")
 
+        self.assertEqual(cuda_case["operator"], "repair_runtime")
         if cuda_case["status"] == "unavailable":
             self.assertFalse(cuda_case["backend_available"])
             self.assertIsNotNone(cuda_case["backend_reason"])

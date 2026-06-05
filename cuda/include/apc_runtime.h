@@ -76,6 +76,15 @@ typedef struct {
 } APC_QUBOCOO;
 
 typedef struct {
+  int32_t batch_size;
+  int32_t moves_per_state;
+  int32_t* bit_index;        // Shape [batch_size, moves_per_state].
+  double* old_score;         // Shape [batch_size, moves_per_state].
+  double* candidate_score;   // Shape [batch_size, moves_per_state].
+  int8_t* improves;          // Shape [batch_size, moves_per_state].
+} APC_QUBOMoveScoreBatch;
+
+typedef struct {
   const APC_LinearCSR* linear;
   APC_StateBatch* states;
   APC_ViolationBatch* violations;
@@ -97,6 +106,12 @@ APC_Status apc_eval_qubo_energy(
     const APC_QUBOCOO* qubo,
     const APC_StateBatch* states,
     double* energy,
+    void* stream);
+APC_Status apc_score_qubo_bitflip_moves(
+    const APC_QUBOCOO* qubo,
+    const APC_StateBatch* states,
+    const double* current_energy,
+    APC_QUBOMoveScoreBatch* output,
     void* stream);
 
 #ifdef __cplusplus

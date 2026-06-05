@@ -4,6 +4,21 @@ This document plans the next major stage after the release-evidence handoff
 track. It assumes the project may need to be advanced by one maintainer for a
 while, so every step should remain small, verifiable, and public-only.
 
+## Current Planning Pointer
+
+The active next-stage route after the 0.3 reference-first runtime expansion is:
+
+```text
+docs/POST_0_3_RUNTIME_PLAN.md
+```
+
+That plan names the 0.4 stage as Native Runtime Consolidation and starts with
+QUBO CUDA move scoring parity.
+
+The historical 0.2 buildout plan remains below as the completed route that
+established the public runtime contract, native host probes, CUDA parity shape,
+benchmark sweeps, and problem-family expansion.
+
 ## Stage Name
 
 ```text

@@ -177,6 +177,36 @@ solver compatibility claim
 full runtime coverage claim
 ```
 
+## CUDA Parity Report
+
+CUDA parity targets can be inspected with:
+
+```bash
+python3 scripts/inspect_cuda_parity.py --out /tmp/apc-cuda-parity-report.json
+```
+
+The report emits:
+
+```text
+schema: apc.cuda_parity_report.v1
+operator, family, backend, reference route, and status
+CUDA environment facts
+target status and skip reason
+timing fields
+```
+
+Unavailable CUDA is recorded as unavailable, not hidden as success. The report
+is useful on machines without `nvcc` or without a CUDA device.
+
+Report timing fields:
+
+```text
+kernel_time_s
+copy_time_s
+layout_conversion_time_s
+end_to_end_time_s
+```
+
 ## 0.3 CUDA Parity Target Selection
 
 Phase 63 selects the first 0.3 CUDA parity targets from routes that already have
@@ -204,8 +234,9 @@ cpu_reference: apc.runtime_qubo_cpu.score_qubo_bitflip_moves
 cuda_symbol: apc_score_qubo_bitflip_moves
 cuda_source: cuda/src/qubo_move_score.cu
 test: tests/cuda/test_qubo_move_score.py
-status: planned
-planned_phase: Phase 64
+status: implemented
+planned_phase: Phase 70
+implemented_phase: Phase 70
 ```
 
 ```text
@@ -230,10 +261,9 @@ CUDA tests skip cleanly without nvcc or a CUDA device.
 Timing fields may be recorded, but no acceleration claim is made.
 ```
 
-QUBO CUDA parity starts with energy evaluation because it is the smallest shared
-scalar evidence surface. QUBO move scoring can follow once the energy kernel is
-checked. MaxSAT clause evaluation already has a CUDA smoke path and can be
-promoted into the 0.3 parity list.
+QUBO CUDA parity started with energy evaluation because it is the smallest
+shared scalar evidence surface. QUBO move scoring now follows it as the first
+0.4 CUDA parity target. MaxSAT clause evaluation already has a CUDA smoke path.
 
 ## QUBO Energy Evaluation
 
@@ -258,6 +288,52 @@ launches apc_eval_qubo_energy
 copies CUDA energies back to host
 compares every energy with explicit tolerance
 ```
+
+The current QUBO energy parity test is correctness-focused. It does not emit a
+performance comparison.
+
+## QUBO Bitflip Move Scoring
+
+The QUBO bitflip move-scoring parity target is:
+
+```text
+operator: score_qubo_bitflip_moves
+cuda_symbol: apc_score_qubo_bitflip_moves
+cuda_source: cuda/src/qubo_move_score.cu
+cpu_reference: apc.runtime_qubo_cpu.score_qubo_bitflip_moves
+test: tests/cuda/test_qubo_move_score.py
+```
+
+The QUBO move-scoring parity test builds a small CUDA harness when `nvcc` is
+available. The harness:
+
+```text
+loads tiny QUBO COO-style arrays
+generates candidate-major binary states
+computes CPU expected current energy for each state
+computes CPU expected post-flip energy for every state and bit index
+launches apc_score_qubo_bitflip_moves
+copies bit index, old score, candidate score, and improves values back to host
+compares every output with explicit tolerance or exact integer equality
+```
+
+Move-score evidence shape:
+
+```text
+bit_index
+old_score
+candidate_score
+improves
+```
+
+Tolerance:
+
+```text
+absolute_tolerance: 1e-9
+```
+
+The current QUBO move-scoring parity test is correctness-focused. It does not
+emit a performance comparison.
 
 Tolerance:
 

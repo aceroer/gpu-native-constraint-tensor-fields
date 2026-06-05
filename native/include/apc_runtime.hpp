@@ -36,6 +36,29 @@ struct OperatorCallRecord {
   std::string_view operator_name;
 };
 
+struct NativeOperatorRequest {
+  std::string_view schema;
+  std::string_view operator_name;
+  std::string_view problem_family;
+  std::string_view backend;
+  std::string_view inputs;
+};
+
+struct NativeOperatorResult {
+  std::string_view schema;
+  std::string_view operator_name;
+  RuntimeStatus status;
+  RuntimeTiming timing;
+  std::string_view outputs;
+};
+
+struct NativeHostBridgeRecord {
+  std::string_view schema;
+  NativeOperatorRequest request;
+  NativeOperatorResult result;
+  OperatorCallRecord call;
+};
+
 constexpr std::string_view runtime_status_code(RuntimeStatus status) {
   switch (status) {
     case RuntimeStatus::implemented:
@@ -64,6 +87,10 @@ constexpr std::string_view runtime_status_codes_schema() {
   return "apc.runtime_status_codes.v1";
 }
 
+constexpr std::string_view native_host_bridge_schema() {
+  return "apc.native_host_bridge.v1";
+}
+
 constexpr RuntimeTiming empty_runtime_timing() {
   return RuntimeTiming{
       0.0,
@@ -72,6 +99,12 @@ constexpr RuntimeTiming empty_runtime_timing() {
       0.0,
   };
 }
+
+NativeOperatorRequest make_probe_operator_request();
+
+NativeOperatorResult make_probe_operator_result();
+
+NativeHostBridgeRecord make_probe_host_bridge_record();
 
 OperatorCallRecord make_probe_operator_call_record();
 

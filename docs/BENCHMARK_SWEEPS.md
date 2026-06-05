@@ -97,11 +97,15 @@ name
 config_path
 case_count
 case_statuses
+operator
 timing_fields
 unavailable_cases
 failed_cases
 notes
 ```
+
+Benchmark reports cover the `binary_milp`, `qubo`, and `maxsat` smoke fixtures.
+Each sweep case records backend, family, operator, status, and timing fields.
 
 The sweep config, runner summary, and reader summary do not make performance
 claims. A comparison layer must include complete timing evidence before making
